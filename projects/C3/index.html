@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Caso 3.</title>
+	<!-- Enlaces a los archivos CSS de Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/all.min.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap');
+
+		body {
+			font-family: 'Josefin Sans', sans-serif;
+		}
+
+		.hero-video {
+			position: relative;
+			overflow: hidden;
+			min-height: 500px;
+			/* Ajusta la altura según tus necesidades */
+		}
+
+		.hero-video video {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			min-width: 100%;
+			min-height: 100%;
+			width: auto;
+			height: auto;
+			z-index: -1;
+		}
+
+		.hero-video .hero-content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			color: #fff;
+			padding: 50px;
+		}
+
+		h4 {
+			color: #62cc7d;
+		}
+	</style>
+</head>
+
+<body data-bs-theme="dark">
+	<!-- Sección de Header con Logo y Menú -->
+	<header>
+		<!-- Logo y Menú -->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<div class="container">
+				<!-- Título del sitio -->
+				<a class="navbar-brand" href="#"><img src="assets/logo-mpa.png" alt="Logo"></a>
+
+				<!-- Botón hamburguesa -->
+				<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarMenu"
+					aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- Menú de enlaces -->
+				<div class="collapse navbar-collapse" id="navbarMenu">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="#quienes-somos">QUIENES SOMOS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#lo-que-hacemos">LO QUE HACEMOS BIEN</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#proyectos-destacados">PROYECTOS DESTACADOS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#confiaron-en-nosotros">CONFIARON EN NOSOTROS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#contactanos">CONTACTANOS!</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+
+
+	<!-- Sección Quienes Somos -->
+	<section id="quienes-somos" class="hero-video">
+		<video src="assets/mpa-logo-animado.webm" autoplay loop muted></video>
+		<div class="hero-content">
+			<h2>QUIENES SOMOS</h2>
+			<p>
+				Somos un equipo con más de 15 años de experiencia en el mercado de las comunicaciones, retail, mundo
+				digital y audiovisual. Hemos ido adaptándonos al cambio para ofrecer creatividad e innovación.
+			</p>
+		</div>
+	</section>
+
+	<!-- Sección Lo que Hacemos Bien -->
+	<section id="lo-que-hacemos" class="py-5 bg-dark text-white">
+		<div class="container">
+			<h2 class="text-center mb-5">LO QUE HACEMOS BIEN</h2>
+			<div class="row g-4">
+				<div class="col-md-4">
+					<h4><i class="fas fa-bag-shopping"></i> Activación Punto de Venta</h4>
+					<p>Mobiliario, Diseño Gráfico, Diseño Industrial, Fabricación e Instalación.</p>
+				</div>
+				<div class="col-md-4">
+					<h4><i class="fa-solid fa-rocket"></i></i> BTL</h4>
+					<p>Activaciones de Marca, Propuestas y ejecución</p>
+				</div>
+				<div class="col-md-4">
+					<h4><i class="fas fa-mobile"></i> Contenido Digital</h4>
+					<p>Estrategia de Marketing Digital, Proyectos/videos para web, branded content, distribución por
+						redes sociales</p>
+				</div>
+			</div>
+			<div class="row g-4">
+				<div class="col-md-4">
+					<h4><i class="fas fa-video"></i></i> Producción Audiovisual</h4>
+					<p>Cápsulas, Videos Corporativos, Programa de Televisión, Diseño de Producción, Post Producción,
+						Fotografía, Videos Publicitarios.</p>
+				</div>
+				<div class="col-md-4">
+					<h4><i class="fa fa-bolt"></i> Animación Gráfica</h4>
+					<p>Animación 2D-3D, Fotomontajes, Diseño Gráfico, Motion Graphics</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Fin de sección -->
+
+	</div>
+	</section>
+
+	<!-- Sección Proyecto Destacados -->
+	<section id="proyectos-destacados" class="py-5 bg-dark text-white">
+		<div class="container">
+			<h2>PROYECTOS DESTACADOS</h2>
+			<div class="row g-3">
+				<div class="col-md-4">
+					<div class="card">
+						<img src="assets/video1.png" class="card-img-top" alt="Proyecto 1">
+						<div class="card-body">
+							<h5 class="card-title">Recetas Express</h5>
+							<p class="card-text">Lider</p>
+							<p class="card-text">Producción Audiovisual</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<img src="assets/video2.png" class="card-img-top" alt="Proyecto 2">
+						<div class="card-body">
+							<h5 class="card-title">Cocina en 3 minutos</h5>
+							<p class="card-text">Quaker</p>
+							<p class="card-text">Producción Audiovisual</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<img src="assets/video3.png" class="card-img-top" alt="Proyecto 3">
+						<div class="card-body">
+							<h5 class="card-title">Cápsula</h5>
+							<p class="card-text">Varios clientes</p>
+							<p class="card-text">Producción Audiovisual</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<img src="assets/video4.png" class="card-img-top" alt="Proyecto 4">
+						<div class="card-body">
+							<h5 class="card-title">Viaje</h5>
+							<p class="card-text">Lantours</p>
+							<p class="card-text">Producción Audiovisual</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<img src="assets/video5.png" class="card-img-top" alt="Proyecto 5">
+						<div class="card-body">
+							<h5 class="card-title">El Mejor Gol</h5>
+							<p class="card-text">Cristal</p>
+							<p class="card-text">Gráfica animada</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<img src="assets/video6.png" class="card-img-top" alt="Proyecto 6">
+						<div class="card-body">
+							<h5 class="card-title">Abrigos y zapatos Boulevard</h5>
+							<p class="card-text">Lider</p>
+							<p class="card-text">Gráfica animada</p>
+						</div>
+					</div>
+				</div>
+				<!--  Fin de sección  -->
+			</div>
+		</div>
+	</section>
+	<!-- Sección Confiaron en Nosotros -->
+	<section id="confiaron-en-nosotros" class="py-5 bg-dark text-white">
+		<div class="container">
+			<h2 class="text-center mb-4">CONFIARON EN NOSOTROS</h2>
+			<div class="row justify-content-center">
+				<div class="col-md-4 text-center mb-3">
+					<img src="assets/cliente-1.png" alt="Cliente 1">
+				</div>
+				<div class="col-md-4 text-center mb-3">
+					<img src="assets/cliente-2.png" alt="Cliente 2">
+				</div>
+				<div class="col-md-4 text-center mb-3">
+					<img src="assets/cliente-3.png" alt="Cliente 3">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Sección Footer de Contactanos -->
+	<footer id="contactanos" class="py-4 bg-dark text-light">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h5>Dirección</h5>
+					<ul class="list-unstyled">
+						<li>Dirección 1</li>
+						<li>Dirección 2</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h5>Teléfono</h5>
+					<ul class="list-unstyled">
+						<li>Teléfono 1</li>
+						<li>Teléfono 2</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h5>Email</h5>
+					<ul class="list-unstyled">
+						<li>Email 1</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container text-center">
+			<p class="m-0">&copy; 2017 MPA Placement Agency. Todos los derechos reservados.</p>
+		</div>
+	</footer>
+	<!-- Enlaces a los archivos JavaScript de Bootstrap y jQuery -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="assets/all.min.js"></script>
+
+</body>
+
+</html>

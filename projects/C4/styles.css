@@ -1,0 +1,143 @@
+/* Estilos generales */
+body {
+    background-color: #b7e094;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos del header */
+.header-container {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.header-title {
+    font-size: 24px;
+}
+
+/* Estilos de las secciones con imagen de fondo */
+.section-image {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+}
+
+.section-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.mobile-container {
+    width: 340px;
+    height: 660px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px rgba(1, 0, 0, 0.5);
+}
+
+
+.section-heading {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.section-paragraph {
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.divider {
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    top: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+#app-section {
+    position: relative;
+    background-color: #467EA5;
+}
+
+#ux-section .section-content {
+    position: relative;
+    top: 0;
+    margin: 70px 0 70px;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    color: #467EA5;
+}
+
+/* Estilos del footer */
+.footer-container {
+    background-color: #333;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 14px;
+}
+
+/* Estilos de los elementos animados */
+
+.animated {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: opacity 0.9s ease-in-out, transform 0.9s ease-in-out;
+}
+
+.animated.active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.9s ease-in-out, transform 0.9s ease-in-out;
+}
+
+
+/* Estilos de divisor */
+.custom-shape-divider-1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-1 svg,
+.custom-shape-divider-2 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 215px;
+}
+
+.custom-shape-divider-1 .shape-fill {
+    fill: #467EA5;
+}
+
+.custom-shape-divider-2 .shape-fill {
+    fill: #467EA5;
+}

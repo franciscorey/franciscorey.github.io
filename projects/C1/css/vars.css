@@ -1,0 +1,120 @@
+:root{
+
+/* Sass Variables Color A - Rojo Cobre*/
+--mhd-color-a-05: #F6EFEB;
+--mhd-color-a-10: #e9d8cc;
+--mhd-color-a-20: #d3b099;
+--mhd-color-a-30: #be8966;
+--mhd-color-a-40: #a86133;
+--mhd-color-a-50: #923a00; /* base */
+--mhd-color-a-60: #6e2c00; /* color titulos*/
+--mhd-color-a-70: #532100;
+--mhd-color-a-80: #3e1900;
+--mhd-color-a-90: #2a1100;
+
+/* Sass Variables Color B - Madera y Cuero*/
+--mhd-color-b-05: #F8F0E9;
+--mhd-color-b-10: #f3e6da;
+--mhd-color-b-20: #e7ccb6;
+--mhd-color-b-30: #dab391;
+--mhd-color-b-40: #ce996d;
+--mhd-color-b-50: #c28048; /* base */
+--mhd-color-b-60: #926036;
+--mhd-color-b-70: #6e4829;
+--mhd-color-b-80: #53361f;
+--mhd-color-b-90: #372415;
+
+/* Sass Variables Color C - Ocre Papel y Bronce*/
+--mhd-color-c-05: #fcfaf7; /* bg para container y modulos */
+--mhd-color-c-10: #f7f1e4; /* bg del body */
+--mhd-color-c-20: #efe3c9;
+--mhd-color-c-30: #e6d5ae;
+--mhd-color-c-40: #dec793;
+--mhd-color-c-50: #d6b978; /* base */
+--mhd-color-c-60: #a18b5a;
+--mhd-color-c-70: #6b5d3c;
+--mhd-color-c-80: #50462d;
+--mhd-color-c-90: #362f1e;
+
+/* Sass Variables Color D - Gris Calido*/
+--mhd-color-d-05: #f3f1ed;
+--mhd-color-d-10: #f0ede8;
+--mhd-color-d-20: #e2dbd2;
+--mhd-color-d-30: #d3c9bb;
+--mhd-color-d-40: #c5b7a5;
+--mhd-color-d-50: #b6a58e; /* base */
+--mhd-color-d-60: #897c6b;
+--mhd-color-d-70: #5b5347;
+--mhd-color-d-80: #2e2924;
+--mhd-color-d-90: #171512;
+
+/* Sass Variables Color E - Gris Piedra*/
+--mhd-color-e-05: #f9f8f7;
+--mhd-color-e-10: #f5f4f1;
+--mhd-color-e-20: #ebe9e4;
+--mhd-color-e-30: #e0dfd6;
+--mhd-color-e-40: #d6d4c9;
+--mhd-color-e-50: #ccc9bb; /* base */
+--mhd-color-e-60: #99978c;
+--mhd-color-e-70: #737169;
+--mhd-color-e-80: #3a3935;
+--mhd-color-e-90: #1d1c1a;
+
+/* Sass Variables Color F - Azul Accesibilidad*/
+--mhd-color-f-05: #EBEEEE;
+--mhd-color-f-10: #DEE2E2;
+--mhd-color-f-20: #BEC4C6;
+--mhd-color-f-30: #9DA7A9;
+--mhd-color-f-40: #7D898D;
+--mhd-color-f-50: #5C6C70; /* base */
+--mhd-color-f-60: #455154;
+--mhd-color-f-70: #2E3638;
+--mhd-color-f-80: #23292A;
+--mhd-color-f-90: #171B1C;
+
+/* Sass Variables Gris - Grises*/
+--mhd-color-gris-05: #fafafa;
+--mhd-color-gris-10: #f5f5f5;
+--mhd-color-gris-20: #eeeeee;
+--mhd-color-gris-30: #e0e0e0;
+--mhd-color-gris-40: #bdbdbd;
+--mhd-color-gris-50: #9e9e9e;
+--mhd-color-gris-60: #757575;
+--mhd-color-gris-70: #616161;
+--mhd-color-gris-80: #424242;
+--mhd-color-gris-90: #212121;
+
+/* Variables Blanco y Negro*/
+--mhd-color-blanco: #ffffff;
+--mhd-color-negro: #000000;
+
+/* Variables para Tema principal*/
+
+--mhd-color-primary: var(--mhd-color-a-50);
+--mhd-color-secondary: var(--mhd-color-a-50);
+--mhd-color-accent: var(--mhd-color-a-50);
+
+--mhd-color-background: var(--mhd-color-c-05);
+--mhd-color-foreground: var(--mhd-color-c-10);
+
+--mhd-color-bg-body: var(--mhd-color-c-05);
+--mhd-color-bg-container: var(--mhd-color-c-10);
+--mhd-color-bg-default: var(--mhd-color-d-10);
+--mhd-color-bg-hover: var(--mhd-color-d-10);
+
+--mhd-color-font-display: var(--mhd-color-a-50);
+--mhd-color-font-body: var(--mhd-color-d-90);
+--mhd-color-font-special: var(--mhd-color-a-50);
+
+/* Variables para DataTables*/
+
+--mhd-color-border: var(--mhd-color-a-50);
+--mhd-color-hover: var(--mhd-color-d-10);
+--mhd-color-selected: var(--mhd-color-a-60);
+
+--mhd-color-btn: var(--mhd-color-d-10);
+--mhd-color-btn-normal: var(--mhd-color-a-50);
+--mhd-color-btn-hover: var(--mhd-color-a-50);
+--mhd-color-btn-active: var(--mhd-color-a-50);
+
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Página de Login</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            width: 320px;
+            height: 600px;
+            margin: 0 auto;
+            background: rgb(34,73,35);
+background: linear-gradient(180deg, rgb(40, 63, 55) 50%, rgba(24,48,34,1) 100%); 
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .login-image {
+            width: 100px;
+            height: 100px;
+            margin: 40px auto 80px;
+            display: block;
+        }
+
+        .login-message {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #b7e094;
+        }
+
+        .login-input {
+            width: 80%;
+            height: 30px;
+            margin-bottom: 10px;
+            padding: 16px 24px;
+            color: #0b884a;
+            background-color: #111915;
+            border: 1px solid #0b884a;
+            border-radius: 24px;
+            box-sizing: border-box;
+        }
+
+        .login-button {
+            width: 80%;
+            height: 40px;
+            margin-top: 20px;
+            background-color: #b7e094;
+            color: #224923;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="assets/icon.png" alt="Imagen de login" class="login-image">
+        <p class="login-message">¿Listo para el pitazo inicial?, Diviertete y que empiece el juego!</p>
+        <input type="text" class="login-input" placeholder="Usuario">
+        <input type="password" class="login-input" placeholder="Contraseña">
+        <button class="login-button">Ingresar</button>
+    </div>
+</body>
+
+</html>

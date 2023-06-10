@@ -1,0 +1,708 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<!--------------------------------------------------------------
+HEAD 
+---------------------------------------------------------------->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Caso 1.</title>
+
+    <!-- JS Lity -->
+    <link href="vendor/lity/dist/lity.css" rel="stylesheet">
+    <script defer src="vendor/lity/vendor/jquery.js"></script>
+    <script defer src="vendor/lity/dist/lity.js"></script>
+
+    <!-- Link a CSS principal -->
+    <link rel="stylesheet" media="all" href="css/main.css">
+
+    <!-- Link Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous" />
+
+    <!-- Link FAVICON -->
+    <link rel="icon" href="assets/favicon-s.png" sizes="64x64" type="image/png">
+
+</head>
+
+<!--------------------------------------------------------------
+FIN HEAD 
+---------------------------------------------------------------->
+
+<!--------------------------------------------------------------
+BODY 
+---------------------------------------------------------------->
+<body id="js-body" class="t-normal" oncontextmenu="return false;">  
+    <!--BOTON Page-Top-->
+    <a href="#">
+        <span class="c-button--round o-pos-fixed-br fas fa-angle-up"></span>
+    </a>  
+
+    <!-- HEADER -->
+    <header class="c-header o-pos-fixed-top"> 
+        <!--Cabecera-->
+        <a href="/" class="c-header__title"><h1>Memoria Histórica DigitaI</h1></a>
+
+        <!--Boton para Tema Alto Contraste - Accesibilidad -->
+        <button
+        mhd-tooltip-right="alto contraste"
+        aria-label="botón de alto-contraste"
+        id="dark-mode-toggle"
+        class="c-button--tema-ac js-ac">
+            <i class="fas fa-adjust"></i>
+        </button>
+
+            <!-- NAVEGACION -->
+            <nav>
+                <div class="c-navbar">
+                    <!-- Barra de Navegación -->
+                    <ul class="c-navbar__ul u-none@xs u-none@sm">
+                        <li class="c-navbar__li about" tabindex="0"><a href="#about">Sobre Nosotros</a></li>
+                        <li class="c-navbar__li areas" tabindex="0"><a href="#areas">Áreas</a></li>
+                        <li class="c-navbar__li colecciones c-dropdown" tabindex="0">
+                            <a href="#colecciones">Colecciones</a>
+                            <i tabindex="0" class="c-dropdown__activator fas fa-angle-down"></i>
+
+                            <ul tabindex="0" class="c-dropdown__top">
+                                <li tabindex="0">
+                                    <a href="#">Documentos Jurídicos</a>
+                                    <ul class="c-dropdown--second">
+                                        <li tabindex="0"><a href="#">Expedientes Emblemáticos</a></li>
+                                        <li tabindex="0"><a href="#">Normativa</a></li>
+                                        <li tabindex="0"><a href="">Archivo Fotográfico</a></li>
+                                        <li tabindex="0"><a href="">Archivo Audiovisual</a></li>
+                                    </ul>
+                                </li>
+                                <li tabindex="0">
+                                    <a href="ddhh/index.html">Sistema de Sentencias</a>
+                                    <ul class="c-dropdown--second">
+                                        <li tabindex="0"><a href="#">Búsqueda de Sentencias</a></li>
+                                        <li tabindex="0"><a href="#">Sentencias DDHH</a></li>
+                                        <li tabindex="0"><a href="">Registro Histórico</a></li>
+                                    </ul>
+                                </li>
+                                <li tabindex="0">
+                                    <a href="#">Biblioteca Patrimonial</a></li>
+                                <li tabindex="0">
+                                    <a href="#">Publicaciones Anuales</a>
+                                    <ul class="c-dropdown--second">
+                                        <li tabindex="0"><a href="#">Publicaciones Anuales</a></li>
+                                        <li tabindex="0"><a href="#">Discursos Presidenciales</a></li>
+                                        <li tabindex="0"><a href="#">Informes</a></li>
+                                        <li tabindex="0"><a href="">Boletines</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="c-navbar__li proceso" tabindex="0"><a href="#proceso">Proceso</a></li>
+                        <li class="c-navbar__li trayectoria" tabindex="0"><a href="#trayectoria">Trayectoria</a></li>
+                        <li class="c-navbar__li contacto" tabindex="0"><a href="#footer">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="c-nav-menu">
+                    <!-- Botón Menu - Toggle Menú -->
+                    <button class="c-nav-menu__toggle u-none@md" id="js-nav-btn" >
+                        <i class="fas fa-bars" mhd-tooltip-left="menú navegación"></i>
+                    </button>
+
+                    <!-- Menú de Navegación -->
+                    <div class="c-nav-menu__menu u-hidden" id="js-nav-menu">
+                        <ul class="c-nav-menu__ul u-none@md">
+                            <li class="c-nav-menu__li">
+                                <a href="#about" class="c-nav-menu__link"><i class="fas fa-users"></i> Sobre Nosotros</a>
+                            </li>
+                            <li class="c-nav-menu__li">
+                                <a href="#areas" class="c-nav-menu__link"><i class="fas fa-sitemap"></i> Áreas</a>
+                            </li>
+                            <li class="c-nav-menu__accordeon js-accordeon">
+                                <span class="c-nav-menu__summary js-group">
+                                <i class="fas fa-book"></i> Colecciones <i class="fas fa-chevron-down"></i>
+                                </span>
+                                <ul class="c-nav-menu__details">
+                                    <li class="c-nav-menu__li"><a href="#">Documentos Juridicos</a></li>
+                                    <li class="c-nav-menu__li"><a href="#">Biblioteca Patrimonial</a></li>
+                                    <li class="c-nav-menu__li"><a href="#">Sentencias</a></li>
+                                    <li class="c-nav-menu__li"><a href="#">Publicaciones</a></li>
+                                </ul>
+                            </li>
+                            <li class="c-nav-menu__li">
+                                <a href="#proceso" class="c-nav-menu__link"><i class="fas fa-layer-group"></i> Procesos</a>
+                            </li>
+                            <li class="c-nav-menu__li">
+                                <a href="#trayectoria" class="c-nav-menu__link"><i class="fas fa-road"></i> Trayectoria</a>
+                            </li>
+                            <li class="c-nav-menu__li">
+                                <a href="#footer" class="c-nav-menu__link"><i class="fas fa-paper-plane"></i> Contacto</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+    </header>
+    
+    <!-- Fin HEADER -->
+
+    <!-- SECCION PRINCIPAL - MAIN -->
+    <!-- Headline Intro -->
+    <div class="c-cover">
+        <!-- <svg class="c-cover__logo o-icon--xl" alt="logo principal"><use xlink:href="assets/svg/sprite.svg#mhd-logo"/></svg> -->
+        <img class="c-cover__img o-icon--xl" alt="logo principal" src="img/Logo_textura_MHD.png">
+        <!--<video class="c-cover__video" autoplay loop muted>
+            <source src="assets/video/video_bg.mp4" type="video/mp4">
+        </video>-->
+    </div>
+
+    <!-- Envoltorio principal -->
+    <main id="main" class="l-grid-1-md-1">
+        
+        <!-- ══════════════════ -->    
+        <!-- Sección NOSOTROS 
+            ══════════════════ -->
+        <section class="o-container o-container-bg-img" id="about">
+            <!-- Anchor -->                    
+            <div class="anchor">
+                <a name="about" ></a>
+            </div>
+
+            <!-- Logo MHD -->
+            <div>
+                <svg class="o-icon--xl o-pos-center" alt="logo"><use xlink:href="assets/svg/sprite.svg#mhd-logo"/></svg>
+            </div>
+
+            <!-- Texto grande introductorio -->
+            <div class="o-space-inset-lg">
+                <p class="o-font-special" tabindex="0">Departamento especializado en recopilación de documentos históricos que forman parte del Patrimonio del Poder Judicial de Chile</p>
+            </div>
+
+            <!-- Parrafos divididos -->
+            <div class="l-grid-xs1-sm1-md2">
+            
+                    <!-- Ornamentos de esquinas -->
+                    <svg class="o-icon-orn-tl"><use xlink:href="assets/svg/sprite.svg#mhd-orn-tl"/></svg >
+                    <svg class="o-icon-orn-tr"><use xlink:href="assets/svg/sprite.svg#mhd-orn-tr"/></svg >
+                    <svg class="o-icon-orn-bl"><use xlink:href="assets/svg/sprite.svg#mhd-orn-bl"/></svg >
+                    <svg class="o-icon-orn-br"><use xlink:href="assets/svg/sprite.svg#mhd-orn-br"/></svg >     
+
+
+                <div class="o-space-inset-lg o-container-sepline" tabindex="0">
+                    <!-- Seccion de texto "Mision" -->
+                    <h2 class="o-font-subtitle">Misión</h2>
+                    <p class="o-font-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quisquam quam alias eligendi harum odio saepe fuga eaque dolores fugit mollitia nam voluptas eius iste commodi vero eum error, explicabo tempore numquam veniam laborum ex. Explicabo natus suscipit deleniti? Suscipit dolor pariatur saepe in. Illum voluptatum repudiandae repellendus temporibus fuga.</p>
+
+                    <h2 class="o-font-subtitle">Visión</h2>
+                    <p class="o-font-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quisquam quam alias eligendi harum odio saepe fuga eaque dolores fugit.</p>
+                </div>
+                
+                <div class="o-space-inset-lg" tabindex="0">
+                    <!-- Seccion de texto "Objetivos" -->
+                    <h2 class="o-font-subtitle">Objetivos</h2>
+                    <ul class="o-font-list">
+                        <li>Preservar y conservar el contenido de documentos históricos con relevancia jurídica, que se encuentran en copia única y que forman parte del patrimonio del Poder Judicial de Chile.</li>
+                        <li>Restaurar y conservar documentos en formato digital, permitiendo acceder a su consulta, a través de las distintas colecciones generadas por el Departamento.</li>
+                        <li>Servir de apoyo para la labor de  judicatura.</li>
+                        <li>Dejar de manifiesto para futuras generaciones la labor que le ha correspondido al Poder Judicial en diferentes etapas de la historia de nuestro país.</li>
+                    </ul>
+                </div>
+            </div>          
+        </section>
+        
+        <!-- ═══════════════════════════ -->     
+        <!-- Sección AREAS PROFESIONALES 
+            ═══════════════════════════ -->
+        <section class="o-container" id="areas">
+
+            <!-- Anchor -->
+            <div class="anchor">
+                <a name="areas" ></a>
+            </div>
+
+            <!-- Ornamentos de esquinas -->
+            <mhd-corners></mhd-corners>
+            
+            <!-- Seccion cabecera "Areas Profesionales" -->
+            <div class="c-section-header" tabindex="0">
+                <!-- Titulo "Areas Profesionales" -->
+                <h2 class="c-section-header__title">Áreas Profesionales</h2>
+                <!-- Ornamento Horizontal -->
+                <svg class="o-icon-orn-center"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                <!-- Contexto "Areas Profesionales" -->
+                <p class="o-font-context">Áreas creativas y conocimientos para el desarrollo.</p>
+                <!-- Lead "Areas Profesionales" -->
+                <p class="o-font-lead-paragraph">Nuestro departamento, está conformado por un equipo de profesionales multidisciplinarios, que utiliza recursos tecnológicos de alta gama para preservar el contenido de los documentos que forman parte del patrimonio del Poder Judicial de Chile.</p>
+            </div>
+
+            <!-- Conjunto de Tarjetas en Grilla -->
+            <div class="l-grid-ram">
+            
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Jurídica">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/juridica.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-jur"/></svg>
+                        <p class="c-token-modal__token-text">Área Jurídica</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/juridica.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Jurídica</h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Informática">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/informatica.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-inf"/></svg>
+                        <p class="c-token-modal__token-text">Área Informática</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/informatica.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Informática</h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Audiovisual">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/audiovisual.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-avf"/></svg>
+                        <p class="c-token-modal__token-text">Área Audiovisual</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/audiovisual.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Audiovisual</h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Diseño y Multimedia">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/diseno.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-dno"/></svg>
+                        <p class="c-token-modal__token-text">Área Diseño y Multimedia</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/diseno.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Diseño y Multimedia</h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Publicación de Contenidos">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/publicacion.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-pub"/></svg>
+                        <p class="c-token-modal__token-text">Área Publicación de Contenidos</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/publicacion.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Publicación
+                            </h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Restauración y Conservación">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/restauracion.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-ryc"/></svg>
+                        <p class="c-token-modal__token-text">Área Restauración y Conservación</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/restauracion.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Restauración y Conservación</h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+                <!-- Tarjeta Area -->
+                <div class="c-token-modal" tabindex="0" title="Área Accesibilidad Universal">
+                    <!-- Front -->
+                    <div class="c-token-modal__token">
+                        <!-- Imagen -->
+                        <img class="c-token-modal__token-bg" src="img/areas/accesibilidad.jpg" alt="">
+                        <!-- Icono -->
+                        <svg class="c-token-modal__token-pic"><use xlink:href="assets/svg/sprite.svg#mhd-pic-acc"/></svg>
+                        <p class="c-token-modal__token-text">Área Accesibilidad Universal</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="c-token-modal__modal" id="modal">
+                        <i class="c-token-modal__modal-close fas fa-times"></i>
+                        <img class="c-token-modal__modal-img" src="img/areas/accesibilidad.jpg" alt="">
+                        <div class="c-token-modal__modal-info">
+                            <h3 class="o-font-subtitle">Área Accesibilidad Universal</h3>
+                            <p class="o-font-paragraph">Aquí va una descripción del trabajo principal realizado por el área.</p>
+                        </div>
+                    </div>
+                    <!--Fondo-->
+                    <div class="c-token-modal__bg"></div>
+                </div>
+
+            </div>
+            <br>
+        </section>
+        
+        <!-- ═══════════════════ -->
+        <!-- Sección COLECCIONES 
+            ═══════════════════ -->
+        <section class="o-container" id="colecciones">
+            <!-- Anchor -->
+            <div class="anchor">
+                <a name="colecciones" ></a>
+            </div>
+
+            <!-- Ornamentos de esquinas -->
+            <mhd-corners></mhd-corners>
+
+            <!-- Seccion cabecera "Colecciones" -->
+            <div class="c-section-header" tabindex="0">
+                <!-- Titulo "Colecciones" -->
+                <h2 class="c-section-header__title">Colecciones</h2>
+                <!-- Ornamento Horizontal -->
+                <svg class="o-icon-orn-center"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                <!-- Contexto "Colecciones" -->
+                <p class="o-font-context">Recursos disponibles en formato digital para su consulta.</p>
+                <!-- Lead "Colecciones" -->
+                <p class="o-font-lead-paragraph">Cuatro colecciones principales que pueden ser exploradas en detalle.</p>
+            </div>
+
+            <!-- Conjunto de elementos "Colecciones" en Grilla -->
+            <div class="l-grid-xs1-sm-md">
+            
+                <!-- Tarjeta Colección -->
+                <div class="c-card o-container-secondary u-up-hover" tabindex="0">
+                    <img class="c-card__img" src="img/colecciones/documentos.jpg" alt="">
+                    
+                    <div class="c-card__content c-card__body">
+                        <h3 class="c-card__title">Documentos Jurídicos</h3>
+                        <svg class="o-icon--hr o-icon--lg"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                        <p class="o-font-paragraph"> Recopilación de documentos de data antigua, con relevancia jurídica que forman parte del patrimonio del Poder Judicial de Chile, compilada por temáticas: Expedientes, Normativa, etc.</p>
+                    </div>
+                    <div class="c-card__footer">
+                        <a href="#" class="c-button--ghost">Ver colección</a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Colección -->
+                <div class="c-card o-container-secondary u-up-hover" tabindex="0">
+                    <img class="c-card__img" src="img/colecciones/patrimonial.jpg" alt="">
+                    
+                    <div class="c-card__content c-card__body">
+                        <h3 class="c-card__title">Biblioteca Patrimonial</h3>
+                        <svg class="o-icon--hr o-icon--lg"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                        <p class="o-font-paragraph"> Colección Patrimonial que comprende desde el siglo XVI al XIX, sumando actualmente alrededor de 370 volúmenes, que incluye colecciones de libros, revistas, diarios, folletos, láminas, fotografías, entre otros.</p>
+                    </div>
+                    <div class="c-card__footer">
+                        <a href="#" class="c-button--ghost">Ver colección</a>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta Colección -->
+                <div class="c-card o-container-secondary u-up-hover" tabindex="0">
+                    <img class="c-card__img" src="img/colecciones/sentencias.jpg" alt="">
+                    
+                    <div class="c-card__content c-card__body">
+                        <h3 class="c-card__title">Sistema Sentencias</h3>
+                        <svg class="o-icon--hr o-icon--lg"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                        <p class="o-font-paragraph"> Sistema de búsqueda y consulta de información de causas que se encuentran con sentencia ejecutoriada, relativas a causas de Violaciones a los Derechos Humanos por hechos acontecidos en nuestro país en el período que abarca desde 1973 hasta el 11 de marzo de 1990.</p>
+                    </div>
+                    <div class="c-card__footer">
+                        <a href="#" class="c-button--ghost">Ver colección</a>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta Colección -->
+                <div class="c-card o-container-secondary u-up-hover" tabindex="0">
+                    <img class="c-card__img" src="img/colecciones/publicaciones.jpg" alt="">
+                    
+                    <div class="c-card__content c-card__body">
+                        <h3 class="c-card__title">Publicaciones Anuales</h3>
+                        <svg class="o-icon--hr o-icon--lg"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                        <p class="o-font-paragraph"> Informes, estudios, boletines, revistas y otros documentos a fines desarrollados por nuestro equipo, en el marco de colaboración con otras Direcciones, Departamentos y Unidades pertenecientes al Poder Judicial de Chile.</p>
+                    </div>
+                    <div class="c-card__footer">
+                        <a href="#" class="c-button--ghost">Ver colección</a>
+                    </div>
+                </div>               
+            </div>
+        </section>
+        
+        <!-- ═════════════════════════════════ -->    
+        <!-- Sección PROCESAMIENTO DE INFORMACIÓN
+            ═════════════════════════════════ -->
+        <section class="o-container" id="proceso">
+            
+            <!-- Anchor -->
+            <div class="anchor">
+                <a name="proceso" ></a>
+            </div>
+        
+            <!-- Ornamentos de esquinas -->
+            <mhd-corners></mhd-corners>
+        
+            <!-- Seccion cabecera "Procesos" -->
+            <div class="c-section-header" tabindex="0">
+                <!-- Titulo "Procesos" -->
+                <h2 class="c-section-header__title">Líneas de procesamiento de la información</h2>
+                <!-- Ornamento Horizontal -->
+                <svg class="o-icon-orn-center"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                <!-- Contexto "Procesos" -->
+                <p class="o-font-context">Como los documentos son tratados desde que ingresan hasta su fase de conservación.</p>
+            </div>
+
+            <!-- Conjunto de modulos "Proceso" en Grilla -->
+            <div class="block-list">
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-analisis"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">1</span> Análisis de Documentos</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso. </p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-dyp"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">2</span> Diagnóstico y Preparación</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-ingreso"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">3</span> Ingreso de Documentos</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-captura"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">4</span> Captura de Imágenes</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-edicion"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">5</span> Edición y Restauración Digital</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-qa"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">6</span> Control de Calidad y Publicación</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-acc"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">7</span> Migración a Formato Accesible y Lenguaje Universal</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+
+                <div class="block-list__item l-flex-row">
+                    <a href="assets/video/mhd-video.mp4" data-lity>
+                        <svg class="block-list__pic" alt="análisis"><use xlink:href="assets/svg/sprite.svg#mhd-pic-ryc"/></svg>
+                    </a>
+                    <div>
+                        <h4 class="block-list__title"><span class="block-list__num">8</span> Restauración y Conservación de Soporte Físico</h4>
+                        <p class="block-list__body-text">Aquí va una descripción explicativa de la importancia de la fase de trabajo señalada en el proceso.</p>
+                        <a class="c-link" href="assets/video/mhd-video.mp4" data-lity>Ver video</a>
+                    </div>   
+                </div>
+            </div>
+            
+        </section>  
+        
+        <!-- Sección TRAYECTORIA 3
+            ═══════════════════ -->
+        <section class="o-container" id="trayectoria">
+            
+            <!-- Anchor -->
+            <div class="anchor">
+                <a name="trayectoria" ></a>
+            </div>         
+            
+            <!-- Ornamentos de esquinas -->
+            <mhd-corners></mhd-corners>
+        
+            <!-- Seccion cabecera "Procesos" -->
+            <div class="c-section-header" tabindex="0">
+                <!-- Titulo "Procesos" -->
+                <h2 class="c-section-header__title">Trayectoria</h2>
+                <!-- Ornamento Horizontal -->
+                <svg class="o-icon-orn-center"><use xlink:href="assets/svg/sprite.svg#mhd-orn-c"/></svg>
+                <!-- Contexto "Procesos" -->
+                <p class="o-font-context">Algunos hitos del trabajo realizado por nuestro Departamento.</p>
+            </div>
+            
+            <!-- linea de tiempo con tarjetas -->
+            <div class="c-timeline">
+                
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2016</span>
+                    <img class="c-timeline__img" src="img/tl/inauguracion.jpg"> 
+                    <h3 class="c-timeline__title">Inauguración Departamento</h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2017</span>
+                    <img class="c-timeline__img" src="img/tl/documentos_historicos.jpg"> 
+                    <h3 class="c-timeline__title">Preservación Documentos Históricos con Relevancia Jurídica</h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+                
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2018</span>
+                    <img class="c-timeline__img" src="img/tl/expedientes.jpg"> 
+                    <h3 class="c-timeline__title">Expedientes Emblemáticos</h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+                
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2018</span>
+                    <img class="c-timeline__img" src="img/tl/sistema_sentencias.jpg"> 
+                    <h3 class="c-timeline__title">Sistema de Sentencias <abbr aria-label="Derechos Humanos">DDHH</abbr></h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+                
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2018</span>
+                    <img class="c-timeline__img" src="img/tl/modulos.jpg"> 
+                    <h3 class="c-timeline__title">Acceso a la Información en Lenguaje Universal</h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2019</span>
+                    <img class="c-timeline__img" src="img/tl/inauguracion_modulos.jpg"> 
+                    <h3 class="c-timeline__title">Capacitaciones</h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+
+                <!-- Entrada Timeline -->
+                <div class="c-timeline__entry" tabindex="0">
+                    <span class="c-timeline__date">2019</span>
+                    <img class="c-timeline__img" src="img/tl/inauguracion_modulos.jpg"> 
+                    <h3 class="c-timeline__title">Capacitaciones</h3>
+                    <p class="o-font-caption">Texto descriptivo del hito clave.</p>
+                </div>
+                
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- FOOTER - PIE DE PAGINA -->
+    <mhd-footer ruta="assets/pj.png"></mhd-footer>
+
+    <!-- Fuentes de JAVASCRIPT -->
+    <script src="js/mhd-menu.js"></script>
+    <script src="js/mhd-navbar.js"></script>
+    <script src="js/mhd-token-modal.js"></script>
+    <script src="js/mhd-footer.js" defer></script>
+    <script src="js/mhd-corners.js" defer></script>
+    <script src="js/t-ac.js"></script>
+</body>
+<!--------------------------------------------------------------
+FIN BODY 
+---------------------------------------------------------------->
+
+</html>
