@@ -5,6 +5,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    font-size: 14px;
 }
 
 .container {
@@ -58,8 +59,9 @@ body {
 }
 
 .section-paragraph {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 50px;
+    padding: 1rem;
 }
 
 .divider {
@@ -68,8 +70,9 @@ body {
 
 .icon {
     position: absolute;
-    top: -220px;
+    top: -160px;
     left: 50%;
+    max-width: 100px;
     transform: translateX(-50%);
 
 }
