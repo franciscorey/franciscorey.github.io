@@ -16,9 +16,9 @@
     margin-left: 10px;
 }
 
-.mdl-cell--middle{
+.mdl-cell--middle img, .mdl-cell--middle{
     object-fit: cover;
-    height: 200px;
+    width: 100%;
 }
 
 #resultados-section {
