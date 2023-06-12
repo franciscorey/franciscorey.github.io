@@ -1,0 +1,49 @@
+.mdl-layout__content {
+    max-width: fit-content;
+    margin: auto;
+}
+
+#logo {
+    width: 64px;
+}
+
+.custom-search-field {
+    max-width: 20vh;
+    margin-right: 30px;
+}
+
+.custom-search-button {
+    margin-left: 10px;
+}
+
+.mdl-cell--middle{
+    object-fit: cover;
+    height: 200px;
+}
+
+#resultados-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.mdl-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.mdl-card__media {
+    display: inline-flex;
+    width: 64px;
+    margin: 20px;
+}
+
+.mdl-card__media img {
+    width: 64px;
+}
+
+.mdl-card__title {
+    display: inline-block;
+
+}

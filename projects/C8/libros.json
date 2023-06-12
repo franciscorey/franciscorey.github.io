@@ -1,0 +1,76 @@
+{
+    "libros": [
+        {
+            "titulo": "Introducción al Derecho",
+            "autor": "Juan Pérez",
+            "año": 2019,
+            "tipo_documento": "Libro",
+            "disponibilidad": "Disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Derecho Constitucional",
+            "autor": "María Gómez",
+            "año": 2020,
+            "tipo_documento": "Libro",
+            "disponibilidad": "Disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Jurisprudencia Penal",
+            "autor": "Luis Rodríguez",
+            "año": 2018,
+            "tipo_documento": "Libro",
+            "disponibilidad": "No disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Introducción al Derecho",
+            "autor": "Juan Pérez",
+            "año": 2019,
+            "tipo_documento": "Libro",
+            "disponibilidad": "Disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Derecho Constitucional",
+            "autor": "María Gómez",
+            "año": 2020,
+            "tipo_documento": "Libro",
+            "disponibilidad": "Disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Jurisprudencia Penal",
+            "autor": "Luis Rodríguez",
+            "año": 2018,
+            "tipo_documento": "Libro",
+            "disponibilidad": "No disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Introducción al Derecho",
+            "autor": "Juan Pérez",
+            "año": 2019,
+            "tipo_documento": "Libro",
+            "disponibilidad": "Disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Derecho Constitucional",
+            "autor": "María Gómez",
+            "año": 2020,
+            "tipo_documento": "Libro",
+            "disponibilidad": "Disponible",
+            "imagen": "portada.jpg"
+        },
+        {
+            "titulo": "Jurisprudencia Penal",
+            "autor": "Luis Rodríguez",
+            "año": 2018,
+            "tipo_documento": "Libro",
+            "disponibilidad": "No disponible",
+            "imagen": "portada.jpg"
+        }
+    ]
+}

@@ -29,6 +29,8 @@ body {
 .section-image {
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    background-clip: content-box;
     height: 100vh;
     position: relative;
 }
@@ -69,12 +71,18 @@ body {
 }
 
 .icon {
-    position: absolute;
-    top: -160px;
-    left: 50%;
+    display: inline-block;
+    width: 100px;
+    margin: auto 0;
     max-width: 100px;
-    transform: translateX(-50%);
+}
 
+#image-mobile {
+    bottom: -150px;
+    right: -50%;
+    transform: translateX(-50%);
+    width: 100vh;
+    object-fit: cover;
 }
 
 #app-section {

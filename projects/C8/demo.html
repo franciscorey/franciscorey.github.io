@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!-- Header -->
+        <header class="mdl-layout__header">
+
+            <!-- Logo y Enlaces -->
+            <div class="mdl-layout__header-row">
+                <img id="logo" src="pj.png" alt="Logo">
+                <span class="mdl-layout-title">Biblioteca Corte Suprema</span>
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation -->
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="#">Inicio</a>
+                    <a class="mdl-navigation__link" href="#">Ingresar</a>
+                    <a class="mdl-navigation__link" href="#">Estante</a>
+                </nav>
+            </div>
+
+            <!-- Buscador -->
+            <div class="mdl-layout__header-row" style="justify-content: center;">
+                <div
+                    class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--colored mdl-textfield--accent custom-search-field">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="search-expandable">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <input class="mdl-textfield__input" type="text" id="search-expandable" placeholder="Libro">
+                </div>
+                <button
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent custom-search-button">Buscar</button>
+            </div>
+
+
+        </header>
+
+        <!-- Menu lateral -->
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout__title">Biblioteca</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="#">Inicio</a>
+                <a class="mdl-navigation__link" href="#">Ingresar</a>
+                <a class="mdl-navigation__link" href="#">Estante</a>
+            </nav>
+        </div>
+
+        <!-- Main -->
+        <main class="mdl-layout__content">
+            <section class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">
+                <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-color--grey-100">
+                    <img class="mdl-cell--middle" src="hero.jpg" alt="Image">
+                </div>
+                <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-color--primary mdl-color-text--white">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <h2 class="mdl-card__title-text">Bienvenidos al Catálogo</h2>
+                        </div>
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <p>Explora nuestra amplia gama de colecciones impresas y digitales ampliadas a las
+                                bibliotecas ubicadas en nuestras 15 unidades a nivel nacional.</p>
+                        </div>
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                href="#">Novedades</a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <div class="mdl-grid">
+                <!-- Resultados -->
+                <section id="resultados-section" class="mdl-cell mdl-cell--9-col-desktop mdl-cell--12-col-tablet">
+
+                    <!-- Resultados en forma de cards 
+                <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Título del libro</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        Autor: Nombre del autor<br>
+                        Año: 2023<br>
+                        Tipo de documento: Libro<br>
+                        Disponibilidad: Disponible<br>
+                    </div>
+                    <div class="mdl-card__media">
+                        <img src="libro.jpg" alt="Portada del libro">
+                    </div>
+                </div> -->
+                </section>
+
+                <!-- Aside -->
+                <section id="aside-section" class="mdl-cell mdl-cell--3-col-desktop mdl-cell--12-col-tablet">
+                    <aside>
+                        <h4>Refinar búsqueda</h4>
+                        <!-- Opciones de refinamiento de búsqueda -->
+                        <ul class="mdl-list">
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">label</i>
+                                    Tópico
+                                </span>
+                            </li>
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons  mdl-list__item-icon">link</i>
+                                    Administración Pública
+                                </span>
+
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+                                        for="list-checkbox-1">
+                                        <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input"
+                                            checked />
+                                    </label>
+                                </span>
+                            </li>
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">description</i>
+                                    Contratos
+                                </span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+                                        for="list-checkbox-2">
+                                        <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input"
+                                            checked />
+                                    </label>
+                                </span>
+                            </li>
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">gavel</i>
+                                    Código Civil
+                                </span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+                                        for="list-checkbox-3">
+                                        <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input"
+                                            checked />
+                                    </label>
+                                </span>
+                            </li>
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">lock</i>
+                                    Código Penal
+                                </span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+                                        for="list-checkbox-4">
+                                        <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input"
+                                            checked />
+                                    </label>
+                                </span>
+                            </li>
+
+
+
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">person</i>
+                                    Autor
+                                </span>
+                            </li>
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">date_range</i>
+                                    Fecha de publicación
+                                </span>
+                            </li>
+                            <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">language</i>
+                                    Idioma
+                                </span>
+                            </li>
+                        </ul>
+                    </aside>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo">Contacto</div>
+                <ul class="mdl-mini-footer__link-list">
+                    <li><a href="#">Enlace</a></li>
+                    <li><a href="#">Dirección</a></li>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Teléfono</a></li>
+                </ul>
+            </div>
+            <div class="mdl-mini-footer__right-section">
+                <div class="mdl-logo">© 2022</div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
