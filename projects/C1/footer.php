@@ -4,8 +4,8 @@
         <!-- Seccion de texto "Contacto" -->    
         <div class="c-footer__body" tabindex="0">
             <h2 class="c-footer__title">Contacto:</h2>
-            <p>correo: <em>mhd@pjud.cl</em></p>
-            <p>fono: <em>+56 22 6721778</em></p>
+            <p>correo: <em>xxxx@pjud.cl</em></p>
+            <p>fono: <em>+56 22 xxxxxxx</em></p>
         </div>
         <!-- Seccion de texto "Sobre Nosotros" -->
         <div>
