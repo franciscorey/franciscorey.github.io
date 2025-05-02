@@ -213,8 +213,8 @@ header {
     z-index: 1001;
 
     display: flex;
-    justify-content: center; /* centra horizontalmente */
-    align-items: flex-start; /* alinea arriba (puedes ajustar) */
+    justify-content: center; 
+    align-items: flex-start; 
 }
 .floating-img-shadow {
     position: absolute;
@@ -222,7 +222,7 @@ header {
     filter: brightness(0) blur(6px);
     opacity: 0.5;
 
-    z-index: 500; /* detrás de la imagen principal */
+    z-index: 500; 
     
 }
 .floating-img-hero {
