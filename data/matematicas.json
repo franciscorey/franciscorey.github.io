@@ -1,0 +1,32 @@
+[
+  {
+    "text": "¿Cuánto es 2 + 2?",
+    "choices": ["3", "4", "5"],
+    "answer": 1,
+    "explanation": "2 + 2 = 4."
+  },
+  {
+    "text": "¿Cuánto es 5 × 3?",
+    "choices": ["15", "10", "8"],
+    "answer": 0,
+    "explanation": "5 multiplicado por 3 es 15."
+  },
+  {
+    "text": "¿Cuál es la raíz cuadrada de 81?",
+    "choices": ["9", "8", "7"],
+    "answer": 0,
+    "explanation": "La raíz cuadrada de 81 es 9."
+  },
+  {
+    "text": "¿Qué fracción es equivalente a 2/4?",
+    "choices": ["1/2", "2/3", "1/4"],
+    "answer": 0,
+    "explanation": "2/4 se simplifica a 1/2."
+  },
+  {
+    "text": "¿Cuál es el resultado de 12 ÷ 4?",
+    "choices": ["2", "3", "4"],
+    "answer": 1,
+    "explanation": "12 dividido en 4 partes iguales da 3."
+  }
+]
