@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Quiz</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f8f8f8; }
+    .quiz-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); max-width: 600px; margin: auto; }
+    h2 { font-size: 20px; margin-bottom: 10px; }
+    button { display: block; width: 100%; margin: 6px 0; padding: 10px; border: none; border-radius: 8px; cursor: pointer; background: #eee; }
+    button:hover { background: #ddd; }
+    button.correct { background: #4caf50; color: white; }
+    button.wrong { background: #f44336; color: white; }
+    .explanation { margin-top: 10px; font-style: italic; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2 id="question"></h2>
+    <div id="choices"></div>
+    <div class="explanation" id="explanation"></div>
+    <button id="next" style="display:none;">Siguiente</button>
+  </div>
+
+  <script>
+    let questions = [];
+    let current = 0;
+
+    async function loadQuestions() {
+      const params = new URLSearchParams(window.location.search);
+      const dataURL = params.get("data");
+      if (!dataURL) {
+        document.getElementById("question").innerText = "⚠️ Falta el parámetro ?data=archivo.json";
+        return;
+      }
+      try {
+        const res = await fetch(dataURL);
+        questions = await res.json();
+        showQuestion();
+      } catch (e) {
+        document.getElementById("question").innerText = "❌ Error cargando preguntas.";
+      }
+    }
+
+    function showQuestion() {
+      if (current >= questions.length) {
+        document.querySelector(".quiz-container").innerHTML = "<h2>✅ Quiz terminado</h2>";
+        return;
+      }
+      const q = questions[current];
+      document.getElementById("question").innerText = q.text;
+      const choicesDiv = document.getElementById("choices");
+      choicesDiv.innerHTML = "";
+      document.getElementById("explanation").innerText = "";
+      document.getElementById("next").style.display = "none";
+
+      q.choices.forEach((choice, i) => {
+        const btn = document.createElement("button");
+        btn.innerText = choice;
+        btn.onclick = () => {
+          if (i === q.answer) {
+            btn.classList.add("correct");
+          } else {
+            btn.classList.add("wrong");
+          }
+          document.getElementById("explanation").innerText = q.explanation;
+          document.getElementById("next").style.display = "block";
+          Array.from(choicesDiv.children).forEach(b => b.disabled = true);
+        };
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+    document.getElementById("next").onclick = () => {
+      current++;
+      showQuestion();
+    };
+
+    loadQuestions();
+  </script>
+</body>
+</html>
