@@ -81,7 +81,6 @@
         <div class="logo">π</div>
         <div>
           <h1>Miniquiz</h1>
-          <p>Preguntas de alternativas</p>
           <div id="loadmsg">Cargando preguntas…</div>
         </div>
       </header>
@@ -125,7 +124,7 @@
         const r = await fetch(url, { cache: 'no-store' });
         if(!r.ok) throw new Error('HTTP ' + r.status);
         const json = await r.json();
-        loadmsg.textContent = 'Preguntas cargadas.';
+        loadmsg.textContent = 'Responda una de las alternativas.';
         return normalize(json);
       }
 
