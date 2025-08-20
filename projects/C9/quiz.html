@@ -1,122 +1,326 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mini Quiz Matemáticas</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Miniquiz de Matemáticas</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f4f4f9;
-      color: #333;
+    :root{
+      --bg: #0b1020;
+      --card: #141a2a;
+      --muted: #9aa4b2;
+      --text: #e9edf3;
+      --primary: #6ee7b7;
+      --primary-ink: #0f172a;
+      --danger: #fda4af;
+      --warning: #fde68a;
+      --ring: #334155;
     }
-    #quiz-container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, #1f2937 0%, var(--bg) 45%), var(--bg);
+      color:var(--text); display:grid; place-items:center; padding:24px;
     }
-    .question { font-size: 1.2em; margin-bottom: 10px; }
-    .options { list-style: none; padding: 0; }
-    .options li { margin: 6px 0; }
-    button {
-      margin-top: 15px;
-      padding: 10px 15px;
-      border: none;
-      background: #4CAF50;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
+    .wrap{ width:min(800px, 100%); }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
+      border: 1px solid var(--ring); border-radius:20px; padding:20px; backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
-    button:hover { background: #45a049; }
-    #result { margin-top: 15px; font-weight: bold; }
+    header{display:flex; gap:12px; align-items:center; margin-bottom:12px}
+    header .logo{width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--primary), #86efac); display:grid; place-items:center; color:var(--primary-ink); font-weight:800}
+    header h1{font-size:1.1rem; margin:0}
+    header p{margin:0; color:var(--muted); font-size:.9rem}
+
+    .bar{height:8px; background:#0f172a; border:1px solid var(--ring); border-radius:999px; overflow:hidden;}
+    .bar > div{height:100%; width:0%; background: linear-gradient(90deg, var(--primary), #34d399); transition:width .35s ease}
+
+    .qbox{margin-top:16px; display:grid; gap:14px}
+    .q{font-size:1.05rem; line-height:1.5}
+
+    .choices{display:grid; gap:10px}
+    .btn{
+      appearance:none; border:1px solid var(--ring); background:#0b1222; color:var(--text);
+      padding:12px 14px; border-radius:14px; cursor:pointer; text-align:left; font-size:1rem;
+      transition: transform .05s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#475569}
+    .btn:focus{outline:none; box-shadow:0 0 0 3px rgba(102, 252, 241, .15)}
+    .btn[disabled]{opacity:.6; cursor:not-allowed}
+
+    .btn.correct{background:rgba(16,185,129,.14); border-color:#10b981}
+    .btn.wrong{background:rgba(244,63,94,.16); border-color:#f43f5e}
+
+    .foot{display:flex; justify-content:space-between; align-items:center; margin-top:8px}
+    .muted{color:var(--muted)}
+    .action{display:flex; gap:10px}
+    .pill{border:1px solid var(--ring); padding:8px 12px; border-radius:999px; font-size:.9rem}
+    .cta{
+      background:linear-gradient(135deg, var(--primary), #86efac);
+      color:var(--primary-ink); border:none; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer;
+    }
+    .cta:disabled{opacity:.7; cursor:not-allowed}
+
+    .result{display:grid; gap:12px; text-align:center; padding:10px 4px}
+    .result h2{margin:6px 0 0}
+    .result .score{font-size:2rem; font-weight:800}
+
+    .review{margin-top:10px; display:grid; gap:10px}
+    details{background:#0b1222; border:1px solid var(--ring); border-radius:12px; padding:10px 12px}
+    details summary{cursor:pointer}
+    .tag{display:inline-block; padding:.2rem .5rem; border-radius:.5rem; margin-left:.4rem; font-size:.75rem; border:1px solid var(--ring); color:var(--muted)}
+
+    @media (max-width:520px){
+      .btn{font-size:.95rem}
+    }
+
+    /* small helper */
+    #loadmsg{margin-top:6px;color:var(--muted);font-size:.9rem}
   </style>
 </head>
 <body>
-  <div id="quiz-container">
-    <div id="quiz"></div>
-    <button id="next-btn" style="display:none;">Siguiente</button>
-    <div id="result"></div>
+  <div class="wrap">
+    <div class="card" id="quiz-card" role="region" aria-live="polite">
+      <header>
+        <div class="logo" aria-hidden="true">π</div>
+        <div>
+          <h1>Miniquiz de Matemáticas</h1>
+          <p>5 preguntas con alternativas. Puedes editar el JSON para cambiar el contenido.</p>
+          <div id="loadmsg">Cargando preguntas…</div>
+        </div>
+      </header>
+
+      <div class="bar" aria-label="Progreso"><div id="progress"></div></div>
+
+      <div class="qbox" id="qbox">
+        <!-- Contenido dinámico -->
+      </div>
+
+      <div class="foot">
+        <div class="pill" id="status">Pregunta 1 de 5</div>
+        <div class="action">
+          <button class="pill" id="resetBtn" type="button" title="Reiniciar">↺ Reiniciar</button>
+          <button class="cta" id="nextBtn" type="button" disabled>Siguiente ▸</button>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- === FALLBACK JSON embebido (se usa si ?data=… falla o no viene) === -->
+  <script id="questions-data" type="application/json">
+  {
+    "shuffle": true,
+    "questions": [
+      {
+        "text": "¿Cuál es el valor de 7 × 8?",
+        "choices": ["54", "56", "64", "58"],
+        "answer": 1,
+        "explain": "7×8 = 56. Puedes pensar 7×4=28 y duplicar: 28×2=56."
+      },
+      {
+        "text": "Calcula 3/4 de 32.",
+        "choices": ["18", "20", "22", "24"],
+        "answer": 3,
+        "explain": "(3/4)×32 = 24, porque 32÷4=8 y 8×3=24."
+      },
+      {
+        "text": "¿Cuál es el MCD de 24 y 36?",
+        "choices": ["6", "8", "12", "18"],
+        "answer": 2,
+        "explain": "Los divisores comunes son {1,2,3,4,6,12}; el mayor es 12."
+      },
+      {
+        "text": "Resuelve: 2,5 + 1,75 (usa coma decimal).",
+        "choices": ["3,15", "4,15", "4,20", "4,25"],
+        "answer": 3,
+        "explain": "2,5 + 1,75 = 4,25."
+      },
+      {
+        "text": "Área de un rectángulo de base 12 y altura 5.",
+        "choices": ["60", "24", "30", "10"],
+        "answer": 0,
+        "explain": "Área = base × altura = 12×5 = 60."
+      }
+    ]
+  }
+  </script>
+
   <script>
-    async function loadQuestions() {
-      // Obtener la URL del JSON desde el parámetro `data`
-      const params = new URLSearchParams(window.location.search);
-      const dataUrl = params.get("data");
+    (async function(){
+      const $ = (sel, ctx=document) => ctx.querySelector(sel);
+      const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+      const loadmsg = $('#loadmsg');
 
-      if (!dataUrl) {
-        document.getElementById("quiz").innerHTML = "<p>Error: no se especificó el archivo JSON en ?data=</p>";
-        return [];
-      }
+      // Resolver parámetro 'data' y transformar rutas relativas correctamente
+      const params = new URLSearchParams(location.search);
+      let dataParam = params.get('data'); // e.g. 'matematicas.json' or './matematicas.json' or '/matematicas.json' or absolute URL
 
-      try {
-        const response = await fetch(dataUrl);
-        if (!response.ok) throw new Error("No se pudo cargar el JSON");
-        return await response.json();
-      } catch (err) {
-        document.getElementById("quiz").innerHTML = `<p>Error cargando JSON: ${err.message}</p>`;
-        return [];
-      }
-    }
-
-    async function startQuiz() {
-      const questions = await loadQuestions();
-      if (questions.length === 0) return;
-
-      let current = 0;
-      let score = 0;
-      const quizEl = document.getElementById("quiz");
-      const nextBtn = document.getElementById("next-btn");
-      const resultEl = document.getElementById("result");
-
-      function showQuestion() {
-        let q = questions[current];
-        quizEl.innerHTML = `
-          <div class="question">${q.question}</div>
-          <ul class="options">
-            ${q.options.map((opt,i)=>`
-              <li>
-                <label>
-                  <input type="radio" name="option" value="${i}"> ${opt}
-                </label>
-              </li>`).join("")}
-          </ul>
-        `;
-        nextBtn.style.display = "block";
-        resultEl.innerHTML = "";
-      }
-
-      nextBtn.onclick = () => {
-        let selected = document.querySelector("input[name=option]:checked");
-        if (!selected) {
-          alert("Selecciona una respuesta");
-          return;
+      function resolveDataURL(p){
+        if(!p) return null;
+        if(/^https?:\/\//i.test(p)) return p; // URL absoluta tal cual
+        const baseDir = location.pathname.replace(/[^/]*$/, ''); // '/projects/C9/'
+        if(p.startsWith('/')){
+          // si viene '/x' lo transformamos a relativo dentro del mismo proyecto folder
+          p = p.replace(/^\/+/, ''); // 'x'
+          return new URL(baseDir + p, location.origin).href; // https://user.github.io/projects/C9/x
         }
-        let answer = parseInt(selected.value,10);
-        if (answer === questions[current].answer) {
-          score++;
-          resultEl.innerHTML = "✅ Correcto. " + (questions[current].explanation || "");
+        // Soporta './' y '../' relativos a este HTML
+        return new URL(p, location.href).href;
+      }
+
+      async function loadQuestions(){
+        if(dataParam){
+          const url = resolveDataURL(dataParam);
+          try{
+            loadmsg.textContent = 'Intentando cargar preguntas desde: ' + url;
+            const r = await fetch(url, { cache: 'no-store' });
+            if(!r.ok) throw new Error('HTTP ' + r.status);
+            const json = await r.json();
+            loadmsg.textContent = 'Preguntas cargadas desde: ' + url;
+            return normalize(json);
+          }catch(err){
+            loadmsg.innerHTML = `⚠️ No pude cargar <code>${escapeHtml(String(resolveDataURL(dataParam)))}</code>. Usando JSON embebido. <small>(${escapeHtml(err.message)})</small>`;
+          }
+        }
+        // fallback: JSON embebido en el HTML
+        const rawEl = document.getElementById('questions-data');
+        if(!rawEl) throw new Error('No hay fuente de preguntas.');
+        const raw = rawEl.textContent.trim();
+        loadmsg.textContent = 'Usando preguntas embebidas.';
+        return normalize(JSON.parse(raw));
+      }
+
+      function normalize(data){
+        // admite tanto: array plano OR { shuffle: bool, questions: [...] }
+        if(Array.isArray(data)) return { shuffle: true, questions: data };
+        if(data && Array.isArray(data.questions)) return data;
+        throw new Error('Formato JSON inválido');
+      }
+
+      // Cargar/normalizar preguntas (usa fetch ?data=... o fallback)
+      const data = await loadQuestions();
+
+      // PREPARAR preguntas
+      let questions = data.questions.map(q => ({...q}));
+      if (data.shuffle) questions = shuffle(questions);
+
+      // Estado
+      let state = { idx: 0, score: 0, answered: false, history: [] };
+
+      // Elementos
+      const qbox = document.getElementById('qbox');
+      const nextBtn = document.getElementById('nextBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const progressEl = document.getElementById('progress');
+      const statusEl = document.getElementById('status');
+
+      // Eventos
+      resetBtn.addEventListener('click', () => {
+        state = { idx: 0, score: 0, answered:false, history: [] };
+        questions = data.shuffle ? shuffle(data.questions.map(q=>({...q}))) : data.questions.map(q=>({...q}));
+        render();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (state.idx < questions.length - 1){
+          state.idx++;
+          state.answered = false;
+          render();
         } else {
-          resultEl.innerHTML = "❌ Incorrecto. " + (questions[current].explanation || "");
+          showResult();
         }
-        current++;
-        if (current < questions.length) {
-          setTimeout(showQuestion, 1500);
+      });
+
+      function render(){
+        const q = questions[state.idx];
+        const total = questions.length;
+        statusEl.textContent = `Pregunta ${state.idx+1} de ${total}`;
+        progressEl.style.width = `${((state.idx)/total)*100}%`;
+        nextBtn.disabled = true;
+
+        const choices = q.choices.map((c, i) => `<button class="btn" data-i="${i}" type="button">${escapeHtml(c)}</button>`).join('');
+        qbox.innerHTML = `<div class="q">${escapeHtml(q.text)}</div><div class="choices" role="group" aria-label="Alternativas">${choices}</div>`;
+
+        $$('.btn', qbox).forEach(btn => btn.addEventListener('click', onPick));
+      }
+
+      function onPick(e){
+        if (state.answered) return;
+        const btn = e.currentTarget;
+        const picked = Number(btn.dataset.i);
+        const q = questions[state.idx];
+        state.answered = true;
+
+        // marcar
+        $$('.btn', qbox).forEach((b, i)=>{
+          b.disabled = true;
+          if (i === q.answer) b.classList.add('correct');
+        });
+        if (picked !== q.answer){
+          btn.classList.add('wrong');
         } else {
-          setTimeout(()=> {
-            quizEl.innerHTML = `<p>Juego terminado. Puntaje: ${score} / ${questions.length}</p>`;
-            nextBtn.style.display = "none";
-          }, 1500);
+          state.score++;
         }
-      };
 
-      showQuestion();
-    }
+        state.history[state.idx] = { picked, correctIndex: q.answer };
+        nextBtn.textContent = state.idx === questions.length-1 ? 'Ver resultado' : 'Siguiente ▸';
+        nextBtn.disabled = false;
 
-    startQuiz();
+        // Mostrar explicación
+        const exp = document.createElement('div');
+        exp.className = 'muted';
+        exp.style.marginTop = '6px';
+        exp.innerHTML = `💡 ${escapeHtml(q.explain || '')}`;
+        qbox.appendChild(exp);
+
+        // Avanza la barra un poco para indicar respuesta completada
+        const total = questions.length;
+        progressEl.style.width = `${((state.idx+1)/total)*100}%`;
+      }
+
+      function showResult(){
+        const total = questions.length;
+        const pct = Math.round((state.score/total)*100);
+        const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🎉' : pct >= 60 ? '✅' : '📚';
+
+        const review = questions.map((q, i)=>{
+          const h = state.history[i];
+          const ok = h && h.picked === h.correctIndex;
+          const pickedLabel = typeof h?.picked === 'number' ? q.choices[h.picked] : '—';
+          return `<details><summary>${ok ? '✔️' : '✖️'} ${escapeHtml(q.text)} <span class="tag">Tu respuesta: ${escapeHtml(String(pickedLabel))}</span> <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span></summary><div class="muted" style="margin-top:8px">${escapeHtml(q.explain || '')}</div></details>`;
+        }).join('');
+
+        qbox.innerHTML = `<div class="result">
+          <div class="score">${emoji} ${state.score}/${total} · ${pct}%</div>
+          <h2>Resultado</h2>
+          <p class="muted">¡Gracias por jugar! Puedes reiniciar o editar el JSON para nuevas preguntas.</p>
+        </div>
+        <div class="review">${review}</div>`;
+
+        statusEl.textContent = `Completado · ${state.score}/${total}`;
+        nextBtn.textContent = 'Repetir';
+        nextBtn.disabled = false;
+        nextBtn.onclick = () => resetBtn.click();
+      }
+
+      function shuffle(arr){
+        const a = arr.slice();
+        for(let i=a.length-1;i>0;i--){
+          const j = Math.floor(Math.random()*(i+1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function escapeHtml(str){
+        return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[s]));
+      }
+
+      // Init
+      render();
+    })();
   </script>
 </body>
 </html>
