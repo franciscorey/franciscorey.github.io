@@ -1,0 +1,62 @@
+[
+  {
+    "text": "¿Cuál es la capital de Francia?",
+    "choices": ["París", "Londres", "Berlín"],
+    "answer": 0,
+    "explain": "París es la capital y ciudad más grande de Francia."
+  },
+  {
+    "text": "¿Quién pintó la Mona Lisa?",
+    "choices": ["Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh"],
+    "answer": 0,
+    "explain": "Leonardo da Vinci creó esta famosa obra en el Renacimiento."
+  },
+  {
+    "text": "¿En qué continente se encuentra Egipto?",
+    "choices": ["África", "Asia", "Europa"],
+    "answer": 0,
+    "explain": "Egipto está ubicado en el noreste de África."
+  },
+  {
+    "text": "¿Qué idioma se habla principalmente en Brasil?",
+    "choices": ["Portugués", "Español", "Inglés"],
+    "answer": 0,
+    "explain": "El portugués es el idioma oficial de Brasil debido a su colonización portuguesa."
+  },
+  {
+    "text": "¿Quién escribió 'Romeo y Julieta'?",
+    "choices": ["William Shakespeare", "Charles Dickens", "Jane Austen"],
+    "answer": 0,
+    "explain": "Shakespeare es el autor de esta tragedia romántica."
+  },
+  {
+    "text": "¿Cuál es el océano más grande del mundo?",
+    "choices": ["Pacífico", "Atlántico", "Índico"],
+    "answer": 0,
+    "explain": "El Océano Pacífico cubre más del 30% de la superficie terrestre."
+  },
+  {
+    "text": "¿En qué año llegó el hombre a la Luna?",
+    "choices": ["1969", "1959", "1979"],
+    "answer": 0,
+    "explain": "La misión Apollo 11 aterrizó en la Luna en 1969."
+  },
+  {
+    "text": "¿Cuál es el moneda oficial de Japón?",
+    "choices": ["Yen", "Won", "Dólar"],
+    "answer": 0,
+    "explain": "El yen es la unidad monetaria de Japón."
+  },
+  {
+    "text": "¿Qué instrumento musical tiene teclas blancas y negras?",
+    "choices": ["Piano", "Guitarra", "Trompeta"],
+    "answer": 0,
+    "explain": "El piano es un instrumento de teclado con teclas blancas y negras."
+  },
+  {
+    "text": "¿Cuál es el desierto más grande del mundo?",
+    "choices": ["Antártida", "Sahara", "Gobi"],
+    "answer": 0,
+    "explain": "La Antártida es considerada un desierto debido a su baja precipitación."
+  }
+]
