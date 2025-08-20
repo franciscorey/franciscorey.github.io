@@ -5,89 +5,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Miniquiz</title>
   <style>
-    :root{
-      --bg: #0b1020;
-      --card: #141a2a;
-      --muted: #9aa4b2;
-      --text: #e9edf3;
-      --primary: #6ee7b7;
-      --primary-ink: #0f172a;
-      --danger: #fda4af;
-      --warning: #fde68a;
-      --ring: #334155;
+    :root {
+      --bg: #2e261f; /* Fondo principal cambiado */
+      --card: #3a3229; /* Tarjeta complementaria, tono marrón más claro */
+      --muted: #b8a99a; /* Texto muted, beige grisáceo */
+      --text: #f2e9df; /* Texto principal, beige claro */
+      --primary: #d97706; /* Primario, naranja ámbar para acentos */
+      --primary-ink: #1a120a; /* Tinta primaria, marrón oscuro */
+      --danger: #ef4444; /* Danger, rojo para errores */
+      --warning: #fbbf24; /* Warning, amarillo para alertas */
+      --ring: #4a3e33; /* Bordes, marrón medio */
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
-      background: radial-gradient(1200px 800px at 80% -10%, #1f2937 0%, var(--bg) 45%), var(--bg);
-      color:var(--text); display:grid; place-items:center; padding:24px;
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+      background: radial-gradient(1200px 800px at 80% -10%, #3f352b 0%, var(--bg) 45%), var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: clamp(12px, 4vw, 24px); /* Mejora responsividad en padding */
     }
-    .wrap{ width:min(800px, 100%); }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
-      border: 1px solid var(--ring); border-radius:20px; padding:20px; backdrop-filter: blur(6px);
+    .wrap { width: min(800px, 100%); max-width: 100%; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.0));
+      border: 1px solid var(--ring);
+      border-radius: 20px;
+      padding: clamp(12px, 3vw, 20px); /* Padding responsivo */
+      backdrop-filter: blur(6px);
       box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
-    header{display:flex; gap:12px; align-items:center; margin-bottom:12px}
-    header .logo{width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--primary), #86efac); display:grid; place-items:center; color:var(--primary-ink); font-weight:800}
-    header h1{font-size:1.1rem; margin:0}
-    header p{margin:0; color:var(--muted); font-size:.9rem}
-
-    .bar{height:8px; background:#0f172a; border:1px solid var(--ring); border-radius:999px; overflow:hidden;}
-    .bar > div{height:100%; width:0%; background: linear-gradient(90deg, var(--primary), #34d399); transition:width .35s ease}
-
-    .qbox{margin-top:16px; display:grid; gap:14px}
-    .q{font-size:1.05rem; line-height:1.5}
-
-    .choices{display:grid; gap:10px}
-    .btn{
-      appearance:none; border:1px solid var(--ring); background:#0b1222; color:var(--text);
-      padding:12px 14px; border-radius:14px; cursor:pointer; text-align:left; font-size:1rem;
+    header { display: flex; gap: clamp(8px, 2vw, 12px); align-items: center; margin-bottom: clamp(8px, 2vw, 12px); }
+    header .logo {
+      width: clamp(32px, 8vw, 42px);
+      height: clamp(32px, 8vw, 42px);
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #f59e0b);
+      display: grid;
+      place-items: center;
+      color: var(--primary-ink);
+      font-weight: 800;
+      font-size: clamp(1rem, 4vw, 1.5rem); /* Tamaño de logo responsivo */
+    }
+    header h1 { font-size: clamp(1rem, 3vw, 1.1rem); margin: 0; }
+    header p { margin: 0; color: var(--muted); font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
+    .bar { height: 8px; background: #1a120a; border: 1px solid var(--ring); border-radius: 999px; overflow: hidden; }
+    .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), #f59e0b); transition: width .35s ease; }
+    .qbox { margin-top: clamp(12px, 3vw, 16px); display: grid; gap: clamp(10px, 2.5vw, 14px); }
+    .q { font-size: clamp(1rem, 3vw, 1.05rem); line-height: 1.5; }
+    .choices { display: grid; gap: clamp(8px, 2vw, 10px); }
+    .btn {
+      appearance: none;
+      border: 1px solid var(--ring);
+      background: #241d16;
+      color: var(--text);
+      padding: clamp(8px, 2.5vw, 12px) clamp(10px, 3vw, 14px);
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: left;
+      font-size: clamp(0.9rem, 2.8vw, 1rem);
       transition: transform .05s ease, border-color .2s ease, background .2s ease;
     }
-    .btn:hover{transform:translateY(-1px); border-color:#475569}
-    .btn:focus{outline:none; box-shadow:0 0 0 3px rgba(102, 252, 241, .15)}
-    .btn[disabled]{opacity:.6; cursor:not-allowed}
-    .btn.correct{background:rgba(16,185,129,.14); border-color:#10b981}
-    .btn.wrong{background:rgba(244,63,94,.16); border-color:#f43f5e}
-
-    .foot{display:flex; justify-content:space-between; align-items:center; margin-top:8px}
-    .muted{color:var(--muted)}
-    .action{display:flex; gap:10px}
-    .pill{border:1px solid var(--ring); padding:8px 12px; border-radius:999px; font-size:.9rem}
-    .cta{
-      background:linear-gradient(135deg, var(--primary), #86efac);
-      color:var(--primary-ink); border:none; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer;
+    .btn:hover { transform: translateY(-1px); border-color: #5e4f3f; }
+    .btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(217, 119, 6, .15); }
+    .btn[disabled] { opacity: .6; cursor: not-allowed; }
+    .btn.correct { background: rgba(217, 119, 6, .14); border-color: var(--primary); }
+    .btn.wrong { background: rgba(239, 68, 68, .16); border-color: var(--danger); }
+    .foot { display: flex; justify-content: space-between; align-items: center; margin-top: clamp(6px, 1.5vw, 8px); flex-wrap: wrap; gap: 10px; }
+    .muted { color: var(--muted); }
+    .action { display: flex; gap: clamp(6px, 1.5vw, 10px); }
+    .pill {
+      border: 1px solid var(--ring);
+      padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 12px);
+      border-radius: 999px;
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
     }
-    .cta:disabled{opacity:.7; cursor:not-allowed}
+    .cta {
+      background: linear-gradient(135deg, var(--primary), #f59e0b);
+      color: var(--primary-ink);
+      border: none;
+      padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 14px);
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .cta:disabled { opacity: .7; cursor: not-allowed; }
+    .result { display: grid; gap: clamp(8px, 2vw, 12px); text-align: center; padding: clamp(8px, 2vw, 10px) 4px; }
+    .result h2 { margin: clamp(4px, 1vw, 6px) 0 0; font-size: clamp(1.2rem, 3.5vw, 1.5rem); }
+    .result .score { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; }
+    .review { margin-top: clamp(8px, 2vw, 10px); display: grid; gap: clamp(8px, 2vw, 10px); }
+    details { background: #241d16; border: 1px solid var(--ring); border-radius: 12px; padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 12px); }
+    details summary { cursor: pointer; font-size: clamp(0.9rem, 2.8vw, 1rem); }
+    .tag {
+      display: inline-block;
+      padding: .2rem .5rem;
+      border-radius: .5rem;
+      margin-left: .4rem;
+      font-size: clamp(0.65rem, 2vw, 0.75rem);
+      border: 1px solid var(--ring);
+      color: var(--muted);
+    }
+    #loadmsg { margin-top: clamp(4px, 1vw, 6px); color: var(--muted); font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
 
-    .result{display:grid; gap:12px; text-align:center; padding:10px 4px}
-    .result h2{margin:6px 0 0}
-    .result .score{font-size:2rem; font-weight:800}
-
-    .review{margin-top:10px; display:grid; gap:10px}
-    details{background:#0b1222; border:1px solid var(--ring); border-radius:12px; padding:10px 12px}
-    details summary{cursor:pointer}
-    .tag{display:inline-block; padding:.2rem .5rem; border-radius:.5rem; margin-left:.4rem; font-size:.75rem; border:1px solid var(--ring); color:var(--muted)}
-
-    #loadmsg{margin-top:6px;color:var(--muted);font-size:.9rem}
+    /* Media queries para mejor responsividad en pantallas pequeñas */
+    @media (max-width: 600px) {
+      body { padding: 12px; }
+      .card { border-radius: 16px; padding: 12px; }
+      header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .foot { flex-direction: column; align-items: stretch; }
+      .action { justify-content: center; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card" id="quiz-card" role="region" aria-live="polite">
       <header>
-        <div class="logo">π</div>
+        <div class="logo">🐱</div>
         <div>
           <h1>Miniquiz</h1>
           <div id="loadmsg">Cargando preguntas…</div>
         </div>
       </header>
-
       <div class="bar"><div id="progress"></div></div>
       <div class="qbox" id="qbox"></div>
-
       <div class="foot">
         <div class="pill" id="status"></div>
         <div class="action">
@@ -97,110 +139,111 @@
       </div>
     </div>
   </div>
-
   <script>
     (async function(){
-      const $ = (sel, ctx=document) => ctx.querySelector(sel);
-      const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+      const $ = (sel, ctx = document) => ctx.querySelector(sel);
+      const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       const loadmsg = $('#loadmsg');
-
       const params = new URLSearchParams(location.search);
       const dataParam = params.get('data');
-      if(!dataParam) throw new Error("❌ Falta ?data=... en la URL");
+      if (!dataParam) throw new Error("❌ Falta ?data=... en la URL");
 
-      function resolveDataURL(p){
-        if(/^https?:\/\//i.test(p)) return p;
+      function resolveDataURL(p) {
+        if (/^https?:\/\//i.test(p)) return p;
         const baseDir = location.pathname.replace(/[^/]*$/, '');
-        if(p.startsWith('/')){
+        if (p.startsWith('/')) {
           p = p.replace(/^\/+/, '');
           return new URL(baseDir + p, location.origin).href;
         }
         return new URL(p, location.href).href;
       }
 
-      async function loadQuestions(){
+      async function loadQuestions() {
         const url = resolveDataURL(dataParam);
         loadmsg.textContent = 'Cargando desde: ' + url;
         const r = await fetch(url, { cache: 'no-store' });
-        if(!r.ok) throw new Error('HTTP ' + r.status);
+        if (!r.ok) throw new Error('HTTP ' + r.status);
         const json = await r.json();
         loadmsg.textContent = 'Responda una de las alternativas.';
         return normalize(json);
       }
 
-      function normalize(data){
-        if(Array.isArray(data)) return { shuffle: true, questions: data };
-        if(data && Array.isArray(data.questions)) return data;
+      function normalize(data) {
+        if (Array.isArray(data)) return { shuffle: true, questions: data };
+        if (data && Array.isArray(data.questions)) return data;
         throw new Error('Formato JSON inválido');
       }
 
       const data = await loadQuestions();
       let questions = data.shuffle ? shuffle(data.questions) : data.questions;
       let state = { idx: 0, score: 0, answered: false, history: [] };
-
       const qbox = $('#qbox'), nextBtn = $('#nextBtn'), resetBtn = $('#resetBtn'),
             progressEl = $('#progress'), statusEl = $('#status');
 
       resetBtn.addEventListener('click', () => {
-        state = { idx: 0, score: 0, answered:false, history: [] };
+        state = { idx: 0, score: 0, answered: false, history: [] };
         questions = data.shuffle ? shuffle(data.questions) : data.questions;
         render();
       });
 
       nextBtn.addEventListener('click', () => {
-        if (state.idx < questions.length - 1){ state.idx++; state.answered=false; render(); }
-        else showResult();
+        if (state.idx < questions.length - 1) {
+          state.idx++;
+          state.answered = false;
+          render();
+        } else {
+          showResult();
+        }
       });
 
-      function render(){
+      function render() {
         const q = questions[state.idx];
         const total = questions.length;
-        statusEl.textContent = `Pregunta ${state.idx+1} de ${total}`;
-        progressEl.style.width = `${(state.idx/total)*100}%`;
+        statusEl.textContent = `Pregunta ${state.idx + 1} de ${total}`;
+        progressEl.style.width = `${(state.idx / total) * 100}%`;
         nextBtn.disabled = true;
-
         qbox.innerHTML = `<div class="q">${escapeHtml(q.text)}</div>
-          <div class="choices">${q.choices.map((c,i)=>`<button class="btn" data-i="${i}">${escapeHtml(c)}</button>`).join('')}</div>`;
-
+          <div class="choices">${q.choices.map((c, i) => `<button class="btn" data-i="${i}">${escapeHtml(c)}</button>`).join('')}</div>`;
         $$('.btn', qbox).forEach(btn => btn.addEventListener('click', onPick));
       }
 
-      function onPick(e){
-        if(state.answered) return;
+      function onPick(e) {
+        if (state.answered) return;
         const btn = e.currentTarget, picked = Number(btn.dataset.i);
         const q = questions[state.idx];
         state.answered = true;
-
-        $$('.btn', qbox).forEach((b,i)=>{ b.disabled=true; if(i===q.answer)b.classList.add('correct'); });
-        if(picked!==q.answer) btn.classList.add('wrong'); else state.score++;
-
+        $$('.btn', qbox).forEach((b, i) => { b.disabled = true; if (i === q.answer) b.classList.add('correct'); });
+        if (picked !== q.answer) btn.classList.add('wrong'); else state.score++;
         state.history[state.idx] = { picked, correctIndex: q.answer };
-        nextBtn.textContent = state.idx===questions.length-1?'Ver resultado':'Siguiente ▸';
+        nextBtn.textContent = state.idx === questions.length - 1 ? 'Ver resultado' : 'Siguiente ▸';
         nextBtn.disabled = false;
-
-        if(q.explain){
-          const exp=document.createElement('div');exp.className='muted';exp.style.marginTop='6px';exp.textContent="💡 "+q.explain;qbox.appendChild(exp);
+        if (q.explain) {
+          const exp = document.createElement('div');
+          exp.className = 'muted';
+          exp.style.marginTop = '6px';
+          exp.textContent = "💡 " + q.explain;
+          qbox.appendChild(exp);
         }
-        progressEl.style.width = `${((state.idx+1)/questions.length)*100}%`;
+        progressEl.style.width = `${((state.idx + 1) / questions.length) * 100}%`;
       }
 
-      function showResult(){
-        const total = questions.length, pct = Math.round((state.score/total)*100);
-        const emoji = pct===100?'🏆':pct>=80?'🎉':pct>=60?'✅':'📚';
-
-        const review = questions.map((q,i)=>{
-          const h=state.history[i], ok=h&&h.picked===h.correctIndex;
-          const pickedLabel=typeof h?.picked==="number"?q.choices[h.picked]:"—";
-          return `<details><summary>${ok?'✔️':'✖️'} ${escapeHtml(q.text)} <span class="tag">Tu: ${escapeHtml(String(pickedLabel))}</span> <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span></summary><div class="muted">${escapeHtml(q.explain||'')}</div></details>`;
+      function showResult() {
+        const total = questions.length, pct = Math.round((state.score / total) * 100);
+        const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🎉' : pct >= 60 ? '✅' : '📚';
+        const review = questions.map((q, i) => {
+          const h = state.history[i], ok = h && h.picked === h.correctIndex;
+          const pickedLabel = typeof h?.picked === "number" ? q.choices[h.picked] : "—";
+          return `<details><summary>${ok ? '✔️' : '✖️'} ${escapeHtml(q.text)} <span class="tag">Tu: ${escapeHtml(String(pickedLabel))}</span> <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span></summary><div class="muted">${escapeHtml(q.explain || '')}</div></details>`;
         }).join('');
-
-        qbox.innerHTML=`<div class="result"><div class="score">${emoji} ${state.score}/${total} · ${pct}%</div><h2>Resultado</h2></div><div class="review">${review}</div>`;
+        qbox.innerHTML = `<div class="result"><div class="score">${emoji} ${state.score}/${total} · ${pct}%</div><h2>Resultado</h2></div><div class="review">${review}</div>`;
         statusEl.textContent = `Completado · ${state.score}/${total}`;
-        nextBtn.textContent='Repetir'; nextBtn.disabled=false; nextBtn.onclick=()=>resetBtn.click();
+        nextBtn.textContent = 'Repetir';
+        nextBtn.disabled = false;
+        nextBtn.onclick = () => resetBtn.click();
       }
 
-      function shuffle(a){return a.sort(()=>Math.random()-0.5);}
-      function escapeHtml(str){return String(str).replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[s]));}
+      function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
+      function escapeHtml(str) { return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#039;' }[s])); }
 
       render();
     })();
