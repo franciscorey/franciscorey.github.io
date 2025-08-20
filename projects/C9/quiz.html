@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniquiz de Matemáticas</title>
+  <title>Miniquiz</title>
   <style>
     :root{
       --bg: #0b1020;
@@ -19,7 +19,7 @@
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
       background: radial-gradient(1200px 800px at 80% -10%, #1f2937 0%, var(--bg) 45%), var(--bg);
       color:var(--text); display:grid; place-items:center; padding:24px;
     }
@@ -49,7 +49,6 @@
     .btn:hover{transform:translateY(-1px); border-color:#475569}
     .btn:focus{outline:none; box-shadow:0 0 0 3px rgba(102, 252, 241, .15)}
     .btn[disabled]{opacity:.6; cursor:not-allowed}
-
     .btn.correct{background:rgba(16,185,129,.14); border-color:#10b981}
     .btn.wrong{background:rgba(244,63,94,.16); border-color:#f43f5e}
 
@@ -72,11 +71,6 @@
     details summary{cursor:pointer}
     .tag{display:inline-block; padding:.2rem .5rem; border-radius:.5rem; margin-left:.4rem; font-size:.75rem; border:1px solid var(--ring); color:var(--muted)}
 
-    @media (max-width:520px){
-      .btn{font-size:.95rem}
-    }
-
-    /* small helper */
     #loadmsg{margin-top:6px;color:var(--muted);font-size:.9rem}
   </style>
 </head>
@@ -84,68 +78,26 @@
   <div class="wrap">
     <div class="card" id="quiz-card" role="region" aria-live="polite">
       <header>
-        <div class="logo" aria-hidden="true">π</div>
+        <div class="logo">π</div>
         <div>
-          <h1>Miniquiz de Matemáticas</h1>
-          <p>5 preguntas con alternativas. Puedes editar el JSON para cambiar el contenido.</p>
+          <h1>Miniquiz</h1>
+          <p>Preguntas de alternativas</p>
           <div id="loadmsg">Cargando preguntas…</div>
         </div>
       </header>
 
-      <div class="bar" aria-label="Progreso"><div id="progress"></div></div>
-
-      <div class="qbox" id="qbox">
-        <!-- Contenido dinámico -->
-      </div>
+      <div class="bar"><div id="progress"></div></div>
+      <div class="qbox" id="qbox"></div>
 
       <div class="foot">
-        <div class="pill" id="status">Pregunta 1 de 5</div>
+        <div class="pill" id="status"></div>
         <div class="action">
-          <button class="pill" id="resetBtn" type="button" title="Reiniciar">↺ Reiniciar</button>
+          <button class="pill" id="resetBtn" type="button">↺ Reiniciar</button>
           <button class="cta" id="nextBtn" type="button" disabled>Siguiente ▸</button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- === FALLBACK JSON embebido (se usa si ?data=… falla o no viene) === -->
-  <script id="questions-data" type="application/json">
-  {
-    "shuffle": true,
-    "questions": [
-      {
-        "text": "¿Cuál es el valor de 7 × 8?",
-        "choices": ["54", "56", "64", "58"],
-        "answer": 1,
-        "explain": "7×8 = 56. Puedes pensar 7×4=28 y duplicar: 28×2=56."
-      },
-      {
-        "text": "Calcula 3/4 de 32.",
-        "choices": ["18", "20", "22", "24"],
-        "answer": 3,
-        "explain": "(3/4)×32 = 24, porque 32÷4=8 y 8×3=24."
-      },
-      {
-        "text": "¿Cuál es el MCD de 24 y 36?",
-        "choices": ["6", "8", "12", "18"],
-        "answer": 2,
-        "explain": "Los divisores comunes son {1,2,3,4,6,12}; el mayor es 12."
-      },
-      {
-        "text": "Resuelve: 2,5 + 1,75 (usa coma decimal).",
-        "choices": ["3,15", "4,15", "4,20", "4,25"],
-        "answer": 3,
-        "explain": "2,5 + 1,75 = 4,25."
-      },
-      {
-        "text": "Área de un rectángulo de base 12 y altura 5.",
-        "choices": ["60", "24", "30", "10"],
-        "answer": 0,
-        "explain": "Área = base × altura = 12×5 = 60."
-      }
-    ]
-  }
-  </script>
 
   <script>
     (async function(){
@@ -153,172 +105,104 @@
       const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
       const loadmsg = $('#loadmsg');
 
-      // Resolver parámetro 'data' y transformar rutas relativas correctamente
       const params = new URLSearchParams(location.search);
-      let dataParam = params.get('data'); // e.g. 'matematicas.json' or './matematicas.json' or '/matematicas.json' or absolute URL
+      const dataParam = params.get('data');
+      if(!dataParam) throw new Error("❌ Falta ?data=... en la URL");
 
       function resolveDataURL(p){
-        if(!p) return null;
-        if(/^https?:\/\//i.test(p)) return p; // URL absoluta tal cual
-        const baseDir = location.pathname.replace(/[^/]*$/, ''); // '/projects/C9/'
+        if(/^https?:\/\//i.test(p)) return p;
+        const baseDir = location.pathname.replace(/[^/]*$/, '');
         if(p.startsWith('/')){
-          // si viene '/x' lo transformamos a relativo dentro del mismo proyecto folder
-          p = p.replace(/^\/+/, ''); // 'x'
-          return new URL(baseDir + p, location.origin).href; // https://user.github.io/projects/C9/x
+          p = p.replace(/^\/+/, '');
+          return new URL(baseDir + p, location.origin).href;
         }
-        // Soporta './' y '../' relativos a este HTML
         return new URL(p, location.href).href;
       }
 
       async function loadQuestions(){
-        if(dataParam){
-          const url = resolveDataURL(dataParam);
-          try{
-            loadmsg.textContent = 'Intentando cargar preguntas desde: ' + url;
-            const r = await fetch(url, { cache: 'no-store' });
-            if(!r.ok) throw new Error('HTTP ' + r.status);
-            const json = await r.json();
-            loadmsg.textContent = 'Preguntas cargadas desde: ' + url;
-            return normalize(json);
-          }catch(err){
-            loadmsg.innerHTML = `⚠️ No pude cargar <code>${escapeHtml(String(resolveDataURL(dataParam)))}</code>. Usando JSON embebido. <small>(${escapeHtml(err.message)})</small>`;
-          }
-        }
-        // fallback: JSON embebido en el HTML
-        const rawEl = document.getElementById('questions-data');
-        if(!rawEl) throw new Error('No hay fuente de preguntas.');
-        const raw = rawEl.textContent.trim();
-        loadmsg.textContent = 'Usando preguntas embebidas.';
-        return normalize(JSON.parse(raw));
+        const url = resolveDataURL(dataParam);
+        loadmsg.textContent = 'Cargando desde: ' + url;
+        const r = await fetch(url, { cache: 'no-store' });
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        const json = await r.json();
+        loadmsg.textContent = 'Preguntas cargadas.';
+        return normalize(json);
       }
 
       function normalize(data){
-        // admite tanto: array plano OR { shuffle: bool, questions: [...] }
         if(Array.isArray(data)) return { shuffle: true, questions: data };
         if(data && Array.isArray(data.questions)) return data;
         throw new Error('Formato JSON inválido');
       }
 
-      // Cargar/normalizar preguntas (usa fetch ?data=... o fallback)
       const data = await loadQuestions();
-
-      // PREPARAR preguntas
-      let questions = data.questions.map(q => ({...q}));
-      if (data.shuffle) questions = shuffle(questions);
-
-      // Estado
+      let questions = data.shuffle ? shuffle(data.questions) : data.questions;
       let state = { idx: 0, score: 0, answered: false, history: [] };
 
-      // Elementos
-      const qbox = document.getElementById('qbox');
-      const nextBtn = document.getElementById('nextBtn');
-      const resetBtn = document.getElementById('resetBtn');
-      const progressEl = document.getElementById('progress');
-      const statusEl = document.getElementById('status');
+      const qbox = $('#qbox'), nextBtn = $('#nextBtn'), resetBtn = $('#resetBtn'),
+            progressEl = $('#progress'), statusEl = $('#status');
 
-      // Eventos
       resetBtn.addEventListener('click', () => {
         state = { idx: 0, score: 0, answered:false, history: [] };
-        questions = data.shuffle ? shuffle(data.questions.map(q=>({...q}))) : data.questions.map(q=>({...q}));
+        questions = data.shuffle ? shuffle(data.questions) : data.questions;
         render();
       });
 
       nextBtn.addEventListener('click', () => {
-        if (state.idx < questions.length - 1){
-          state.idx++;
-          state.answered = false;
-          render();
-        } else {
-          showResult();
-        }
+        if (state.idx < questions.length - 1){ state.idx++; state.answered=false; render(); }
+        else showResult();
       });
 
       function render(){
         const q = questions[state.idx];
         const total = questions.length;
         statusEl.textContent = `Pregunta ${state.idx+1} de ${total}`;
-        progressEl.style.width = `${((state.idx)/total)*100}%`;
+        progressEl.style.width = `${(state.idx/total)*100}%`;
         nextBtn.disabled = true;
 
-        const choices = q.choices.map((c, i) => `<button class="btn" data-i="${i}" type="button">${escapeHtml(c)}</button>`).join('');
-        qbox.innerHTML = `<div class="q">${escapeHtml(q.text)}</div><div class="choices" role="group" aria-label="Alternativas">${choices}</div>`;
+        qbox.innerHTML = `<div class="q">${escapeHtml(q.text)}</div>
+          <div class="choices">${q.choices.map((c,i)=>`<button class="btn" data-i="${i}">${escapeHtml(c)}</button>`).join('')}</div>`;
 
         $$('.btn', qbox).forEach(btn => btn.addEventListener('click', onPick));
       }
 
       function onPick(e){
-        if (state.answered) return;
-        const btn = e.currentTarget;
-        const picked = Number(btn.dataset.i);
+        if(state.answered) return;
+        const btn = e.currentTarget, picked = Number(btn.dataset.i);
         const q = questions[state.idx];
         state.answered = true;
 
-        // marcar
-        $$('.btn', qbox).forEach((b, i)=>{
-          b.disabled = true;
-          if (i === q.answer) b.classList.add('correct');
-        });
-        if (picked !== q.answer){
-          btn.classList.add('wrong');
-        } else {
-          state.score++;
-        }
+        $$('.btn', qbox).forEach((b,i)=>{ b.disabled=true; if(i===q.answer)b.classList.add('correct'); });
+        if(picked!==q.answer) btn.classList.add('wrong'); else state.score++;
 
         state.history[state.idx] = { picked, correctIndex: q.answer };
-        nextBtn.textContent = state.idx === questions.length-1 ? 'Ver resultado' : 'Siguiente ▸';
+        nextBtn.textContent = state.idx===questions.length-1?'Ver resultado':'Siguiente ▸';
         nextBtn.disabled = false;
 
-        // Mostrar explicación
-        const exp = document.createElement('div');
-        exp.className = 'muted';
-        exp.style.marginTop = '6px';
-        exp.innerHTML = `💡 ${escapeHtml(q.explain || '')}`;
-        qbox.appendChild(exp);
-
-        // Avanza la barra un poco para indicar respuesta completada
-        const total = questions.length;
-        progressEl.style.width = `${((state.idx+1)/total)*100}%`;
+        if(q.explain){
+          const exp=document.createElement('div');exp.className='muted';exp.style.marginTop='6px';exp.textContent="💡 "+q.explain;qbox.appendChild(exp);
+        }
+        progressEl.style.width = `${((state.idx+1)/questions.length)*100}%`;
       }
 
       function showResult(){
-        const total = questions.length;
-        const pct = Math.round((state.score/total)*100);
-        const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🎉' : pct >= 60 ? '✅' : '📚';
+        const total = questions.length, pct = Math.round((state.score/total)*100);
+        const emoji = pct===100?'🏆':pct>=80?'🎉':pct>=60?'✅':'📚';
 
-        const review = questions.map((q, i)=>{
-          const h = state.history[i];
-          const ok = h && h.picked === h.correctIndex;
-          const pickedLabel = typeof h?.picked === 'number' ? q.choices[h.picked] : '—';
-          return `<details><summary>${ok ? '✔️' : '✖️'} ${escapeHtml(q.text)} <span class="tag">Tu respuesta: ${escapeHtml(String(pickedLabel))}</span> <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span></summary><div class="muted" style="margin-top:8px">${escapeHtml(q.explain || '')}</div></details>`;
+        const review = questions.map((q,i)=>{
+          const h=state.history[i], ok=h&&h.picked===h.correctIndex;
+          const pickedLabel=typeof h?.picked==="number"?q.choices[h.picked]:"—";
+          return `<details><summary>${ok?'✔️':'✖️'} ${escapeHtml(q.text)} <span class="tag">Tu: ${escapeHtml(String(pickedLabel))}</span> <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span></summary><div class="muted">${escapeHtml(q.explain||'')}</div></details>`;
         }).join('');
 
-        qbox.innerHTML = `<div class="result">
-          <div class="score">${emoji} ${state.score}/${total} · ${pct}%</div>
-          <h2>Resultado</h2>
-          <p class="muted">¡Gracias por jugar! Puedes reiniciar o editar el JSON para nuevas preguntas.</p>
-        </div>
-        <div class="review">${review}</div>`;
-
+        qbox.innerHTML=`<div class="result"><div class="score">${emoji} ${state.score}/${total} · ${pct}%</div><h2>Resultado</h2></div><div class="review">${review}</div>`;
         statusEl.textContent = `Completado · ${state.score}/${total}`;
-        nextBtn.textContent = 'Repetir';
-        nextBtn.disabled = false;
-        nextBtn.onclick = () => resetBtn.click();
+        nextBtn.textContent='Repetir'; nextBtn.disabled=false; nextBtn.onclick=()=>resetBtn.click();
       }
 
-      function shuffle(arr){
-        const a = arr.slice();
-        for(let i=a.length-1;i>0;i--){
-          const j = Math.floor(Math.random()*(i+1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-      }
+      function shuffle(a){return a.sort(()=>Math.random()-0.5);}
+      function escapeHtml(str){return String(str).replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[s]));}
 
-      function escapeHtml(str){
-        return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[s]));
-      }
-
-      // Init
       render();
     })();
   </script>
