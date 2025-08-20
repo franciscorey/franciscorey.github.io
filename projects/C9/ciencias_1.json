@@ -1,0 +1,62 @@
+[
+  {
+    "text": "¿Cuál es el planeta más cercano al Sol?",
+    "choices": ["Mercurio", "Venus", "Tierra"],
+    "answer": 0,
+    "explain": "Mercurio orbita más cerca del Sol que cualquier otro planeta."
+  },
+  {
+    "text": "¿Qué gas es el principal componente de la atmósfera terrestre?",
+    "choices": ["Nitrógeno", "Oxígeno", "Dióxido de carbono"],
+    "answer": 0,
+    "explain": "El nitrógeno constituye aproximadamente el 78% de la atmósfera."
+  },
+  {
+    "text": "¿Cuál es la unidad básica de la vida?",
+    "choices": ["Célula", "Átomo", "Molécula"],
+    "answer": 0,
+    "explain": "La célula es la unidad estructural y funcional básica de todos los organismos."
+  },
+  {
+    "text": "¿Qué fuerza mantiene a los planetas en órbita alrededor del Sol?",
+    "choices": ["Gravedad", "Magnetismo", "Fricción"],
+    "answer": 0,
+    "explain": "La gravedad es la fuerza atractiva que mantiene los cuerpos celestes en órbita."
+  },
+  {
+    "text": "¿Cuál es el proceso por el cual las plantas convierten la luz solar en energía?",
+    "choices": ["Fotosíntesis", "Respiración", "Transpiración"],
+    "answer": 0,
+    "explain": "La fotosíntesis permite a las plantas producir glucosa usando luz solar, agua y CO2."
+  },
+  {
+    "text": "¿Qué elemento químico tiene el símbolo 'O'?",
+    "choices": ["Oxígeno", "Oro", "Osmio"],
+    "answer": 0,
+    "explain": "'O' representa al oxígeno en la tabla periódica."
+  },
+  {
+    "text": "¿Cuál es la velocidad de la luz en el vacío?",
+    "choices": ["300,000 km/s", "150,000 km/s", "1,000 km/s"],
+    "answer": 0,
+    "explain": "La velocidad de la luz es aproximadamente 299,792 km/s, redondeada a 300,000 km/s."
+  },
+  {
+    "text": "¿Qué tipo de animal es un anfibio?",
+    "choices": ["Rana", "Águila", "Tiburón"],
+    "answer": 0,
+    "explain": "Los anfibios, como las ranas, viven tanto en agua como en tierra."
+  },
+  {
+    "text": "¿Cuál es el órgano principal del sistema circulatorio?",
+    "choices": ["Corazón", "Pulmones", "Hígado"],
+    "answer": 0,
+    "explain": "El corazón bombea sangre a través del cuerpo."
+  },
+  {
+    "text": "¿Qué es la mitosis?",
+    "choices": ["División celular", "Fusión celular", "Digestión celular"],
+    "answer": 0,
+    "explain": "La mitosis es el proceso de división de una célula en dos células hijas idénticas."
+  }
+]
