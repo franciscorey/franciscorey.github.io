@@ -1,0 +1,122 @@
+[
+  {
+    "text": "¿Cuál es la función principal del sistema locomotor?",
+    "choices": ["Producir hormonas", "Permitir el movimiento y dar soporte al cuerpo", "Transportar oxígeno"],
+    "answer": 1,
+    "explain": "El sistema locomotor permite el movimiento, sostiene el cuerpo y protege órganos."
+  },
+  {
+    "text": "¿Qué estructuras forman el sistema locomotor?",
+    "choices": ["Huesos, músculos, articulaciones, tendones y ligamentos", "Pulmones y corazón", "Encéfalo y nervios"],
+    "answer": 0,
+    "explain": "El sistema locomotor está compuesto por huesos, músculos, articulaciones, tendones y ligamentos."
+  },
+  {
+    "text": "¿Qué función cumplen los huesos?",
+    "choices": ["Dar forma y sostén al cuerpo, y proteger órganos", "Contraerse y relajarse", "Transportar sangre"],
+    "answer": 0,
+    "explain": "Los huesos son estructuras duras que sostienen el cuerpo y protegen órganos vitales."
+  },
+  {
+    "text": "¿Qué función tienen los músculos?",
+    "choices": ["Contraerse y relajarse para producir movimiento", "Unir los huesos", "Almacenar energía"],
+    "answer": 0,
+    "explain": "Los músculos se contraen y relajan para generar movimiento."
+  },
+  {
+    "text": "¿Cuál es un ejemplo de músculo involuntario?",
+    "choices": ["Bíceps", "Corazón", "Tríceps"],
+    "answer": 1,
+    "explain": "El corazón es un músculo que funciona de manera involuntaria."
+  },
+  {
+    "text": "¿Qué son las articulaciones?",
+    "choices": ["Zonas donde se unen dos o más huesos", "Partes blandas del músculo", "Cavidades dentro de los huesos"],
+    "answer": 0,
+    "explain": "Las articulaciones son uniones entre huesos que permiten movimiento."
+  },
+  {
+    "text": "¿Qué función cumplen los ligamentos?",
+    "choices": ["Unir músculos a huesos", "Unir hueso con hueso", "Almacenar calcio"],
+    "answer": 1,
+    "explain": "Los ligamentos son cordones fibrosos que unen hueso con hueso."
+  },
+  {
+    "text": "¿Qué función cumplen los tendones?",
+    "choices": ["Unir músculos a huesos", "Producir glóbulos rojos", "Transmitir señales nerviosas"],
+    "answer": 0,
+    "explain": "Los tendones conectan músculos con huesos, permitiendo el movimiento."
+  },
+  {
+    "text": "¿Qué hábito ayuda a mantener huesos y músculos fuertes?",
+    "choices": ["Dormir todo el día", "Hacer actividad física", "Comer solo dulces"],
+    "answer": 1,
+    "explain": "La actividad física fortalece huesos y músculos."
+  },
+  {
+    "text": "¿Qué nutriente es esencial para la salud ósea?",
+    "choices": ["Vitamina C", "Calcio", "Hierro"],
+    "answer": 1,
+    "explain": "El calcio es fundamental para la formación y fortaleza de los huesos."
+  },
+  {
+    "text": "¿Qué estructuras forman el sistema nervioso central?",
+    "choices": ["Cerebro y médula espinal", "Músculos y huesos", "Nervios y ligamentos"],
+    "answer": 0,
+    "explain": "El sistema nervioso central está formado por el encéfalo (cerebro, cerebelo, tronco) y la médula espinal."
+  },
+  {
+    "text": "¿Qué función cumple el cerebro?",
+    "choices": ["Coordina movimientos voluntarios y procesa información sensorial", "Produce glóbulos rojos", "Filtra la sangre"],
+    "answer": 0,
+    "explain": "El cerebro procesa estímulos, coordina movimientos y regula funciones cognitivas."
+  },
+  {
+    "text": "¿Qué función cumple el cerebelo?",
+    "choices": ["Regular el equilibrio y la coordinación", "Bombear sangre", "Proteger los pulmones"],
+    "answer": 0,
+    "explain": "El cerebelo regula la coordinación de movimientos y el equilibrio."
+  },
+  {
+    "text": "¿Qué función cumple el tronco encefálico?",
+    "choices": ["Regular funciones vitales como respiración y latido cardíaco", "Unir músculos a huesos", "Almacenar calcio"],
+    "answer": 0,
+    "explain": "El tronco encefálico controla funciones vitales automáticas."
+  },
+  {
+    "text": "¿Qué función cumple la médula espinal?",
+    "choices": ["Transmitir información entre el cerebro y el cuerpo", "Bombear sangre", "Almacenar grasa"],
+    "answer": 0,
+    "explain": "La médula espinal transporta información nerviosa y produce reflejos."
+  },
+  {
+    "text": "¿Qué son los nervios?",
+    "choices": ["Cordones fibrosos que unen huesos", "Fibras que transmiten señales nerviosas", "Uniones entre huesos"],
+    "answer": 1,
+    "explain": "Los nervios son fibras que llevan señales entre el cerebro, médula y cuerpo."
+  },
+  {
+    "text": "¿Qué es una respuesta voluntaria?",
+    "choices": ["Movimiento que controlamos conscientemente", "Reacción automática sin pensar", "Actividad muscular involuntaria"],
+    "answer": 0,
+    "explain": "Las respuestas voluntarias son controladas de forma consciente, como caminar."
+  },
+  {
+    "text": "¿Qué es una respuesta involuntaria?",
+    "choices": ["Acción automática del cuerpo ante un estímulo", "Decisión consciente", "Movimiento controlado por músculos voluntarios"],
+    "answer": 0,
+    "explain": "Las respuestas involuntarias, como parpadear o retirar la mano del fuego, son automáticas."
+  },
+  {
+    "text": "¿Qué es la capacidad de respuesta?",
+    "choices": ["Tiempo de reacción ante un estímulo", "La fuerza de los músculos", "La elasticidad de los tendones"],
+    "answer": 0,
+    "explain": "La capacidad de respuesta es la rapidez con la que reaccionamos ante un estímulo externo."
+  },
+  {
+    "text": "¿Qué hábitos ayudan a cuidar el sistema locomotor y nervioso?",
+    "choices": ["Alimentación saludable, buena postura y ejercicio", "Comer comida chatarra y dormir poco", "No moverse mucho"],
+    "answer": 0,
+    "explain": "Ejercicio, buena postura y alimentación equilibrada son esenciales para mantener estos sistemas sanos."
+  }
+]
