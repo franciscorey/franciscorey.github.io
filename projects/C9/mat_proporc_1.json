@@ -1,0 +1,32 @@
+[
+  {
+    "text": "¿Qué significa que dos magnitudes sean proporcionales?",
+    "choices": ["Que siempre cambian al mismo tiempo", "Que al aumentar una, la otra cambia en la misma razón", "Que son números consecutivos"],
+    "answer": 1,
+    "explain": "La proporcionalidad implica que al variar una magnitud, la otra cambia en la misma razón o escala."
+  },
+  {
+    "text": "Si una relación es de proporcionalidad directa, ¿qué ocurre?",
+    "choices": ["Si una magnitud aumenta, la otra también aumenta", "Si una aumenta, la otra disminuye", "Las dos permanecen constantes"],
+    "answer": 0,
+    "explain": "En la proporcionalidad directa, ambas magnitudes crecen o disminuyen en la misma razón."
+  },
+  {
+    "text": "¿Qué es una razón en matemáticas?",
+    "choices": ["Una multiplicación de números", "Una comparación entre dos cantidades mediante una división", "Un número aleatorio"],
+    "answer": 1,
+    "explain": "La razón compara dos cantidades indicando cuántas veces una contiene a la otra."
+  },
+  {
+    "text": "¿Qué es una proporción?",
+    "choices": ["La igualdad entre dos razones", "Un número con decimales", "Una operación de suma"],
+    "answer": 0,
+    "explain": "Una proporción establece que dos razones son iguales, por ejemplo: 2/4 = 1/2."
+  },
+  {
+    "text": "¿En qué situación de la vida diaria se aplica la proporcionalidad?",
+    "choices": ["Al cocinar una receta ajustando las cantidades", "Al mirar una película", "Al escribir una carta"],
+    "answer": 0,
+    "explain": "La proporcionalidad se aplica en la vida diaria, como cuando duplicamos ingredientes en una receta."
+  }
+]
