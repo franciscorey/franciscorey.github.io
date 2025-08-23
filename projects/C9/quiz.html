@@ -164,7 +164,7 @@
         const r = await fetch(url, { cache: 'no-store' });
         if (!r.ok) throw new Error('HTTP ' + r.status);
         const json = await r.json();
-        loadmsg.textContent = 'Responda una de las alternativas.';
+        loadmsg.textContent = 'Responde la alternativa correcta en las siguientes preguntas.';
         return normalize(json);
       }
 
