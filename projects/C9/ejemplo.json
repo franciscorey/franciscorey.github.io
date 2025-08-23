@@ -1,0 +1,14 @@
+[
+  {
+    "text": "🍎 Si 2 manzanas cuestan $4, ¿cuánto cuestan 5?",
+    "choices": ["$8", "$10", "$12"],
+    "answer": 1,
+    "explain": "Cada manzana cuesta $2. 5 × $2 = $10 💡"
+  },
+  {
+    "text": "📏 ¿Qué es una razón?",
+    "choices": ["Comparar dos cantidades", "Sumar números", "Dibujar líneas"],
+    "answer": 0,
+    "explain": "Una razón compara dos números, como 3:2 o 3/2 🔍"
+  }
+]
