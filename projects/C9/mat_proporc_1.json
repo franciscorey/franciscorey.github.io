@@ -75,11 +75,11 @@
     "text": "Si un carro recorre 60 km en 1 hora, ¿cuántos km recorrerá en 3 horas a la misma velocidad?",
     "choices": ["120 km", "180 km", "240 km"],
     "answer": 1,
-    "explain": "En 1 hora → 60 km. En 3 horas → 3 × 60 = 180 km."
+    "explain": "En 1 hora son 60 km. En 3 horas son 3 × 60 = 180 km."
   },
   {
     "text": "¿Qué tipo de proporcionalidad hay entre el número de grifos y el tiempo para llenar un tanque?",
-    "choices": ["Directa ➚", "Inversa ➘", "Ninguna"],
+    "choices": ["Directa", "Inversa", "Ninguna"],
     "answer": 1,
     "explain": "Más grifos = menos tiempo. Una sube, la otra baja."
   },
@@ -87,6 +87,6 @@
     "text": "La razón de niñas a niños en un salón es 2:3. Si hay 10 niñas, ¿cuántos niños hay?",
     "choices": ["12", "15", "20"],
     "answer": 1,
-    "explain": "2:3 → 10:?  → ? = 10/2 × 3 = 15 niños."
+    "explain": "2:3 es a 10:? luego ? = 10/2 × 3 = 15 niños."
   }
 ]
