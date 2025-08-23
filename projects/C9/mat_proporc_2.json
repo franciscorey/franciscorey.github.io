@@ -1,0 +1,62 @@
+[
+  {
+    "text": "🍎 Si 2 manzanas cuestan $4, ¿cuánto cuestan 5 manzanas?",
+    "choices": ["$8 💵", "$10 💵", "$12 💵"],
+    "answer": 1,
+    "explain": "Cada manzana cuesta $2. 5 × $2 = $10. 💡"
+  },
+  {
+    "text": "📈 ¿Qué pasa si una cantidad aumenta y la otra también aumenta en la misma proporción?",
+    "choices": ["Es proporcionalidad directa 🔄", "Es proporcionalidad inversa 🔁", "No están relacionadas ❌"],
+    "answer": 0,
+    "explain": "Cuando ambas aumentan juntas, es proporcionalidad directa. 👍"
+  },
+  {
+    "text": "🔍 ¿Qué es una razón?",
+    "choices": ["La diferencia entre dos números ➖", "La división entre dos cantidades ➗", "La suma de dos números ➕"],
+    "answer": 1,
+    "explain": "Una razón compara dos cantidades dividiéndolas, como 4:2. 🧮"
+  },
+  {
+    "text": "👷‍♂️ Si 6 personas tardan 4 días en hacer un trabajo, ¿cuántos días tardarán 12 personas?",
+    "choices": ["8 días 📅", "4 días 📅", "2 días 📅"],
+    "answer": 2,
+    "explain": "Más personas = menos tiempo. Es proporcionalidad inversa. ⏳"
+  },
+  {
+    "text": "⚖️ ¿Cuál de estas es una proporción?",
+    "choices": ["3 + 5 = 8 ➕", "2/4 = 1/2 ✅", "7 − 3 = 4 ➖"],
+    "answer": 1,
+    "explain": "Una proporción es cuando dos razones son iguales. 2/4 = 1/2 ✔️"
+  },
+  {
+    "text": "🧁 En una receta, se usan 3 tazas de harina por 1 taza de azúcar. ¿Cuánta harina se necesita si se usan 3 tazas de azúcar?",
+    "choices": ["3 tazas 🥄", "6 tazas 🥄", "9 tazas 🥄"],
+    "answer": 2,
+    "explain": "Por cada taza de azúcar, se usan 3 de harina. 3 × 3 = 9. 🍩"
+  },
+  {
+    "text": "🤝 ¿Qué significa que dos cosas sean proporcionales?",
+    "choices": ["Que son iguales 🤪", "Que cambian juntas en la misma medida 🔄", "Que nunca cambian 🫢"],
+    "answer": 1,
+    "explain": "Si una crece, la otra crece igual. ¡Van de la mano! 🤝"
+  },
+  {
+    "text": "🚗 Si un carro recorre 60 km en 1 hora, ¿cuántos km recorrerá en 3 horas a la misma velocidad?",
+    "choices": ["120 km 🛣️", "180 km 🛣️", "240 km 🛣️"],
+    "answer": 1,
+    "explain": "En 1 hora → 60 km. En 3 horas → 3 × 60 = 180 km. 🚀"
+  },
+  {
+    "text": "💧 ¿Qué tipo de proporcionalidad hay entre el número de grifos y el tiempo para llenar un tanque?",
+    "choices": ["Directa ➚", "Inversa ➘", "Ninguna ❌"],
+    "answer": 1,
+    "explain": "Más grifos = menos tiempo. Una sube, la otra baja. 🔁"
+  },
+  {
+    "text": "👧👦 La razón de niñas a niños en un salón es 2:3. Si hay 10 niñas, ¿cuántos niños hay?",
+    "choices": ["12 🧑", "15 🧑", "20 🧑"],
+    "answer": 1,
+    "explain": "Por cada 2 niñas hay 3 niños. 10 niñas = 5 grupos → 5 × 3 = 15 niños. 👩‍🏫"
+  }
+]
