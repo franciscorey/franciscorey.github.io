@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Miniquiz Mejorado</title>
+  <title>Kukyquiz</title>
   <style>
     :root {
-      --bg: #2e261f; /* Fondo principal */
-      --card: #3a3229; /* Tarjeta complementaria, tono marrón más claro */
-      --muted: #b8a99a; /* Texto muted, beige grisáceo */
-      --text: #f2e9df; /* Texto principal, beige claro */
-      --primary: #22c55e; /* Primario, verde para acentos */
-      --primary-ink: #052e16; /* Tinta primaria, verde oscuro */
-      --danger: #ef4444; /* Danger, rojo para errores */
-      --warning: #fbbf24; /* Warning, amarillo para alertas */
-      --ring: #4a3e33; /* Bordes, marrón medio */
+      --bg: #2e261f;
+      --card: #3a3229;
+      --muted: #b8a99a;
+      --text: #f2e9df;
+      --primary: #22c55e;
+      --primary-ink: #052e16;
+      --danger: #ef4444;
+      --warning: #fbbf24;
+      --ring: #4a3e33;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -25,14 +25,14 @@
       color: var(--text);
       display: grid;
       place-items: center;
-      padding: clamp(12px, 4vw, 24px); /* Mejora responsividad en padding */
+      padding: clamp(12px, 4vw, 24px);
     }
     .wrap { width: min(800px, 100%); max-width: 100%; }
     .card {
       background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.0));
       border: 1px solid var(--ring);
       border-radius: 20px;
-      padding: clamp(12px, 3vw, 20px); /* Padding responsivo */
+      padding: clamp(12px, 3vw, 20px);
       backdrop-filter: blur(6px);
       box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
@@ -46,10 +46,9 @@
       place-items: center;
       color: var(--primary-ink);
       font-weight: 800;
-      font-size: clamp(1rem, 4vw, 1.5rem); /* Tamaño de logo responsivo */
+      font-size: clamp(1rem, 4vw, 1.5rem);
     }
     header h1 { font-size: clamp(1rem, 3vw, 1.1rem); margin: 0; }
-    header p { margin: 0; color: var(--muted); font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
     .bar { height: 8px; background: #1a120a; border: 1px solid var(--ring); border-radius: 999px; overflow: hidden; }
     .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), #4ade80); transition: width .35s ease; }
     .qbox { margin-top: clamp(12px, 3vw, 16px); display: grid; gap: clamp(10px, 2.5vw, 14px); }
@@ -106,9 +105,27 @@
       border: 1px solid var(--ring);
       color: var(--muted);
     }
-    #loadmsg { margin-top: clamp(4px, 1vw, 6px); color: var(--muted); font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
-
-    /* Media queries para mejor responsividad en pantallas pequeñas */
+    #loadmsg {
+      margin-top: clamp(4px, 1vw, 6px);
+      color: var(--muted);
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--muted);
+      border-top: 2px solid var(--text);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     @media (max-width: 600px) {
       body { padding: 12px; }
       .card { border-radius: 16px; padding: 12px; }
@@ -125,7 +142,7 @@
         <div class="logo">🐱</div>
         <div>
           <h1>Kukyquiz</h1>
-          <div id="loadmsg">Cargando preguntas…</div>
+          <div id="loadmsg"><span class="spinner"></span> Cargando preguntas…</div>
         </div>
       </header>
       <div class="bar"><div id="progress"></div></div>
@@ -139,15 +156,21 @@
       </div>
     </div>
   </div>
+
   <script>
-    (async function(){
+    (async function () {
       const $ = (sel, ctx = document) => ctx.querySelector(sel);
       const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       const loadmsg = $('#loadmsg');
       const params = new URLSearchParams(location.search);
       const dataParam = params.get('data');
-      if (!dataParam) throw new Error("❌ Falta ?data=... en la URL");
 
+      if (!dataParam) {
+        loadmsg.textContent = '❌ Falta ?data=... en la URL';
+        return;
+      }
+
+      // Resuelve la URL correctamente
       function resolveDataURL(p) {
         if (/^https?:\/\//i.test(p)) return p;
         const baseDir = location.pathname.replace(/[^/]*$/, '');
@@ -158,14 +181,32 @@
         return new URL(p, location.href).href;
       }
 
+      // Timeout para evitar carga infinita
+      function fetchWithTimeout(url, timeout = 10000) {
+        return Promise.race([
+          fetch(url, { cache: 'no-store' }),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), timeout))
+        ]);
+      }
+
       async function loadQuestions() {
         const url = resolveDataURL(dataParam);
-        loadmsg.textContent = 'Cargando desde: ' + url;
-        const r = await fetch(url, { cache: 'no-store' });
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const json = await r.json();
-        loadmsg.textContent = 'Responde la alternativa correcta en las siguientes preguntas.';
-        return normalize(json);
+        loadmsg.textContent = '';
+        loadmsg.insertAdjacentHTML('beforeend', '<span class="spinner"></span> Cargando desde servidor…');
+
+        try {
+          const res = await fetchWithTimeout(url);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const json = await res.json();
+          loadmsg.innerHTML = '✅ Preguntas cargadas. ¡Listo para jugar!';
+          setTimeout(() => loadmsg.style.opacity = 0, 1000); // Fade out
+          return normalize(json);
+        } catch (err) {
+          console.error('Error al cargar:', err);
+          loadmsg.innerHTML = `❌ No se pudieron cargar las preguntas.<br><small>Verifica la URL o tu conexión.</small>`;
+          loadmsg.style.color = 'var(--danger)';
+          throw err;
+        }
       }
 
       function normalize(data) {
@@ -174,89 +215,147 @@
         throw new Error('Formato JSON inválido');
       }
 
-      const data = await loadQuestions();
-      let questions = data.shuffle ? shuffle(data.questions) : data.questions;
-      let state = { idx: 0, score: 0, answered: false, history: [], finished: false };
-      const qbox = $('#qbox'), nextBtn = $('#nextBtn'), resetBtn = $('#resetBtn'),
-            progressEl = $('#progress'), statusEl = $('#status');
+      try {
+        const data = await loadQuestions();
+        let questions = data.shuffle ? shuffle(data.questions) : data.questions;
+        let state = { idx: 0, score: 0, answered: false, history: [], finished: false };
 
-      resetBtn.addEventListener('click', resetQuiz);
+        const qbox = $('#qbox');
+        const nextBtn = $('#nextBtn');
+        const resetBtn = $('#resetBtn');
+        const progressEl = $('#progress');
+        const statusEl = $('#status');
 
-      function resetQuiz() {
-        state = { idx: 0, score: 0, answered: false, history: [], finished: false };
-        questions = data.shuffle ? shuffle(data.questions) : data.questions;
-        render();
-      }
+        resetBtn.addEventListener('click', resetQuiz);
 
-      nextBtn.addEventListener('click', () => {
-        if (state.finished) {
-          resetQuiz();
-        } else if (state.idx < questions.length - 1) {
-          state.idx++;
-          state.answered = false;
+        function resetQuiz() {
+          state = { idx: 0, score: 0, answered: false, history: [], finished: false };
+          questions = data.shuffle ? shuffle(data.questions) : data.questions;
           render();
-        } else {
-          showResult();
         }
-      });
 
-      function render() {
-        const q = questions[state.idx];
-        const total = questions.length;
-        statusEl.textContent = `Pregunta ${state.idx + 1} de ${total}`;
-        progressEl.style.width = `${(state.idx / total) * 100}%`;
-        nextBtn.disabled = true;
+        nextBtn.addEventListener('click', () => {
+          if (state.finished) {
+            resetQuiz();
+          } else if (state.idx < questions.length - 1) {
+            state.idx++;
+            state.answered = false;
+            render();
+          } else {
+            showResult();
+          }
+        });
 
-        let choices = [...q.choices];
-        let answerIndex = q.answer;
-        const shuffledIndices = shuffle([...Array(choices.length).keys()]);
-        choices = shuffledIndices.map(idx => q.choices[idx]);
-        answerIndex = shuffledIndices.indexOf(q.answer);
+        function render() {
+          const q = questions[state.idx];
+          const total = questions.length;
+          statusEl.textContent = `Pregunta ${state.idx + 1} de ${total}`;
+          progressEl.style.width = `${(state.idx / total) * 100}%`;
+          nextBtn.disabled = true;
 
-        qbox.innerHTML = `<div class="q">${escapeHtml(q.text)}</div>
-          <div class="choices">${choices.map((c, i) => `<button class="btn" data-i="${i}">${escapeHtml(c)}</button>`).join('')}</div>`;
-        $$('.btn', qbox).forEach(btn => btn.addEventListener('click', e => onPick(e, choices, answerIndex, q)));
-      }
+          const shuffledIndices = shuffle([...Array(q.choices.length).keys()]);
+          const choices = shuffledIndices.map(i => q.choices[i]);
+          const answerIndex = shuffledIndices.indexOf(q.answer);
 
-      function onPick(e, choices, answerIndex, q) {
-        if (state.answered) return;
-        const btn = e.currentTarget;
-        const picked = Number(btn.dataset.i);
-        state.answered = true;
-        $$('.btn', qbox).forEach((b, i) => { b.disabled = true; if (i === answerIndex) b.classList.add('correct'); });
-        if (picked !== answerIndex) btn.classList.add('wrong'); else state.score++;
-        state.history[state.idx] = { pickedText: choices[picked], correctText: q.choices[q.answer] };
-        nextBtn.textContent = state.idx === questions.length - 1 ? 'Ver resultado' : 'Siguiente ▸';
-        nextBtn.disabled = false;
-        if (q.explain) {
-          const exp = document.createElement('div');
-          exp.className = 'muted';
-          exp.style.marginTop = '6px';
-          exp.textContent = "💡 " + q.explain;
-          qbox.appendChild(exp);
+          qbox.innerHTML = `
+            <div class="q">${escapeHtml(q.text)}</div>
+            <div class="choices">
+              ${choices.map((choice, i) => `
+                <button class="btn" data-i="${i}">${escapeHtml(choice)}</button>
+              `).join('')}
+            </div>
+          `;
+
+          $$('.btn', qbox).forEach(btn => {
+            btn.addEventListener('click', e => onPick(e, choices, answerIndex, q));
+          });
         }
-        progressEl.style.width = `${((state.idx + 1) / questions.length) * 100}%`;
+
+        function onPick(e, choices, answerIndex, q) {
+          if (state.answered) return;
+          const btn = e.currentTarget;
+          const picked = Number(btn.dataset.i);
+          state.answered = true;
+
+          $$('.btn', qbox).forEach((b, i) => {
+            b.disabled = true;
+            if (i === answerIndex) b.classList.add('correct');
+          });
+
+          if (picked !== answerIndex) {
+            btn.classList.add('wrong');
+          } else {
+            state.score++;
+          }
+
+          state.history[state.idx] = {
+            pickedText: choices[picked],
+            correctText: q.choices[q.answer]
+          };
+
+          nextBtn.textContent = state.idx === questions.length - 1 ? 'Ver resultado' : 'Siguiente ▸';
+          nextBtn.disabled = false;
+
+          if (q.explain) {
+            const exp = document.createElement('div');
+            exp.className = 'muted';
+            exp.style.marginTop = '6px';
+            exp.textContent = "💡 " + q.explain;
+            qbox.appendChild(exp);
+          }
+
+          progressEl.style.width = `${((state.idx + 1) / questions.length) * 100}%`;
+        }
+
+        function showResult() {
+          state.finished = true;
+          const total = questions.length;
+          const pct = Math.round((state.score / total) * 100);
+          const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🎉' : pct >= 60 ? '✅' : '📚';
+
+          const review = questions.map((q, i) => {
+            const h = state.history[i];
+            const ok = h && h.pickedText === h.correctText;
+            const pickedLabel = h ? h.pickedText : "—";
+            return `
+              <details>
+                <summary>
+                  ${ok ? '✔️' : '✖️'} ${escapeHtml(q.text)}
+                  <span class="tag">Tu: ${escapeHtml(pickedLabel)}</span>
+                  <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span>
+                </summary>
+                <div class="muted">${escapeHtml(q.explain || 'Sin explicación')}</div>
+              </details>
+            `;
+          }).join('');
+
+          qbox.innerHTML = `
+            <div class="result">
+              <div class="score">${emoji} ${state.score}/${total} · ${pct}%</div>
+              <h2>Resultado</h2>
+            </div>
+            <div class="review">${review}</div>
+          `;
+          statusEl.textContent = `Completado · ${state.score}/${total}`;
+          nextBtn.textContent = 'Repetir';
+          nextBtn.disabled = false;
+        }
+
+        function shuffle(arr) {
+          return [...arr].sort(() => Math.random() - 0.5);
+        }
+
+        function escapeHtml(str) {
+          const div = document.createElement('div');
+          div.textContent = str;
+          return div.innerHTML;
+        }
+
+        render();
+
+      } catch (err) {
+        console.warn('Quiz no cargado:', err.message);
       }
-
-      function showResult() {
-        state.finished = true;
-        const total = questions.length, pct = Math.round((state.score / total) * 100);
-        const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🎉' : pct >= 60 ? '✅' : '📚';
-        const review = questions.map((q, i) => {
-          const h = state.history[i], ok = h && h.pickedText === h.correctText;
-          const pickedLabel = h ? h.pickedText : "—";
-          return `<details><summary>${ok ? '✔️' : '✖️'} ${escapeHtml(q.text)} <span class="tag">Tu: ${escapeHtml(pickedLabel)}</span> <span class="tag">Correcta: ${escapeHtml(q.choices[q.answer])}</span></summary><div class="muted">${escapeHtml(q.explain || '')}</div></details>`;
-        }).join('');
-        qbox.innerHTML = `<div class="result"><div class="score">${emoji} ${state.score}/${total} · ${pct}%</div><h2>Resultado</h2></div><div class="review">${review}</div>`;
-        statusEl.textContent = `Completado · ${state.score}/${total}`;
-        nextBtn.textContent = 'Repetir';
-        nextBtn.disabled = false;
-      }
-
-      function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
-      function escapeHtml(str) { return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#039;' }[s])); }
-
-      render();
     })();
   </script>
 </body>
