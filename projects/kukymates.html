@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Matemática de Kuky</title>
+    <style>
+        :root {
+            --bg: #2e261f;
+            --card: #3a3229;
+            --muted: #b8a99a;
+            --text: #f2e9df;
+            --primary: #22c55e;
+            --primary-ink: #052e16;
+            --danger: #ef4444;
+            --warning: #fbbf24;
+            --ring: #4a3e33;
+        }
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #login {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px var(--ring);
+            width: 350px;
+        }
+        #game {
+            display: none;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px var(--ring);
+            width: 400px;
+        }
+        #player-info {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        #problem {
+            font-size: 2.5em;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .option-btn {
+            background-color: var(--muted);
+            color: var(--primary-ink);
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            width: 100px;
+        }
+        .option-btn:hover {
+            background-color: var(--primary);
+            color: var(--text);
+        }
+        button {
+            background-color: var(--primary);
+            color: var(--primary-ink);
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: var(--warning);
+            color: var(--primary-ink);
+        }
+        #feedback {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        #progress {
+            margin: 20px 0;
+            font-size: 1em;
+            color: var(--muted);
+        }
+        .emoji {
+            font-size: 1.5em;
+            animation: bounce 0.5s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        #stars {
+            color: var(--warning);
+            font-size: 1.2em;
+        }
+        #operation-select, #level-select {
+            margin-bottom: 15px;
+        }
+        select, input {
+            font-size: 1.2em;
+            padding: 5px;
+            border-radius: 5px;
+            background: var(--muted);
+            color: var(--primary-ink);
+            border: 1px solid var(--ring);
+        }
+        #timer {
+            font-size: 1em;
+            color: var(--danger);
+            margin-top: 10px;
+        }
+        #leaderboard {
+            margin-top: 20px;
+            font-size: 1em;
+            color: var(--text);
+        }
+        #leaderboard ul {
+            list-style: none;
+            padding: 0;
+        }
+        #leaderboard li {
+            margin: 5px 0;
+        }
+        #users-list {
+            margin-top: 20px;
+        }
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 5px;
+            background: var(--muted);
+            border-radius: 5px;
+        }
+        .user-item span {
+            color: var(--primary-ink);
+        }
+        .user-item button {
+            font-size: 1em;
+            padding: 5px 10px;
+            margin: 0 5px;
+        }
+        .delete-btn {
+            background-color: var(--danger);
+        }
+        .delete-btn:hover {
+            background-color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <h1>😺 Kuky Mates 🌟</h1>
+    <div id="login">
+        <div id="new-player">
+            <p>Nuevo Jugador:</p>
+            <input type="text" id="new-username" placeholder="Ingresa tu nombre" style="width: 200px;">
+            <button onclick="registerNewPlayer()">Registrar 🚀</button>
+        </div>
+        <div id="users-list">
+            <h2>Jugadores Registrados</h2>
+            <!-- Lista dinámica aquí -->
+        </div>
+        <div id="operation-select" style="display: none;">
+            <label>Elige operación: </label>
+            <select id="operation">
+                <option value="sum">Suma (+)</option>
+                <option value="subtract">Resta (-)</option>
+                <option value="multiply">Multiplicación (×)</option>
+                <option value="divide">División (÷)</option>
+                <option value="mixed">Mixta (combinada)</option>
+            </select>
+        </div>
+        <div id="level-select" style="display: none;">
+            <label>Elige nivel inicial: </label>
+            <select id="startLevel">
+                <option value="1">1 (Fácil)</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 (Avanzado)</option>
+            </select>
+        </div>
+        <button id="start-btn" onclick="startGame()" style="display: none;">¡Empezar! 🚀</button>
+        <button onclick="clearAllStorage()">Limpiar Todos los Registros 🗑️</button>
+        <div id="leaderboard">
+            <h2>Mejores Puntajes ⭐</h2>
+            <ul id="leaderboard-list"></ul>
+        </div>
+    </div>
+    <div id="game">
+        <div id="player-info"></div>
+        <div id="problem"></div>
+        <div class="options" id="options"></div>
+        <div id="feedback"></div>
+        <div id="progress"></div>
+        <div id="stars">Estrellas: 0 ⭐</div>
+        <div id="timer">Tiempo restante: 10:00 ⏰</div>
+        <button onclick="finishGame()">Finalizar Actividad 🏁</button>
+        <button onclick="resetGame()">Salir ❌</button>
+    </div>
+
+    <script>
+        let currentLevel = 1;
+        let correctCount = 0;
+        let errorCount = 0;
+        let stars = 0;
+        let currentOperation = 'sum';
+        let timerInterval;
+        let timeLeft = 600; // 10 minutos
+        let startTime;
+        let username = '';
+        let leaderboard = JSON.parse(localStorage.getItem('mathLeaderboard')) || [];
+        let selectedForGame = false;
+
+        const levels = {
+            sum: [
+                { min: 1, max: 5 },
+                { min: 1, max: 10 },
+                { min: 1, max: 20 },
+                { min: 10, max: 50 },
+                { min: 1, max: 100 }
+            ],
+            subtract: [
+                { min: 1, max: 5 },
+                { min: 1, max: 10 },
+                { min: 1, max: 20 },
+                { min: 10, max: 50 },
+                { min: 1, max: 100 }
+            ],
+            multiply: [
+                { min: 1, max: 5 },
+                { min: 1, max: 10 },
+                { min: 2, max: 12 },
+                { min: 5, max: 15 },
+                { min: 1, max: 20 }
+            ],
+            divide: [
+                { min: 1, max: 5, divisorMin: 1, divisorMax: 5 }, // Exactas
+                { min: 1, max: 10, divisorMin: 1, divisorMax: 5 },
+                { min: 1, max: 20, divisorMin: 2, divisorMax: 10 },
+                { min: 10, max: 50, divisorMin: 2, divisorMax: 10 },
+                { min: 1, max: 100, divisorMin: 2, divisorMax: 20 }
+            ],
+            mixed: [
+                { ops: 2, max: 5 }, // e.g., 3 + 2
+                { ops: 2, max: 10 }, // 5 - 3
+                { ops: 3, max: 10 }, // 4 + 3 - 1
+                { ops: 3, max: 20 },
+                { ops: 4, max: 20 } // 10 + 5 - 2 + 1
+            ]
+        };
+
+        function getUniqueUsers() {
+            const users = new Set();
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('mathProgress_')) {
+                    const user = key.split('_')[1];
+                    users.add(user);
+                }
+            }
+            leaderboard.forEach(entry => users.add(entry.name));
+            return Array.from(users);
+        }
+
+        function updateUsersList() {
+            const usersList = document.getElementById('users-list');
+            usersList.innerHTML = '<h2>Jugadores Registrados</h2>';
+            const users = getUniqueUsers();
+            if (users.length === 0) {
+                usersList.innerHTML += '<p>No hay jugadores registrados.</p>';
+                return;
+            }
+            const ul = document.createElement('ul');
+            ul.style.listStyle = 'none';
+            ul.style.padding = '0';
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.classList.add('user-item');
+                li.innerHTML = `<span>${user}</span>
+                    <button onclick="selectUser('${user}')">Ingresar ✅</button>
+                    <button class="delete-btn" onclick="deleteUser('${user}')">Eliminar ❌</button>`;
+                ul.appendChild(li);
+            });
+            usersList.appendChild(ul);
+        }
+
+        function selectUser(user) {
+            username = user;
+            selectedForGame = true;
+            document.getElementById('operation-select').style.display = 'block';
+            document.getElementById('level-select').style.display = 'block';
+            document.getElementById('start-btn').style.display = 'block';
+            document.getElementById('new-username').value = ''; // Limpiar input nuevo
+        }
+
+        function registerNewPlayer() {
+            const newUser = document.getElementById('new-username').value.trim();
+            if (!newUser) return alert('¡Ingresa un nombre! 😊');
+            const users = getUniqueUsers();
+            if (users.includes(newUser)) return alert('¡Este nombre ya existe! Elige otro. 😊');
+            username = newUser;
+            selectedForGame = true;
+            document.getElementById('operation-select').style.display = 'block';
+            document.getElementById('level-select').style.display = 'block';
+            document.getElementById('start-btn').style.display = 'block';
+        }
+
+        function deleteUser(user) {
+            if (confirm(`¿Estás seguro de eliminar a ${user}? Esto borrará su progreso y puntajes.`)) {
+                // Borrar progresos
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith(`mathProgress_${user}_`)) {
+                        localStorage.removeItem(key);
+                    }
+                }
+                // Borrar de leaderboard
+                leaderboard = leaderboard.filter(entry => entry.name !== user);
+                localStorage.setItem('mathLeaderboard', JSON.stringify(leaderboard));
+                updateLeaderboard();
+                updateUsersList();
+                alert(`${user} ha sido eliminado.`);
+            }
+        }
+
+        function clearAllStorage() {
+            if (confirm('¿Estás seguro de limpiar todos los registros? Esto borrará todo.')) {
+                localStorage.clear();
+                leaderboard = [];
+                updateLeaderboard();
+                updateUsersList();
+                alert('Todos los registros limpiados. ¡Empieza de nuevo! 😊');
+            }
+        }
+
+        function loadProgress() {
+            const userKey = `mathProgress_${username}_${currentOperation}`;
+            const saved = localStorage.getItem(userKey);
+            if (saved) {
+                const data = JSON.parse(saved);
+                currentLevel = data.level || 1;
+                stars = data.stars || 0;
+            } else {
+                currentLevel = parseInt(document.getElementById('startLevel').value);
+                stars = 0;
+            }
+        }
+
+        function saveProgress() {
+            const userKey = `mathProgress_${username}_${currentOperation}`;
+            localStorage.setItem(userKey, JSON.stringify({
+                level: currentLevel,
+                stars: stars
+            }));
+        }
+
+        function updateLeaderboard() {
+            const list = document.getElementById('leaderboard-list');
+            list.innerHTML = '';
+            leaderboard.sort((a, b) => b.stars - a.stars);
+            leaderboard.slice(0, 5).forEach(entry => {
+                const li = document.createElement('li');
+                li.textContent = `${entry.name} - ${entry.operation.charAt(0).toUpperCase() + entry.operation.slice(1)} Nivel ${entry.level}: ${entry.stars} ⭐`;
+                list.appendChild(li);
+            });
+        }
+
+        function startGame() {
+            if (!selectedForGame) return alert('¡Selecciona o registra un jugador primero! 😊');
+            currentOperation = document.getElementById('operation').value;
+            loadProgress();
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('game').style.display = 'block';
+            updatePlayerInfo();
+            generateProblem();
+            updateProgress();
+            updateStars();
+            startTimer();
+            startTime = Date.now();
+        }
+
+        function updatePlayerInfo() {
+            document.getElementById('player-info').innerText = `${username}: ${currentOperation.charAt(0).toUpperCase() + currentOperation.slice(1)} - Nivel: [${currentLevel}]`;
+        }
+
+        function generateProblem() {
+            let problemText, correctAnswer;
+            const levelData = levels[currentOperation][currentLevel - 1];
+
+            if (currentOperation === 'mixed') {
+                const ops = ['+', '-'];
+                let exprParts = [];
+                let currentValue = Math.floor(Math.random() * levelData.max) + 1;
+                exprParts.push(currentValue);
+                for (let i = 1; i < levelData.ops; i++) {
+                    const op = ops[Math.floor(Math.random() * ops.length)];
+                    let num = Math.floor(Math.random() * levelData.max) + 1;
+                    if (op === '-' && num >= currentValue) num = Math.floor(Math.random() * currentValue) + 1; // Evitar negativos
+                    exprParts.push(op, num);
+                    currentValue = op === '+' ? currentValue + num : currentValue - num;
+                }
+                problemText = exprParts.join(' ') + ' = ';
+                correctAnswer = currentValue;
+            } else {
+                let a = Math.floor(Math.random() * (levelData.max - levelData.min + 1)) + levelData.min;
+                let b;
+                if (currentOperation === 'divide') {
+                    b = Math.floor(Math.random() * (levelData.divisorMax - levelData.divisorMin + 1)) + levelData.divisorMin;
+                    a = b * (Math.floor(Math.random() * Math.floor(levelData.max / b)) + 1); // Exacta
+                } else {
+                    b = Math.floor(Math.random() * (levelData.max - levelData.min + 1)) + levelData.min;
+                    if (currentOperation === 'subtract' && b > a) [a, b] = [b, a];
+                }
+                const opSymbol = currentOperation === 'sum' ? '+' : currentOperation === 'subtract' ? '-' : currentOperation === 'multiply' ? '×' : '÷';
+                problemText = `${a} ${opSymbol} ${b} = `;
+                correctAnswer = currentOperation === 'sum' ? a + b : currentOperation === 'subtract' ? a - b : currentOperation === 'multiply' ? a * b : a / b;
+            }
+
+            document.getElementById('problem').innerText = problemText;
+            window.correctAnswer = correctAnswer;
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            let options = [correctAnswer];
+            let possibleOffsets = Array.from({length: 21}, (_, i) => i - 10).filter(offset => offset !== 0);
+            possibleOffsets.sort(() => Math.random() - 0.5);
+            for (let offset of possibleOffsets) {
+                let wrong = correctAnswer + offset;
+                if (wrong >= 0 && !options.includes(wrong)) {
+                    options.push(wrong);
+                    if (options.length === 4) break;
+                }
+            }
+            if (options.length < 4) {
+                for (let i = 11; options.length < 4; i++) {
+                    let wrongPos = correctAnswer + i;
+                    let wrongNeg = correctAnswer - i;
+                    if (wrongPos >= 0 && !options.includes(wrongPos)) options.push(wrongPos);
+                    if (options.length === 4) break;
+                    if (wrongNeg >= 0 && !options.includes(wrongNeg)) options.push(wrongNeg);
+                    if (options.length === 4) break;
+                }
+            }
+            options.sort(() => Math.random() - 0.5);
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.classList.add('option-btn');
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(userAnswer) {
+            const feedback = document.getElementById('feedback');
+            if (userAnswer === window.correctAnswer) {
+                feedback.innerHTML = '¡Correcto! 😍 <span class="emoji">🎉</span>';
+                correctCount++;
+                stars += 10;
+                if (correctCount >= 10) {
+                    currentLevel++;
+                    correctCount = 0;
+                    errorCount = 0;
+                    feedback.innerHTML += '<br>¡Subes de nivel! 🏆';
+                    if (currentLevel > 5) currentLevel = 5;
+                    updatePlayerInfo(); // Actualizar visiblemente
+                }
+            } else {
+                feedback.innerHTML = `¡Oops! La respuesta es ${window.correctAnswer}. 😔 <span class="emoji">💪</span>`;
+                errorCount++;
+                if (errorCount >= 3) {
+                    currentLevel = Math.max(1, currentLevel - 1);
+                    correctCount = 0;
+                    errorCount = 0;
+                    feedback.innerHTML += '<br>Vuelve al nivel anterior para reforzar. 📚';
+                    updatePlayerInfo(); // Actualizar visiblemente
+                }
+            }
+            saveProgress();
+            updateProgress();
+            updateStars();
+            setTimeout(() => { feedback.innerHTML = ''; generateProblem(); }, 2000);
+        }
+
+        function updateProgress() {
+            document.getElementById('progress').innerHTML = `Aciertos: ${correctCount}/10 ✅<br>Errores: ${errorCount}/3 ❌`;
+        }
+
+        function updateStars() {
+            document.getElementById('stars').innerHTML = `Estrellas: ${stars} ⭐`;
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timer').innerText = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' : ''}${seconds} ⏰`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('¡Tiempo terminado! Buen trabajo. 😊');
+                    finishGame();
+                }
+            }, 1000);
+        }
+
+        function finishGame() {
+            clearInterval(timerInterval);
+            leaderboard = leaderboard.filter(entry => !(entry.name === username && entry.operation === currentOperation));
+            leaderboard.push({ name: username, operation: currentOperation, stars, level: currentLevel });
+            localStorage.setItem('mathLeaderboard', JSON.stringify(leaderboard));
+            resetGame();
+        }
+
+        function resetGame() {
+            saveProgress();
+            location.reload();
+        }
+
+        // Inicializar
+        updateUsersList();
+        updateLeaderboard();
+    </script>
+</body>
+</html>
