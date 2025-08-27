@@ -4,19 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aventura Matemática de Kuky</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #2e261f;
             --card: #3a3229;
             --muted: #b8a99a;
             --text: #f2e9df;
-            --primary: #22c55e;
+            --primary: #22c55e; /* Green */
+            --primary-light: #4ade80;
             --primary-ink: #052e16;
-            --danger: #ef4444;
-            --warning: #fbbf24;
+            --danger: #ef4444; /* Red */
+            --warning: #fbbf24; /* Yellow */
             --ring: #4a3e33;
+            --info: #3b82f6; /* Blue */
         }
+
+        /* Transiciones suaves entre vistas */
+        .view {
+            display: none;
+            width: 90%;
+            max-width: 450px;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .view.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body {
             font-family: 'Nunito', sans-serif;
             background-color: var(--bg);
@@ -24,743 +50,701 @@
             text-align: center;
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
+            gap: 20px;
         }
+        
+        h1, h2, h3 {
+            margin: 0 0 15px 0;
+            font-weight: 900;
+        }
+        
         h1 {
             color: var(--primary);
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            color: var(--warning);
-        }
-
-        #login {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px var(--ring);
-            width: 350px;
-        }
-        #game {
-            display: none;
-            background: var(--card);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 6px 12px var(--ring);
-            width: 400px;
-        }
-        #player-info {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        #problem {
-            font-size: 2.5em;
-            margin: 20px 0;
-            color: var(--primary);
-            animation: slideIn 0.5s ease-in-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .options {
+            font-size: clamp(2em, 8vw, 2.8em);
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            align-items: center;
+            gap: 15px;
         }
-        .option-btn {
-            background-color: var(--muted);
-            color: var(--primary-ink);
-            font-size: 1.5em;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px;
-            flex: 1 1 40%;
-            min-width: 100px;
+
+        h2 { color: var(--warning); }
+        
+        /* Mascota Kuky */
+        #kuky-mascot {
+            font-size: clamp(2.5em, 10vw, 3em);
+            animation: float 3s ease-in-out infinite;
         }
-        .option-btn:hover {
-            background-color: var(--primary);
-            color: var(--text);
-        }
-        button {
-            background-color: var(--primary);
-            color: var(--primary-ink);
-            font-size: 1.2em;
-            padding: 8px 14px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px auto;
-        }
-        button:hover {
-            background-color: var(--warning);
-            color: var(--primary-ink);
-        }
-        #clear-all-btn {
-            background-color: var(--muted);
-            color: var(--ring);
-            font-size: 0.9em;
-            padding: 8px 15px;
-        }
-        #clear-all-btn:hover {
-            background-color: var(--warning);
-        }
-        #feedback {
-            font-size: 1.5em;
-            margin: 20px 0;
-            padding: 10px;
-            border-radius: 10px;
-            animation: fadeIn 0.5s;
-            position: relative;
-            z-index: 2;
-        }
-        #feedback.correct {
-            background-color: var(--primary);
-            color: var(--primary-ink);
-        }
-        #feedback.incorrect {
-            background-color: var(--danger);
-            color: var(--text);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        #progress {
-            margin: 20px 0;
-            font-size: 1em;
-            color: var(--muted);
-            position: relative;
-        }
-        #progress-text {
-            margin-bottom: 10px;
-        }
-        #progress-bar {
-            width: 100%;
-            background: var(--muted);
-            border-radius: 10px;
-            height: 20px;
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-        }
-        #progress-fill {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        #progress-fill.pulse {
-            animation: pulse 0.5s;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .emoji {
-            font-size: 1.5em;
-            animation: bounce 0.5s;
-        }
-        @keyframes bounce {
+        
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
-        #stars {
-            color: var(--warning);
-            font-size: 1.2em;
-        }
-        #operation-select, #level-select {
-            margin-bottom: 15px;
-        }
-        #operation {
-            font-size: 1.5em;
-            padding: 15px;
-            margin: 10px auto;
-            border-radius: 15px;
-            box-shadow: 0 3px 6px var(--ring);
-            background-color: var(--muted);
+
+        /* Estilos para botones e inputs más atractivos */
+        button, .btn {
+            background-color: var(--primary);
             color: var(--primary-ink);
-            border: 1px solid var(--ring);
-            width: 250px;
-            text-align: center;
-            display: block;
+            font-size: 1.2em;
+            font-weight: 700;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        #operation:focus, #operation:active {
-            background-color: var(--warning);
-            color: var(--ring);
+
+        button:hover, .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 10px var(--ring);
+            background-color: var(--primary-light);
         }
-        select, input {
-            font-size: 1.2em;
+
+        .btn-danger { background-color: var(--danger); color: var(--text); }
+        .btn-danger:hover { background-color: #f87171; }
+        .btn-secondary { background-color: var(--muted); color: var(--ring); }
+        .btn-secondary:hover { background-color: #d6c6b9; }
+
+        input, select {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1em;
             text-align: center;
-            padding: 5px;
-            border-radius: 5px;
-            background: var(--muted);
-            color: var(--primary-ink);
-            border: 1px solid var(--ring);
-        }
-        #timer {
-            font-size: 1em;
-            color: var(--danger);
-            margin-top: 10px;
-        }
-        #leaderboard {
-            margin-top: 20px;
-            font-size: 1em;
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--bg);
             color: var(--text);
+            border: 2px solid var(--ring);
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            transition: border-color 0.2s;
         }
-        #leaderboard ul {
-            list-style: none;
-            padding: 0;
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
         }
-        #leaderboard li {
-            margin: 5px 0;
-        }
+        
+        /* Lista de usuarios rediseñada */
         #users-list {
-            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
         }
         .user-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 10px 0;
-            padding: 5px;
-            background: var(--muted);
-            border-radius: 5px;
+            padding: 10px 15px;
+            background: var(--bg);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
         }
-        .user-item span {
-            color: var(--primary-ink);
+        .user-item:hover { background-color: var(--ring); transform: scale(1.02); }
+        .user-item span { font-size: 1.2em; font-weight: 700; }
+        .user-item .delete-btn { font-size: 0.8em; padding: 5px 8px; width: auto;}
+
+        /* Estilos del juego */
+        #player-info {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: var(--warning);
+            font-weight: 700;
         }
-        .user-item .actions {
-    display: flex;
-}
-        .user-item button {
-            font-size: 1em;
-            padding: 5px 10px;
-            margin: 0 5px;
+        #problem {
+            font-size: clamp(2.5em, 12vw, 3.5em);
+            font-weight: 900;
+            margin: 20px 0;
+            color: var(--text);
+            animation: popIn 0.3s;
         }
-        .delete-btn {
-            background-color: var(--danger);
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
-        .delete-btn:hover {
-            background-color: var(--warning);
+
+        .options, #level-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+        .option-btn, .level-btn {
+            background-color: var(--info);
+            color: var(--text);
+            font-size: 1.8em;
+            font-weight: 700;
+            padding: 15px;
+        }
+        .option-btn:hover, .level-btn:hover { background-color: #60a5fa; }
+        
+        /* Animaciones para respuestas */
+        .option-btn.correct { animation: correct-pulse 0.5s; background-color: var(--primary); }
+        .option-btn.incorrect { animation: shake 0.5s; background-color: var(--danger); }
+        .option-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        
+        @keyframes correct-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        
+        #progress-bar {
+            width: 100%;
+            background: var(--bg);
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        #progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        #feedback { font-size: 1.5em; margin-top: 20px; height: 30px; font-weight: 700; }
+        #stats-bar {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        #summary-stats { list-style: none; padding: 0; font-size: 1.3em; text-align: left;}
+        #summary-stats li { margin-bottom: 10px; }
+
+        /* Modal de confirmación */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        #modal-message {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 15px;
         }
     </style>
 </head>
 <body>
-    <h1>😺 Mates con Kuky 🌟</h1>
-    <div id="login">
-        <div id="new-player">
-            <p>Nuevo Jugador:</p>
-            <input type="text" id="new-username" placeholder="Ingresa tu nombre" style="width: 200px;">
-            <button onclick="registerNewPlayer()">Registrar 🚀</button>
-        </div>
-        <div id="users-list">
-            <h2>Jugadores Registrados</h2>
-        </div>
-        <div id="operation-select" style="display: none;">
-            <label>Elige el tipo de preguntas:</label><br>
-            <select id="operation" onchange="selectOperation(this.value)">
-                <option value="sum">➕ Suma</option>
-                <option value="subtract">➖ Resta</option>
-                <option value="multiply">✖️ Multiplicación</option>
-                <option value="divide">➗ División</option>
-                <option value="mixed">🎲 Mixta</option>
-            </select>
-        </div>
-        <div id="level-select" style="display: none;">
-            <label>Elige nivel inicial: </label>
-            <select id="startLevel">
-                <option value="1">1 (Fácil) 🌱</option>
-                <option value="2">2 🌼</option>
-                <option value="3">3 🌟</option>
-                <option value="4">4 🏆</option>
-                <option value="5">5 (Avanzado) 🚀</option>
-            </select>
-        </div>
-        <button id="start-btn" onclick="startGame()" style="display: none;">¡Empezar! 🚀</button>
-        <button id="clear-all-btn" onclick="clearAllStorage()">Limpiar Todos los Registros 🗑️</button>
-        <div id="leaderboard">
-            <h2>Mejores Puntajes ⭐</h2>
-            <ul id="leaderboard-list"></ul>
-        </div>
+
+    <h1><span id="kuky-mascot">😺</span> Mates con Kuky</h1>
+
+    <!-- VISTA 1: LOGIN -->
+    <div id="login-view" class="view active">
+        <h2>Elige tu Perfil</h2>
+        <div id="users-list"></div>
+        <input type="text" id="new-username" placeholder="... o crea un perfil nuevo" maxlength="15">
+        <button onclick="KukyApp.register()">Crear y Jugar 🚀</button>
+        <button id="clear-all-btn" class="btn-secondary" onclick="KukyApp.confirmClearAllData()" style="margin-top: 20px; font-size: 0.8em;">Limpiar Datos 🗑️</button>
     </div>
-    <div id="game">
+
+    <!-- VISTA 2: DASHBOARD / SELECCIÓN DE JUEGO -->
+    <div id="dashboard-view" class="view">
+        <h2 id="welcome-message"></h2>
+        <h3>¿Qué quieres practicar hoy?</h3>
+        <select id="operation">
+            <option value="sum">➕ Suma</option>
+            <option value="subtract">➖ Resta</option>
+            <option value="multiply">✖️ Multiplicación</option>
+            <option value="divide">➗ División</option>
+            <option value="mixed">🎲 Mixto</option>
+        </select>
+        <button onclick="KukyApp.selectOperation()">Elegir Nivel</button>
+        <button onclick="KukyApp.reset()" class="btn-secondary" style="margin-top: 15px;">Cambiar de Perfil</button>
+    </div>
+    
+    <!-- VISTA 2.5: SELECCIÓN DE NIVEL -->
+    <div id="level-select-view" class="view">
+        <h2>Elige un Nivel Inicial</h2>
+        <div id="level-options">
+            <button class="level-btn" onclick="KukyApp.startGame(1)">1 🌱</button>
+            <button class="level-btn" onclick="KukyApp.startGame(2)">2 🌼</button>
+            <button class="level-btn" onclick="KukyApp.startGame(3)">3 🌟</button>
+            <button class="level-btn" onclick="KukyApp.startGame(4)">4 🏆</button>
+        </div>
+        <button class="level-btn" style="grid-column: 1 / -1; margin-top: 15px;" onclick="KukyApp.startGame(5)">5 🚀</button>
+        <button onclick="KukyApp.returnToDashboard(true)" class="btn-secondary" style="margin-top: 15px;">Volver</button>
+    </div>
+
+    <!-- VISTA 3: JUEGO -->
+    <div id="game-view" class="view">
         <div id="player-info"></div>
         <div id="problem"></div>
         <div class="options" id="options"></div>
-        <div id="progress">
-            <div id="progress-text"></div>
-            <div id="progress-bar"><div id="progress-fill"></div></div>
-            <div id="feedback"></div>
+        <div id="feedback"></div>
+        <div id="progress-text" style="margin-top: 15px;"></div>
+        <div id="progress-bar"><div id="progress-fill"></div></div>
+        <div id="stats-bar">
+            <div id="stars">⭐ 0</div>
+            <div id="timer">⏰ 10:00</div>
         </div>
-        <div id="stars">Estrellas: 0 ⭐</div>
-        <div id="timer">Tiempo restante: 10:00 ⏰</div>
-        <button onclick="finishGame()">Finalizar Actividad 🏁</button>
-        <button onclick="resetGame()">Salir ❌</button>
+        <button onclick="KukyApp.finishGame(false)" class="btn-danger" style="margin-top: 20px;">Terminar 🏁</button>
     </div>
 
+    <!-- VISTA 4: RESUMEN -->
+    <div id="summary-view" class="view">
+        <h2>¡Buen Trabajo!</h2>
+        <ul id="summary-stats"></ul>
+        <div id="summary-kuky" style="font-size: 4em; margin: 15px;">🎉</div>
+        <button onclick="KukyApp.returnToDashboard(false)">Seguir Practicando</button>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN -->
+    <div id="confirmation-modal" class="modal-overlay">
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <div class="modal-actions">
+                <button id="modal-confirm-btn" class="btn-danger">Confirmar</button>
+                <button id="modal-cancel-btn" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Efectos de sonido (URLs externas, para un proyecto local se deberían descargar) -->
+    <audio id="sfx-correct" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-the-sound-pack-tree/tspt_interface_button_select_positive_024.mp3" preload="auto"></audio>
+    <audio id="sfx-incorrect" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-four-hundred/com_sfx_error_03.mp3" preload="auto"></audio>
+    <audio id="sfx-level-up" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-little-robot-sound-factory/lrsf_sfx_and_stings_win_01.mp3" preload="auto"></audio>
+
     <script>
-        let currentLevel = 1;
-        let correctCount = 0;
-        let errorCount = 0;
-        let stars = 0;
-        let currentOperation = 'sum';
-        let timerInterval;
-        let timeLeft = 600; // 10 minutos
-        let username = '';
-        let leaderboard = JSON.parse(localStorage.getItem('mathLeaderboard')) || [];
-        let selectedForGame = false;
-
-        const levels = {
-            sum: [
-                { min: 1, max: 5 },
-                { min: 1, max: 10 },
-                { min: 1, max: 20 },
-                { min: 10, max: 50 },
-                { min: 1, max: 100 }
-            ],
-            subtract: [
-                { min: 1, max: 5 },
-                { min: 1, max: 10 },
-                { min: 1, max: 20 },
-                { min: 10, max: 50 },
-                { min: 1, max: 100 }
-            ],
-            multiply: [
-                { min: 1, max: 5 },
-                { min: 1, max: 10 },
-                { min: 2, max: 12 },
-                { min: 5, max: 15 },
-                { min: 1, max: 20 }
-            ],
-            divide: [
-                { min: 1, max: 5, divisorMin: 1, divisorMax: 5 },
-                { min: 1, max: 10, divisorMin: 1, divisorMax: 5 },
-                { min: 1, max: 20, divisorMin: 2, divisorMax: 10 },
-                { min: 10, max: 50, divisorMin: 2, divisorMax: 10 },
-                { min: 1, max: 100, divisorMin: 2, divisorMax: 20 }
-            ],
-            mixed: [
-                { numTerms: 2, max: 5 },  // Level 1: e.g., 3 + 4
-                { numTerms: 2, max: 10 }, // Level 2: e.g., 7 - 2
-                { numTerms: 3, max: 10 }, // Level 3: e.g., 8 + 3 - 2
-                { numTerms: 3, max: 20, hasMultOrDiv: true, maxFactor: 12 }, // Level 4
-                { numTerms: 4, max: 20, hasMultOrDiv: true, maxFactor: 12 }  // Level 5
-            ]
-        };
-
-        function getUniqueUsers() {
-            const users = new Set();
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('mathProgress_')) {
-                    const user = key.split('_')[1];
-                    users.add(user);
-                }
+    // FULLSTACK MEJORA: Módulo para simular llamadas a una API.
+    const api = {
+        getUsers: () => Promise.resolve(JSON.parse(localStorage.getItem('kuky_users')) || []),
+        saveUser: (user) => {
+            const users = JSON.parse(localStorage.getItem('kuky_users')) || [];
+            if (!users.find(u => u.name === user.name)) {
+                users.push(user);
+                localStorage.setItem('kuky_users', JSON.stringify(users));
             }
-            leaderboard.forEach(entry => users.add(entry.name));
-            return Array.from(users);
+            return Promise.resolve(user);
+        },
+        deleteUser: (username) => {
+            let users = JSON.parse(localStorage.getItem('kuky_users')) || [];
+            users = users.filter(u => u.name !== username);
+            localStorage.setItem('kuky_users', JSON.stringify(users));
+            return Promise.resolve();
+        },
+        saveProgress: (username, operation, progress) => {
+            let users = JSON.parse(localStorage.getItem('kuky_users')) || [];
+            const user = users.find(u => u.name === username);
+            if (user) {
+                if (!user.progress) user.progress = {};
+                user.progress[operation] = progress;
+                localStorage.setItem('kuky_users', JSON.stringify(users));
+            }
+            return Promise.resolve(progress);
+        },
+        clearAll: () => {
+            localStorage.removeItem('kuky_users');
+            return Promise.resolve();
         }
+    };
 
-        function updateUsersList() {
-            const usersList = document.getElementById('users-list');
-            if (!usersList) return;
-            usersList.innerHTML = '<h2>👥 Jugadores Registrados</h2>';
-            const users = getUniqueUsers();
-            if (users.length === 0) {
-                usersList.innerHTML += '<p>No hay jugadores registrados.</p>';
+    // LÓGICA MEJORA: Todo el código encapsulado en un objeto para evitar variables globales.
+    const KukyApp = {
+        state: {
+            currentUser: null,
+            currentOperation: 'sum',
+            level: 1,
+            correctCount: 0,
+            errorCount: 0,
+            stars: 0,
+            timerInterval: null,
+            timeLeft: 600,
+            sessionStats: { correct: 0, incorrect: 0 }
+        },
+
+        init() {
+            this.ui.updateUsersList();
+            document.getElementById('new-username').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.register();
+            });
+            document.getElementById('modal-cancel-btn').onclick = () => this.ui.hideModal();
+        },
+
+        ui: {
+            showView(viewId) {
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById(viewId).classList.add('active');
+            },
+
+            async updateUsersList() {
+                const users = await api.getUsers();
+                const listEl = document.getElementById('users-list');
+                listEl.innerHTML = '';
+                if (users.length === 0) {
+                    listEl.innerHTML = '<p style="margin: 10px 0;">¡Sé el primer jugador! 👇</p>';
+                    return;
+                }
+                users.forEach(user => {
+                    const item = document.createElement('div');
+                    item.className = 'user-item';
+                    item.innerHTML = `
+                        <span>${user.name}</span>
+                        <button class="delete-btn btn-danger" onclick="event.stopPropagation(); KukyApp.confirmDeleteUser('${user.name}')">❌</button>
+                    `;
+                    item.onclick = () => KukyApp.login(user.name);
+                    listEl.appendChild(item);
+                });
+            },
+
+            updatePlayerInfo() {
+                const opText = {sum:'Suma',subtract:'Resta',multiply:'Multiplicación',divide:'División',mixed:'Mixto'}[KukyApp.state.currentOperation];
+                document.getElementById('player-info').innerText = `${opText} - Nivel ${KukyApp.state.level}`;
+            },
+            
+            updateGameStats() {
+                document.getElementById('progress-text').innerHTML = `Aciertos: ${KukyApp.state.correctCount}/10 ✅ | Errores: ${KukyApp.state.errorCount}/3 ❌`;
+                const progressFill = document.getElementById('progress-fill');
+                progressFill.style.width = `${(KukyApp.state.correctCount / 10) * 100}%`;
+                document.getElementById('stars').innerText = `⭐ ${KukyApp.state.stars}`;
+            },
+
+            updateTimer() {
+                const minutes = Math.floor(KukyApp.state.timeLeft / 60);
+                const seconds = KukyApp.state.timeLeft % 60;
+                document.getElementById('timer').innerText = `⏰ ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            },
+
+            showModal(message, onConfirm) {
+                document.getElementById('modal-message').innerText = message;
+                const modal = document.getElementById('confirmation-modal');
+                modal.style.display = 'flex';
+                
+                const confirmBtn = document.getElementById('modal-confirm-btn');
+                const newConfirmBtn = confirmBtn.cloneNode(true);
+                confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+                
+                newConfirmBtn.onclick = () => {
+                    onConfirm();
+                    this.hideModal();
+                };
+            },
+
+            hideModal() {
+                document.getElementById('confirmation-modal').style.display = 'none';
+            }
+        },
+        
+        async register() {
+            const usernameInput = document.getElementById('new-username');
+            const username = usernameInput.value.trim();
+            if (!username) { 
+                usernameInput.style.borderColor = 'var(--danger)';
+                setTimeout(() => { usernameInput.style.borderColor = 'var(--ring)'; }, 1500);
+                return; 
+            }
+            const users = await api.getUsers();
+            if (users.some(u => u.name.toLowerCase() === username.toLowerCase())) {
+                usernameInput.value = '';
+                usernameInput.placeholder = '¡Ese nombre ya existe!';
+                usernameInput.style.borderColor = 'var(--danger)';
+                setTimeout(() => { 
+                    usernameInput.placeholder = '... o crea un perfil nuevo';
+                    usernameInput.style.borderColor = 'var(--ring)'; 
+                }, 2000);
                 return;
             }
-            const ul = document.createElement('ul');
-            ul.style.listStyle = 'none';
-            ul.style.padding = '0';
-            users.forEach(user => {
-                const li = document.createElement('li');
-                li.classList.add('user-item');
-                li.innerHTML = `<span>${user}</span>
-                    <div class="actions"><button onclick="selectUser('${user}')">Elegir ✅</button>
-                    <button class="delete-btn" onclick="deleteUser('${user}')">Borrar ❌</button></div>`;
-                ul.appendChild(li);
+            const newUser = { name: username, progress: {} };
+            await api.saveUser(newUser);
+            this.login(username);
+        },
+
+        async login(username) {
+            const users = await api.getUsers();
+            this.state.currentUser = users.find(u => u.name === username);
+            document.getElementById('welcome-message').innerText = `¡Hola, ${this.state.currentUser.name}!`;
+            this.ui.showView('dashboard-view');
+        },
+        
+        confirmDeleteUser(username) {
+            this.ui.showModal(`¿Seguro que quieres borrar a ${username}? Se perderá todo su progreso.`, async () => {
+                await api.deleteUser(username);
+                this.ui.updateUsersList();
             });
-            usersList.appendChild(ul);
-        }
+        },
 
-        function selectUser(user) {
-            username = user;
-            selectedForGame = true;
-            document.getElementById('operation-select').style.display = 'block';
-            document.getElementById('level-select').style.display = 'block';
-            document.getElementById('start-btn').style.display = 'block';
-            const newUsernameInput = document.getElementById('new-username');
-            if (newUsernameInput) newUsernameInput.value = '';
-        }
-
-        function selectOperation(op) {
-            currentOperation = op;
-            document.getElementById('level-select').style.display = 'block';
-            document.getElementById('start-btn').style.display = 'block';
-        }
-
-        function registerNewPlayer() {
-            const newUser = document.getElementById('new-username').value.trim();
-            if (!newUser) return alert('¡Ingresa un nombre! 😊');
-            const users = getUniqueUsers();
-            if (users.includes(newUser)) return alert('¡Este nombre ya existe! Elige otro. 😊');
-            username = newUser;
-            selectedForGame = true;
-            document.getElementById('operation-select').style.display = 'block';
-            document.getElementById('level-select').style.display = 'block';
-            document.getElementById('start-btn').style.display = 'block';
-        }
-
-        function deleteUser(user) {
-            if (confirm(`¿Estás seguro de eliminar a ${user}? Esto borrará su progreso y puntajes.`)) {
-                for (let i = localStorage.length - 1; i >= 0; i--) {
-                    const key = localStorage.key(i);
-                    if (key.startsWith(`mathProgress_${user}_`)) {
-                        localStorage.removeItem(key);
-                    }
-                }
-                leaderboard = leaderboard.filter(entry => entry.name !== user);
-                localStorage.setItem('mathLeaderboard', JSON.stringify(leaderboard));
-                updateLeaderboard();
-                updateUsersList();
-                alert(`${user} ha sido eliminado.`);
-            }
-        }
-
-        function clearAllStorage() {
-            if (confirm('¿Estás seguro de limpiar todos los registros? Esto borrará todo.')) {
-                localStorage.clear();
-                leaderboard = [];
-                updateLeaderboard();
-                updateUsersList();
-                alert('Todos los registros limpiados. ¡Empieza de nuevo! 😊');
-            }
-        }
-
-        function loadProgress() {
-            const userKey = `mathProgress_${username}_${currentOperation}`;
-            const saved = localStorage.getItem(userKey);
-            if (saved) {
-                const data = JSON.parse(saved);
-                currentLevel = data.level || 1;
-                stars = data.stars || 0;
+        selectOperation() {
+            this.state.currentOperation = document.getElementById('operation').value;
+            const progress = this.state.currentUser.progress?.[this.state.currentOperation];
+            // Si hay progreso, se omite la selección de nivel y se carga el nivel guardado.
+            if (progress && progress.level) {
+                this.startGame(progress.level);
             } else {
-                const startLevelSelect = document.getElementById('startLevel');
-                currentLevel = startLevelSelect ? parseInt(startLevelSelect.value) : 1;
-                stars = 0;
+                this.ui.showView('level-select-view');
             }
-        }
+        },
 
-        function saveProgress() {
-            const userKey = `mathProgress_${username}_${currentOperation}`;
-            localStorage.setItem(userKey, JSON.stringify({
-                level: currentLevel,
-                stars: stars
-            }));
-        }
-
-        function updateLeaderboard() {
-            const list = document.getElementById('leaderboard-list');
-            if (!list) return;
-            list.innerHTML = '';
-            leaderboard.sort((a, b) => b.stars - a.stars);
-            leaderboard.slice(0, 5).forEach(entry => {
-                const li = document.createElement('li');
-                li.textContent = `${entry.name} - ${entry.operation.charAt(0).toUpperCase() + entry.operation.slice(1)} - Nivel ${entry.level}: ⭐ ${entry.stars}`;
-                list.appendChild(li);
-            });
-        }
-
-        function startGame() {
-            if (!selectedForGame) return alert('¡Selecciona o registra un jugador primero! 😊');
-            currentOperation = currentOperation || document.getElementById('operation').value;
-            loadProgress();
-            document.getElementById('login').style.display = 'none';
-            requestAnimationFrame(() => {
-                document.getElementById('game').style.display = 'block';
-                updatePlayerInfo();
-                generateProblem();
-                updateProgress();
-                updateStars();
-                timeLeft = 600;
-                startTimer();
-            });
-        }
-
-        function updatePlayerInfo() {
-            const playerInfo = document.getElementById('player-info');
-            if (playerInfo) {
-                playerInfo.innerText = `${username}: ${currentOperation.charAt(0).toUpperCase() + currentOperation.slice(1)} - Nivel: [${currentLevel}]`;
-            }
-        }
-
-        function generateProblem() {
-            const problemDiv = document.getElementById('problem');
-            const optionsDiv = document.getElementById('options');
-            if (!problemDiv || !optionsDiv) return;
-
-            let problemText, correctAnswer;
-            const levelData = levels[currentOperation][currentLevel - 1];
-
-            if (currentOperation === 'mixed') {
-                const numTerms = levelData.numTerms || 2;
-                const max = levelData.max;
-                const maxFactor = levelData.maxFactor || max;
-                let exprParts = [];
-                let numbers = [];
-                let operators = [];
-
-                if (numTerms === 2) {
-                    // Levels 1-2: Two numbers with + or -
-                    numbers.push(Math.floor(Math.random() * max) + 1);
-                    numbers.push(Math.floor(Math.random() * max) + 1);
-                    operators.push(['+', '-'][Math.floor(Math.random() * 2)]);
-                    exprParts = [numbers[0], operators[0], numbers[1]];
-                    correctAnswer = operators[0] === '+' ? numbers[0] + numbers[1] : numbers[0] - numbers[1];
-                } else {
-                    // Levels 3-5: Three numbers
-                    if (levelData.hasMultOrDiv) {
-                        // Levels 4-5: One × or ÷, one + or -
-                        const complexOp = ['×', '÷'][Math.floor(Math.random() * 2)];
-                        const simpleOp = ['+', '-'][Math.floor(Math.random() * 2)];
-                        operators.push(complexOp, simpleOp);
-
-                        if (complexOp === '÷') {
-                            // CORRECCIÓN: Lógica de división mejorada
-                            let divisor;
-                            let maxQuotient;
-                            let attempts = 0;
-                            const maxAttempts = 10;
-                            
-                            // Buscar un divisor válido
-                            do {
-                                divisor = Math.floor(Math.random() * maxFactor) + 1;
-                                maxQuotient = Math.floor(max / divisor);
-                                attempts++;
-                                if (attempts > maxAttempts) break;
-                            } while (maxQuotient < 2); // Necesitamos cociente >= 2 para que dividendo > divisor
-                            
-                            // Si no encontramos divisor válido, usar uno por defecto
-                            if (maxQuotient < 2) {
-                                divisor = 1;
-                                maxQuotient = max;
-                            }
-                            
-                            // Elegir cociente entre 2 y maxQuotient
-                            const minQuotient = 2;
-                            const quotient = Math.floor(Math.random() * (maxQuotient - minQuotient + 1)) + minQuotient;
-                            const dividend = divisor * quotient;
-                            
-                            // Asegurar que dividend está dentro del rango
-                            if (dividend > max) {
-                                const newMaxQuotient = Math.floor(max / divisor);
-                                const newQuotient = Math.floor(Math.random() * (newMaxQuotient - minQuotient + 1)) + minQuotient;
-                                numbers[1] = divisor * newQuotient;
-                            } else {
-                                numbers[1] = dividend;
-                            }
-                            numbers[2] = divisor;
-                            
-                            // Primer número dentro del rango
-                            numbers[0] = Math.floor(Math.random() * max) + 1;
-                            
-                            // Estructura aleatoria
-                            const structure = Math.random() < 0.5 ? 'complexFirst' : 'complexLast';
-                            if (structure === 'complexFirst') {
-                                exprParts = [`(${numbers[1]} ${complexOp} ${numbers[2]})`, simpleOp, numbers[0]];
-                                const temp = numbers[1] / numbers[2];
-                                correctAnswer = simpleOp === '+' ? temp + numbers[0] : temp - numbers[0];
-                            } else {
-                                exprParts = [numbers[0], simpleOp, `(${numbers[1]} ${complexOp} ${numbers[2]})`];
-                                const temp = numbers[1] / numbers[2];
-                                correctAnswer = simpleOp === '+' ? numbers[0] + temp : numbers[0] - temp;
-                            }
-                        } else {
-                            // Multiplicación: ambos factores 1-12
-                            numbers[0] = Math.floor(Math.random() * max) + 1; // Primer número
-                            numbers[1] = Math.floor(Math.random() * maxFactor) + 1; // Primer factor 1-12
-                            numbers[2] = Math.floor(Math.random() * maxFactor) + 1; // Segundo factor 1-12
-                            
-                            // Estructura aleatoria
-                            const structure = Math.random() < 0.5 ? 'complexFirst' : 'complexLast';
-                            if (structure === 'complexFirst') {
-                                exprParts = [`(${numbers[0]} ${complexOp} ${numbers[1]})`, simpleOp, numbers[2]];
-                                const temp = numbers[0] * numbers[1];
-                                correctAnswer = simpleOp === '+' ? temp + numbers[2] : temp - numbers[2];
-                            } else {
-                                exprParts = [numbers[0], simpleOp, `(${numbers[1]} ${complexOp} ${numbers[2]})`];
-                                const temp = numbers[1] * numbers[2];
-                                correctAnswer = simpleOp === '+' ? numbers[0] + temp : numbers[0] - temp;
-                            }
-                        }
-                    } else {
-                        // Level 3: Three numbers with + or -
-                        numbers.push(Math.floor(Math.random() * max) + 1);
-                        numbers.push(Math.floor(Math.random() * max) + 1);
-                        numbers.push(Math.floor(Math.random() * max) + 1);
-                        operators.push(['+', '-'][Math.floor(Math.random() * 2)]);
-                        operators.push(['+', '-'][Math.floor(Math.random() * 2)]);
-                        exprParts = [numbers[0], operators[0], numbers[1], operators[1], numbers[2]];
-                        let temp = operators[0] === '+' ? numbers[0] + numbers[1] : numbers[0] - numbers[1];
-                        correctAnswer = operators[1] === '+' ? temp + numbers[2] : temp - numbers[2];
-                    }
-                }
-
-                problemText = exprParts.join(' ') + ' = ';
-            } else {
-                let a = Math.floor(Math.random() * (levelData.max - levelData.min + 1)) + levelData.min;
-                let b;
-                if (currentOperation === 'divide') {
-                    b = Math.floor(Math.random() * (levelData.divisorMax - levelData.divisorMin + 1)) + levelData.divisorMin;
-                    a = b * (Math.floor(Math.random() * Math.floor(levelData.max / b)) + 1);
-                } else {
-                    b = Math.floor(Math.random() * (levelData.max - levelData.min + 1)) + levelData.min;
-                    if (currentOperation === 'subtract' && b > a) [a, b] = [b, a];
-                }
-                const opSymbol = currentOperation === 'sum' ? '+' : currentOperation === 'subtract' ? '-' : currentOperation === 'multiply' ? '×' : '÷';
-                problemText = `${a} ${opSymbol} ${b} = `;
-                correctAnswer = currentOperation === 'sum' ? a + b : currentOperation === 'subtract' ? a - b : currentOperation === 'multiply' ? a * b : a / b;
-            }
-
-            problemDiv.innerText = problemText;
-            window.correctAnswer = correctAnswer;
-
-            optionsDiv.innerHTML = '';
-            let options = [correctAnswer];
-            let possibleOffsets = Array.from({length: 21}, (_, i) => i - 10).filter(offset => offset !== 0);
-            possibleOffsets.sort(() => Math.random() - 0.5);
-            for (let offset of possibleOffsets) {
-                let wrong = correctAnswer + offset;
-                if (wrong >= 0 && !options.includes(wrong)) {
-                    options.push(wrong);
-                    if (options.length === 4) break;
-                }
-            }
-            if (options.length < 4) {
-                for (let i = 11; options.length < 4; i++) {
-                    let wrongPos = correctAnswer + i;
-                    let wrongNeg = correctAnswer - i;
-                    if (wrongPos >= 0 && !options.includes(wrongPos)) options.push(wrongPos);
-                    if (options.length === 4) break;
-                    if (wrongNeg >= 0 && !options.includes(wrongNeg)) options.push(wrongNeg);
-                    if (options.length === 4) break;
-                }
-            }
-            options.sort(() => Math.random() - 0.5);
-            options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.classList.add('option-btn');
-                btn.textContent = opt;
-                btn.onclick = () => checkAnswer(opt, btn);
-                optionsDiv.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(userAnswer, button) {
-            const feedback = document.getElementById('feedback');
-            if (!feedback) return;
-            if (userAnswer === window.correctAnswer) {
-                feedback.innerHTML = '¡Correcto! 😍 <span class="emoji">🎉</span>';
-                feedback.className = 'correct';
-                correctCount++;
-                stars += 10;
-                if (correctCount >= 10) {
-                    currentLevel++;
-                    correctCount = 0;
-                    errorCount = 0;
-                    feedback.innerHTML += '<br>¡Subes de nivel! 🏆';
-                    if (currentLevel > 5) currentLevel = 5;
-                    updatePlayerInfo();
-                }
-            } else {
-                feedback.innerHTML = `¡Oops! La respuesta es ${window.correctAnswer}. 😔 <span class="emoji">💪</span>`;
-                feedback.className = 'incorrect';
-                errorCount++;
-                if (errorCount >= 3) {
-                    currentLevel = Math.max(1, currentLevel - 1);
-                    correctCount = 0;
-                    errorCount = 0;
-                    feedback.innerHTML += '<br>Vuelve al nivel anterior para reforzar. 📚';
-                    updatePlayerInfo();
-                }
-            }
-            saveProgress();
-            updateProgress();
-            updateStars();
-            setTimeout(() => {
-                if (feedback) {
-                    feedback.innerHTML = '';
-                    feedback.className = '';
-                }
-                generateProblem();
-            }, 2000);
-        }
-
-        function updateProgress() {
-            const progressText = document.getElementById('progress-text');
-            const progressFill = document.getElementById('progress-fill');
-            if (progressText && progressFill) {
-                progressText.innerHTML = `Aciertos: ${correctCount}/10 ✅<br>Errores: ${errorCount}/3 ❌`;
-                progressFill.style.width = `${(correctCount / 10) * 100}%`;
-                progressFill.classList.add('pulse');
-                setTimeout(() => progressFill.classList.remove('pulse'), 500);
-            }
-        }
-
-        function updateStars() {
-            const starsDiv = document.getElementById('stars');
-            if (starsDiv) {
-                starsDiv.innerHTML = `Estrellas: ${stars} ⭐`;
-            }
-        }
-
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                const timerDiv = document.getElementById('timer');
-                if (timerDiv) {
-                    const minutes = Math.floor(timeLeft / 60);
-                    const seconds = timeLeft % 60;
-                    timerDiv.innerText = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' : ''}${seconds} ⏰`;
-                }
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    alert('¡Tiempo terminado! Buen trabajo. 😊');
-                    finishGame();
+        startGame(startLevel) {
+            this.state.level = startLevel;
+            const progress = this.state.currentUser.progress?.[this.state.currentOperation];
+            this.state.stars = progress ? progress.stars : 0;
+            
+            this.state.correctCount = 0;
+            this.state.errorCount = 0;
+            this.state.sessionStats = { correct: 0, incorrect: 0 };
+            
+            this.ui.updatePlayerInfo();
+            this.ui.updateGameStats();
+            this.game.generateProblem();
+            
+            this.state.timeLeft = 600;
+            this.ui.updateTimer();
+            this.state.timerInterval = setInterval(() => {
+                this.state.timeLeft--;
+                this.ui.updateTimer();
+                if (this.state.timeLeft <= 0) {
+                    this.finishGame(true);
                 }
             }, 1000);
-        }
+            
+            this.ui.showView('game-view');
+        },
 
-        function finishGame() {
-            clearInterval(timerInterval);
-            leaderboard = leaderboard.filter(entry => !(entry.name === username && entry.operation === currentOperation));
-            leaderboard.push({ name: username, operation: currentOperation, stars, level: currentLevel });
-            localStorage.setItem('mathLeaderboard', JSON.stringify(leaderboard));
-            resetGame();
-        }
+        game: {
+            // LÓGICA MEJORA: Dificultad ajustada y progresiva
+            levels: {
+                sum: [{min:1,max:5},{min:1,max:10},{min:10,max:50},{min:20,max:100},{min:50,max:200}],
+                subtract: [{min:1,max:5},{min:1,max:10},{min:10,max:50},{min:20,max:100},{min:50,max:200}],
+                multiply: [{min:1,max:5},{min:1,max:10},{min:2,max:12},{min:5,max:15},{min:10,max:20}],
+                divide: [{dMax:5,qMax:10},{dMax:10,qMax:10},{dMax:12,qMax:12},{dMax:15,qMax:15},{dMax:20,qMax:20}],
+                mixed: [{max:10,ops:['+','-']},{max:20,ops:['+','-']},{max:50,ops:['+','-']},{max:20,ops:['+','-','*','/']},{max:30,ops:['+','-','*','/']}]
+            },
+            
+            generateProblem() {
+                const op = KukyApp.state.currentOperation;
+                const level = KukyApp.state.level;
+                let problemText, correctAnswer;
+                const levelData = this.levels[op][Math.min(level, 5) - 1];
 
-        function resetGame() {
-            saveProgress();
-            timeLeft = 600;
-            clearInterval(timerInterval);
-            location.reload();
-        }
+                // LÓGICA MEJORA: Problemas mixtos avanzados para Nivel 5
+                if (op === 'mixed' && level === 5) {
+                    const simpleOp = Math.random() < 0.5 ? '+' : '-';
+                    const complexOp = Math.random() < 0.5 ? '×' : '÷';
+                    let part1, part2, part3, tempResult;
 
-        // Initialize
-        updateUsersList();
-        updateLeaderboard();
+                    if (complexOp === '×') {
+                        part1 = Math.floor(Math.random() * 10) + 2;
+                        part2 = Math.floor(Math.random() * 10) + 2;
+                        tempResult = part1 * part2;
+                    } else { // '÷'
+                        part2 = Math.floor(Math.random() * 10) + 2;
+                        tempResult = Math.floor(Math.random() * 10) + 2;
+                        part1 = part2 * tempResult;
+                    }
+                    part3 = Math.floor(Math.random() * 20) + 1;
+
+                    if (Math.random() < 0.5) { // (A op B) op C
+                        problemText = `(${part1} ${complexOp} ${part2}) ${simpleOp} ${part3} =`;
+                        correctAnswer = simpleOp === '+' ? tempResult + part3 : tempResult - part3;
+                        if (correctAnswer < 0) { // Evitar negativos
+                            problemText = `(${part1} ${complexOp} ${part2}) + ${part3} =`;
+                            correctAnswer = tempResult + part3;
+                        }
+                    } else { // C op (A op B)
+                        problemText = `${part3} ${simpleOp} (${part1} ${complexOp} ${part2}) =`;
+                        correctAnswer = simpleOp === '+' ? part3 + tempResult : part3 - tempResult;
+                         if (correctAnswer < 0) { // Evitar negativos
+                            problemText = `${tempResult + part3} - (${part1} ${complexOp} ${part2}) =`;
+                            correctAnswer = part3;
+                        }
+                    }
+
+                } else if (op === 'mixed') {
+                    const operators = levelData.ops;
+                    const chosenOp = operators[Math.floor(Math.random() * operators.length)];
+                    let n1 = Math.floor(Math.random() * levelData.max) + 1;
+                    let n2 = Math.floor(Math.random() * levelData.max) + 1;
+                    
+                    switch (chosenOp) {
+                        case '+': problemText = `${n1} + ${n2} =`; correctAnswer = n1 + n2; break;
+                        case '-': if (n2 > n1) [n1, n2] = [n2, n1]; problemText = `${n1} - ${n2} =`; correctAnswer = n1 - n2; break;
+                        case '*': n1 = Math.floor(Math.random() * 10) + 1; n2 = Math.floor(Math.random() * 10) + 1; problemText = `${n1} × ${n2} =`; correctAnswer = n1 * n2; break;
+                        case '/': n2 = Math.floor(Math.random() * 10) + 2; n1 = n2 * (Math.floor(Math.random() * 10) + 1); problemText = `${n1} ÷ ${n2} =`; correctAnswer = n1 / n2; break;
+                    }
+                } else {
+                    let a, b;
+                    if (op === 'divide') {
+                        b = Math.floor(Math.random() * (levelData.dMax - 2 + 1)) + 2; // Divisor
+                        const q = Math.floor(Math.random() * (levelData.qMax - 1 + 1)) + 1; // Cociente
+                        a = b * q; // Dividendo
+                    } else {
+                        a = Math.floor(Math.random() * (levelData.max - levelData.min + 1)) + levelData.min;
+                        b = Math.floor(Math.random() * (levelData.max - levelData.min + 1)) + levelData.min;
+                    }
+                    if (op === 'subtract' && b > a) [a, b] = [b, a];
+                    
+                    const opSymbol = { sum: '+', subtract: '-', multiply: '×', divide: '÷' }[op];
+                    problemText = `${a} ${opSymbol} ${b} =`;
+                    correctAnswer = { sum: a + b, subtract: a - b, multiply: a * b, divide: a / b }[op];
+                }
+                
+                document.getElementById('problem').innerText = problemText;
+                this.generateOptions(correctAnswer);
+            },
+
+            generateOptions(correctAnswer) {
+                const optionsDiv = document.getElementById('options');
+                optionsDiv.innerHTML = '';
+                let options = new Set([correctAnswer]);
+                while (options.size < 4) {
+                    const offset = Math.floor(Math.random() * 10) + 1;
+                    const wrongAnswer = Math.random() < 0.5 ? correctAnswer + offset : correctAnswer - offset;
+                    if (wrongAnswer >= 0 && !options.has(wrongAnswer)) {
+                        options.add(wrongAnswer);
+                    }
+                }
+                const shuffledOptions = Array.from(options).sort(() => Math.random() - 0.5);
+                shuffledOptions.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = opt;
+                    btn.onclick = () => KukyApp.checkAnswer(opt, correctAnswer, btn);
+                    optionsDiv.appendChild(btn);
+                });
+            }
+        },
+
+        checkAnswer(userAnswer, correctAnswer, btn) {
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            const feedbackEl = document.getElementById('feedback');
+            
+            if (userAnswer === correctAnswer) {
+                this.sfx.play('correct');
+                feedbackEl.innerText = '¡Correcto! 🎉';
+                btn.classList.add('correct');
+                
+                this.state.correctCount++;
+                this.state.stars += 10;
+                this.state.sessionStats.correct++;
+
+                if (this.state.correctCount >= 10) {
+                    this.sfx.play('levelUp');
+                    this.state.level = Math.min(this.state.level + 1, 5);
+                    this.state.correctCount = 0;
+                    this.state.errorCount = 0;
+                    feedbackEl.innerText = '¡Subiste de nivel! 🏆';
+                }
+            } else {
+                this.sfx.play('incorrect');
+                feedbackEl.innerText = `Era ${correctAnswer} 😅`;
+                btn.classList.add('incorrect');
+                this.state.errorCount++;
+                this.state.sessionStats.incorrect++;
+
+                if (this.state.errorCount >= 3) {
+                    this.state.level = Math.max(1, this.state.level - 1);
+                    this.state.correctCount = 0;
+                    this.state.errorCount = 0;
+                    feedbackEl.innerText = 'Reforcemos el nivel anterior 💪';
+                }
+            }
+            
+            this.ui.updateGameStats();
+            
+            setTimeout(() => {
+                feedbackEl.innerText = '';
+                this.ui.updatePlayerInfo();
+                this.game.generateProblem();
+            }, 1500);
+        },
+        
+        finishGame(isTimeUp) {
+            clearInterval(this.state.timerInterval);
+            if(isTimeUp) {
+                const feedbackEl = document.getElementById('feedback');
+                feedbackEl.innerText = "¡Se acabó el tiempo!";
+                setTimeout(() => { feedbackEl.innerText = ""; }, 2000);
+            }
+            
+            const progress = { level: this.state.level, stars: this.state.stars };
+            api.saveProgress(this.state.currentUser.name, this.state.currentOperation, progress);
+
+            document.getElementById('summary-stats').innerHTML = `
+                <li>✔️ Aciertos: ${this.state.sessionStats.correct}</li>
+                <li>❌ Errores: ${this.state.sessionStats.incorrect}</li>
+                <li>🌟 Estrellas Ganadas: ${this.state.sessionStats.correct * 10}</li>
+                <li>� Nivel Final: ${this.state.level}</li>
+            `;
+            this.ui.showView('summary-view');
+        },
+
+        returnToDashboard(fromLevelSelect) {
+            // Si el usuario vuelve desde la selección de nivel, no recargamos su perfil.
+            if (fromLevelSelect) {
+                 this.ui.showView('dashboard-view');
+            } else {
+                this.login(this.state.currentUser.name);
+            }
+        },
+
+        reset() {
+            this.state.currentUser = null;
+            this.ui.updateUsersList();
+            this.ui.showView('login-view');
+        },
+
+        confirmClearAllData() {
+            this.ui.showModal('¿BORRAR TODOS LOS DATOS? Esta acción no se puede deshacer.', async () => {
+                await api.clearAll();
+                this.reset();
+            });
+        },
+        
+        sfx: {
+            play(sound) {
+                const sfxMap = {
+                    correct: document.getElementById('sfx-correct'),
+                    incorrect: document.getElementById('sfx-incorrect'),
+                    levelUp: document.getElementById('sfx-level-up'),
+                };
+                if(sfxMap[sound]) {
+                   sfxMap[sound].currentTime = 0;
+                   sfxMap[sound].play().catch(e => console.warn("SFX disabled by browser."));
+                }
+            }
+        }
+    };
+    
+    document.addEventListener('DOMContentLoaded', () => KukyApp.init());
     </script>
 </body>
 </html>
+�
