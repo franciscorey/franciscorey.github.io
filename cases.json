@@ -1,0 +1,186 @@
+[
+    {
+        "id": "jardin-de-kuky",
+        "index": "01",
+        "title": "Jardín de Kuky",
+        "date": "2025",
+        "category": "Digital Garden / UX Design",
+        "tools": ["Obsidian", "Markdown", "Pure CSS", "Quartz"],
+        "brief": "Ecosistema de gestión de conocimiento personal (PKM) diseñado como un jardín digital interactivo para la democratización del aprendizaje.",
+        "stats": {
+            "Grid": "Fluid Canvas",
+            "A11y": "AA Pass"
+        },
+        "hero_img": "assets/p1-final.png",
+        "wire_img": "assets/p1-wire.png",
+        "sections": [
+            {
+                "type": "text-image",
+                "title": "01_Arquitectura_Informacion",
+                "desc": "Estructuración de notas vinculadas mediante grafos para permitir una navegación no lineal basada en intereses.",
+                "img": "assets/p1-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "catemo-comic",
+        "index": "02",
+        "title": "Catemo: Crónicas de Aconcagua",
+        "date": "2026",
+        "category": "Ilustración / Storytelling",
+        "tools": ["Procreate", "Photoshop", "Indesign"],
+        "brief": "Desarrollo de identidad visual y narrativa para una novela gráfica ambientada en el Chile de 1905, enfocada en el folclore del valle de Aconcagua.",
+        "stats": {
+            "Style": "Picaresque Cartoon",
+            "Period": "1905–1910"
+        },
+        "hero_img": "assets/p2-final.png",
+        "wire_img": "assets/p2-wire.png",
+        "sections": [
+            {
+                "type": "full-image",
+                "title": "02_Diseño_Personajes",
+                "desc": "Estudio anatómico y de color para el protagonista, integrando estética de animación clásica con rigor histórico.",
+                "img": "assets/p2-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "neptuno-radio",
+        "index": "03",
+        "title": "Radio Neptuno",
+        "date": "2026",
+        "category": "Identidad / Motion Graphics",
+        "tools": ["Illustrator", "After Effects", "Sintetizadores"],
+        "brief": "Branding integral para radio online independiente. El proyecto incluye logo dinámico y jingles con estética synth-pop de los 80.",
+        "stats": {
+            "BPM": "115",
+            "Palette": "Neon/Dark"
+        },
+        "hero_img": "assets/p3-final.png",
+        "wire_img": "assets/p3-wire.png",
+        "sections": [
+            {
+                "type": "full-image",
+                "title": "03_Animacion_Ident",
+                "desc": "Loop de identificación visual con tipografía cinética y glitch controlado para redes sociales.",
+                "img": "assets/p3-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "vivero-altiplano",
+        "index": "04",
+        "title": "Vivero El Altiplano",
+        "date": "2024",
+        "category": "E-commerce / UI Design",
+        "tools": ["Figma", "WordPress", "Custom CSS"],
+        "brief": "Plataforma de venta online para una pyme local de plantas nativas, priorizando la facilidad de uso para adultos mayores.",
+        "stats": {
+            "Load Time": "0.8s",
+            "Mobile": "Optimized"
+        },
+        "hero_img": "assets/p1-final.png",
+        "wire_img": "assets/p1-wire.png",
+        "sections": [
+            {
+                "type": "image-text",
+                "title": "04_Checkout_Flow",
+                "desc": "Simplificación del proceso de pago en tres pasos técnicos para reducir la tasa de abandono de carrito.",
+                "img": "assets/p1-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "tv-tiempo-app",
+        "index": "05",
+        "title": "TV Tiempo Santiago",
+        "date": "2025",
+        "category": "Producto Digital / Web App",
+        "tools": ["JavaScript", "HTML5 Canvas", "API Weather"],
+        "brief": "Aplicación web interactiva que simula la estética de los pronósticos del tiempo televisivos chilenos de los años 90.",
+        "stats": {
+            "Ratio": "16:9",
+            "Controls": "Keyboard-driven"
+        },
+        "hero_img": "assets/p2-final.png",
+        "wire_img": "assets/p2-wire.png",
+        "sections": [
+            {
+                "type": "text-image",
+                "title": "05_Interface_Motion",
+                "desc": "Demostración de transiciones fluidas entre mapas regionales usando CSS Transitions y JS dinámico.",
+                "img": "assets/p2-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "estudio-andino",
+        "index": "06",
+        "title": "Andino Arquitectura",
+        "date": "2024",
+        "category": "Identidad Visual / Web",
+        "tools": ["Figma", "Pure CSS", "Typography"],
+        "brief": "Identidad visual minimalista para un estudio de arquitectura boutique. Foco en la tipografía y el uso de espacios en blanco.",
+        "stats": {
+            "Typeface": "Neo-Grotesk",
+            "Contrast": "High"
+        },
+        "hero_img": "assets/p3-final.png",
+        "wire_img": "assets/p3-wire.png",
+        "sections": [
+            {
+                "type": "text-image",
+                "title": "06_Grid_System",
+                "desc": "Implementación de un sistema de rejilla asimétrico que refleja la estructura de los edificios del estudio.",
+                "img": "assets/p3-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "pico8-skifree",
+        "index": "07",
+        "title": "PICO-8 SkiFree Clone",
+        "date": "2026",
+        "category": "Retro Gaming / Game Design",
+        "tools": ["Lua", "PICO-8", "Pixel Art"],
+        "brief": "Reinterpretación del clásico SkiFree para la consola virtual PICO-8, optimizado para dispositivos portátiles Anbernic.",
+        "stats": {
+            "Resolution": "128x128",
+            "Colors": "16 fixed"
+        },
+        "hero_img": "assets/p1-final.png",
+        "wire_img": "assets/p1-wire.png",
+        "sections": [
+            {
+                "type": "full-image",
+                "title": "07_Sprite_Sheet",
+                "desc": "Desglose técnico de los sprites de 8x8 píxeles y animaciones de colisión.",
+                "img": "assets/p1-wire.png"
+            }
+        ]
+    },
+    {
+        "id": "deck-signer",
+        "index": "08",
+        "title": "DeckSigner App",
+        "date": "2025",
+        "category": "Herramienta SaaS / UX Design",
+        "tools": ["React", "Figma API", "Tailwind (Legacy)"],
+        "brief": "Web app para el diseño rápido y exportación de cartas de juegos de mesa para creadores independientes.",
+        "stats": {
+            "Export": "PDF/Print",
+            "UX": "Drag-and-drop"
+        },
+        "hero_img": "assets/p2-final.png",
+        "wire_img": "assets/p2-wire.png",
+        "sections": [
+            {
+                "type": "image-text",
+                "title": "08_UI_Architecture",
+                "desc": "Panel de control diseñado para gestionar cientos de variables de datos sin saturar la vista del usuario.",
+                "img": "assets/p2-wire.png"
+            }
+        ]
+    }
+]

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLUEPRINT HIGH-FI / 2026 — Portfolio</title>
+    <meta name="description" content="Portafolio de diseño visual de Francisco Rey. Arquitectura de decisiones intencionales.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">&#9776;</button>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <aside class="sidebar-nav" id="sidebarNav" role="navigation" aria-label="Navegación principal">
+        <a href="index.html" class="brand" aria-label="Inicio">FRANCISCO REY<br>VISUAL DESIGNER</a>
+        <nav>
+            <a href="index.html" class="active" aria-current="page">HOME</a>
+            <a href="case-study.html">PROJECTS</a>
+            <a href="lab.html">THE_LAB</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+        <span class="year">2026</span>
+    </aside>
+
+    <div class="page-content">
+        <header class="grid-container">
+            <div class="metadata" style="grid-column: span 12;">DOCUMENT_ID: BPHF-2026-CHILE | DESIGNER: FRANCISCO REY</div>
+            <h1 style="grid-column: span 12; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.9; margin: 40px 0;">Blueprint<br>High-Fi</h1>
+        </header>
+
+        <main class="grid-container">
+            <!-- Manifesto -->
+            <section class="reveal" style="grid-column: span 8; margin-bottom: 100px;">
+                <p class="metadata" style="margin-bottom: 20px;">01. MANIFIESTO: LA ESTÉTICA DE LA DECISIÓN</p>
+                <p style="font-size: 1.5rem; border-left: 2px solid var(--accent-color); padding-left: 20px;">
+                    "En la era de la saturación generativa, la excelencia no reside en el resultado final, sino en la trazabilidad del pensamiento. El diseño no es un evento fortuito; es una arquitectura de decisiones intencionales."
+                </p>
+            </section>
+
+            <!-- Project List — rendered dynamically by JS -->
+            <section style="grid-column: span 12;">
+                <p class="metadata" style="margin-bottom: 40px;">02. TECHNICAL PROJECT LIST</p>
+                <div id="projects-grid">
+                    <!-- JS injects project cards here -->
+                    <p class="metadata" id="projects-loading" style="opacity:0.4; padding: 40px 0;">LOADING PROJECTS…</p>
+                </div>
+            </section>
+
+            <!-- Lab Link -->
+            <section class="reveal" style="grid-column: span 12; text-align: center; margin: 100px 0;">
+                <a href="lab.html" style="font-size: clamp(1.8rem, 4vw, 3rem); color: var(--accent-color); text-decoration: none; font-weight: 700;">VISIT THE_LAB</a>
+                <p class="metadata" style="margin-top: 12px;">Experimental Archive / High Impact Only</p>
+            </section>
+        </main>
+
+        <footer class="grid-container" style="border-top: 1px solid var(--grid-color); margin-top: 100px; padding: 40px;">
+            <div class="metadata" style="grid-column: span 6;">&copy; 2026 FRANCISCO REY</div>
+            <div class="metadata" style="grid-column: span 6; text-align: right;">ZERO-FRAMEWORK ARCHITECTURE</div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // ── Dynamic project cards from cases.json ──────────────────────
+        (async function loadProjects() {
+            const grid = document.getElementById('projects-grid');
+            const loadingMsg = document.getElementById('projects-loading');
+
+            let cases;
+            try {
+                const res = await fetch('cases.json');
+                if (!res.ok) throw new Error();
+                cases = await res.json();
+            } catch {
+                if (loadingMsg) loadingMsg.textContent = '[ERROR: no se pudo cargar cases.json]';
+                return;
+            }
+
+            if (loadingMsg) loadingMsg.remove();
+
+            const cardsHTML = cases.map((cs) => {
+                const wireOverlay = cs.wire_img
+                    ? `<img src="${cs.wire_img}" alt="${cs.title} — wireframe" class="wireframe-overlay">`
+                    : '';
+
+                const imgTag = cs.hero_img
+                    ? `<img src="${cs.hero_img}" alt="${cs.title}" class="project-image"
+                           onerror="this.style.background='var(--grid-color)'; this.removeAttribute('src')">`
+                    : `<div class="project-image" style="background:var(--grid-color);"></div>`;
+
+                return `
+                <article class="project-card reveal" tabindex="0" data-id="${cs.id}">
+                    <a href="case-study.html?id=${cs.id}" style="text-decoration:none; color:inherit;">
+                        <div class="image-container">
+                            ${imgTag}
+                            ${wireOverlay}
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:15px;">
+                            <div>
+                                <p class="metadata" style="margin-bottom:4px;">${cs.index}_${cs.category}</p>
+                                <h2 style="font-size:1.2rem;">${cs.title}</h2>
+                                <p class="metadata" style="color:#666; margin-top:4px;">${cs.category} / ${cs.date}</p>
+                            </div>
+                            <div class="metadata" style="text-align:right; flex-shrink:0; padding-left:16px;">
+                                ${cs.wire_img ? '[X-RAY ENABLED]' : '[VIEW PROJECT]'}
+                            </div>
+                        </div>
+                    </a>
+                </article>`;
+            }).join('');
+
+            grid.innerHTML = cardsHTML;
+
+            // Re-run reveal observer on new cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.08 });
+            grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Re-wire keyboard navigation for dynamically added cards
+            const cards = Array.from(grid.querySelectorAll('.project-card'));
+            let focus = -1;
+            document.addEventListener('keydown', (e) => {
+                if (cards.length === 0) return;
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    focus = (focus + 1) % cards.length;
+                    cards[focus].focus();
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    focus = (focus - 1 + cards.length) % cards.length;
+                    cards[focus].focus();
+                } else if (e.key === 'Enter' && focus >= 0) {
+                    const link = cards[focus].querySelector('a');
+                    if (link) link.click();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

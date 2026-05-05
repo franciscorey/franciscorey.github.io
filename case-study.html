@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study — BLUEPRINT HIGH-FI / 2026</title>
+    <meta name="description" content="Case study de proyecto — Francisco Rey Portfolio.">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* ── Case Study Specific Layout ── */
+        .case-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 64px;
+            padding: 40px 40px 0 40px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .case-sidebar {
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            padding-bottom: 60px;
+        }
+
+        .cs-meta-block {
+            margin-bottom: 28px;
+        }
+
+        .cs-meta-block .metadata {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .cs-meta-block p,
+        .cs-meta-block span {
+            font-family: var(--font-reading);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .cs-tools-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .cs-tools-list li {
+            font-family: var(--font-meta);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 8px;
+            border: 1px solid var(--grid-color);
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .cs-stats-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .cs-stats-list li {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-meta);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--grid-color);
+        }
+
+        .cs-stats-list li span:last-child {
+            color: var(--accent-color);
+        }
+
+        .cs-title-block {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid var(--accent-color);
+        }
+
+        .cs-title-block h1 {
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            line-height: 1.05;
+            margin: 8px 0 12px;
+        }
+
+        /* ── Narrative Sections ── */
+        .cs-section {
+            margin-bottom: 80px;
+        }
+
+        .cs-section-label {
+            font-family: var(--font-meta);
+            font-size: 0.72rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .cs-section p {
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 65ch;
+            margin-top: 20px;
+            opacity: 0.85;
+        }
+
+        /* Layouts for section types */
+        .cs-layout-full img,
+        .cs-layout-full video {
+            width: 100%;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .cs-layout-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 20px;
+        }
+
+        .cs-layout-split img {
+            width: 100%;
+            display: block;
+        }
+
+        .cs-layout-split.reverse {
+            direction: rtl;
+        }
+
+        .cs-layout-split.reverse > * {
+            direction: ltr;
+        }
+
+        /* Hero image */
+        .cs-hero {
+            width: 100%;
+            aspect-ratio: 16/7;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 64px;
+            filter: grayscale(0.2);
+            transition: filter 0.5s;
+        }
+
+        .cs-hero:hover {
+            filter: grayscale(0);
+        }
+
+        /* Process image hover */
+        .cs-img {
+            width: 100%;
+            display: block;
+            filter: grayscale(0.6);
+            transition: filter 0.5s;
+        }
+
+        .cs-img:hover {
+            filter: grayscale(0);
+        }
+
+        /* Error / loading states */
+        .cs-loading {
+            grid-column: 1 / -1;
+            padding: 120px 40px;
+            font-family: var(--font-meta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.4;
+            text-align: center;
+        }
+
+        .cs-not-found {
+            grid-column: 1 / -1;
+            padding: 120px 40px;
+            text-align: center;
+        }
+
+        .cs-not-found h2 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        /* Nav between projects */
+        .cs-project-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            border-top: 1px solid var(--grid-color);
+            margin-top: 60px;
+            max-width: 1440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cs-project-nav a {
+            font-family: var(--font-meta);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-color);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s, color 0.2s;
+        }
+
+        .cs-project-nav a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .cs-project-nav a.hidden {
+            visibility: hidden;
+        }
+
+        @media (max-width: 900px) {
+            .case-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 24px;
+            }
+
+            .case-sidebar {
+                position: static;
+            }
+
+            .cs-layout-split {
+                grid-template-columns: 1fr;
+            }
+
+            .cs-layout-split.reverse {
+                direction: ltr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">&#9776;</button>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <aside class="sidebar-nav" id="sidebarNav" role="navigation" aria-label="Navegación principal">
+        <a href="index.html" class="brand" aria-label="Inicio">FRANCISCO REY<br>VISUAL DESIGNER</a>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="case-study.html" class="active" aria-current="page">PROJECTS</a>
+            <a href="lab.html">THE_LAB</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+        <span class="year">2026</span>
+    </aside>
+
+    <div class="page-content">
+
+        <!-- Dynamic content injected here by case-study.js -->
+        <div id="cs-root">
+            <p class="cs-loading" id="cs-loading">LOADING CASE STUDY…</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="grid-container" style="margin-top: 0; padding: 40px; border-top: 1px solid var(--grid-color);">
+            <div class="metadata" style="grid-column: span 6;">&copy; 2026 FRANCISCO REY</div>
+            <div class="metadata" style="grid-column: span 6; text-align: right;">ZERO-FRAMEWORK ARCHITECTURE</div>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="case-study.js"></script>
+</body>
+</html>
