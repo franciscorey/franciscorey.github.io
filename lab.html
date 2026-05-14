@@ -10,9 +10,21 @@
     <style>
         .lab-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: 1fr;
             gap: var(--grid-unit);
             padding: var(--grid-unit);
+        }
+
+        @media (min-width: 640px) {
+            .lab-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lab-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .lab-item {
@@ -31,7 +43,7 @@
         }
 
         .lab-item:hover img {
-            filter: grayscale(0) brightness(1.2);
+            filter: grayscale(0) brightness(1);
             transform: scale(1.1);
         }
 
@@ -73,7 +85,7 @@
     <div class="page-content">
         <header class="grid-container">
             <h1 style="grid-column: span 8; font-size: clamp(2rem, 5vw, 4rem);">The_Lab</h1>
-            <p class="metadata" style="grid-column: span 12;">03_THE_LAB / ARCHIVO VISUAL</p>
+            <p class="metadata" style="grid-column: span 12;">03_THE_LAB / VISUAL ARCHIVE</p>
         </header>
 
         <main class="lab-grid">
@@ -87,24 +99,36 @@
                     class="lab-id">EXP_004</span></div>
             <div class="lab-item reveal" data-id="005"><img src="assets/lab/bcs-3.jpg" alt="Lab 005"><span
                     class="lab-id">EXP_005</span></div>
-            <div class="lab-item reveal" data-id="006"><img src="assets/lab/ddl-1.jpg" alt="Lab 006"><span
+            <div class="lab-item reveal" data-id="006"><img src="assets/lab/comida-1.jpg" alt="Lab 006"><span
                     class="lab-id">EXP_006</span></div>
-            <div class="lab-item reveal" data-id="007"><img src="assets/lab/ddl-2.jpg" alt="Lab 007"><span
+            <div class="lab-item reveal" data-id="007"><img src="assets/lab/comida-2.jpg" alt="Lab 007"><span
                     class="lab-id">EXP_007</span></div>
-            <div class="lab-item reveal" data-id="008"><img src="assets/lab/ddl-thumb.jpg" alt="Lab 008"><span
+            <div class="lab-item reveal" data-id="008"><img src="assets/lab/comida-3.jpg" alt="Lab 008"><span
                     class="lab-id">EXP_008</span></div>
-            <div class="lab-item reveal" data-id="009"><img src="assets/lab/drkst-dwn.jpg" alt="Lab 009"><span
+            <div class="lab-item reveal" data-id="009"><img src="assets/lab/ddl-1.jpg" alt="Lab 009"><span
                     class="lab-id">EXP_009</span></div>
-            <div class="lab-item reveal" data-id="010"><img src="assets/lab/mpa-2.jpg" alt="Lab 010"><span
+            <div class="lab-item reveal" data-id="010"><img src="assets/lab/ddl-2.jpg" alt="Lab 010"><span
                     class="lab-id">EXP_010</span></div>
-            <div class="lab-item reveal" data-id="011"><img src="assets/lab/mpa-4.jpg" alt="Lab 011"><span
+            <div class="lab-item reveal" data-id="011"><img src="assets/lab/ddl-thumb.jpg" alt="Lab 011"><span
                     class="lab-id">EXP_011</span></div>
-            <div class="lab-item reveal" data-id="012"><img src="assets/lab/vial-molina.jpg" alt="Lab 012"><span
+            <div class="lab-item reveal" data-id="012"><img src="assets/lab/drkst-dwn.jpg" alt="Lab 012"><span
                     class="lab-id">EXP_012</span></div>
-            <div class="lab-item reveal" data-id="013"><img src="assets/lab/yalea-1.png" alt="Lab 013"><span
+            <div class="lab-item reveal" data-id="013"><img src="assets/lab/mjackson-1.jpg" alt="Lab 013"><span
                     class="lab-id">EXP_013</span></div>
-            <div class="lab-item reveal" data-id="014"><img src="assets/lab/yalea-2.png" alt="Lab 014"><span
+            <div class="lab-item reveal" data-id="014"><img src="assets/lab/mjackson-2.jpg" alt="Lab 014"><span
                     class="lab-id">EXP_014</span></div>
+            <div class="lab-item reveal" data-id="015"><img src="assets/lab/mpa-2.jpg" alt="Lab 015"><span
+                    class="lab-id">EXP_015</span></div>
+            <div class="lab-item reveal" data-id="016"><img src="assets/lab/mpa-4.jpg" alt="Lab 016"><span
+                    class="lab-id">EXP_016</span></div>
+            <div class="lab-item reveal" data-id="017"><img src="assets/lab/rocksteady-blu.jpg" alt="Lab 017"><span
+                    class="lab-id">EXP_017</span></div>
+            <div class="lab-item reveal" data-id="018"><img src="assets/lab/vial-molina.jpg" alt="Lab 018"><span
+                    class="lab-id">EXP_018</span></div>
+            <div class="lab-item reveal" data-id="019"><img src="assets/lab/yalea-1.png" alt="Lab 019"><span
+                    class="lab-id">EXP_019</span></div>
+            <div class="lab-item reveal" data-id="020"><img src="assets/lab/yalea-2.png" alt="Lab 020"><span
+                    class="lab-id">EXP_020</span></div>
         </main>
 
         <footer class="grid-container" style="padding: 60px 40px;">
