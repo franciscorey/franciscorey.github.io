@@ -1,24 +1,42 @@
 [
     {
-        "id": "jardin-de-kuky",
+        "id": "pulsonical",
         "index": "01",
-        "title": "Jardín de Kuky",
-        "date": "2025",
-        "category": "Digital Garden / UX Design",
-        "tools": ["Obsidian", "Markdown", "Pure CSS", "Quartz"],
-        "brief": "Ecosistema de gestión de conocimiento personal (PKM) diseñado como un jardín digital interactivo para la democratización del aprendizaje.",
+        "title": "Pulsonical Store: Ecosistema Omnicanal",
+        "date": "2024",
+        "category": "Service Design / Full-Stack UX",
+        "tools": [
+            "Figma",
+            "React",
+            "Node.js",
+            "PostgreSQL",
+            "Pure CSS"
+        ],
+        "brief": "Solución integral de inventario y venta para retail musical físico-digital. El sistema optimiza la gestión de stock de formatos vintage (Vinilos, Cassettes) mediante una interfaz de catálogo de alta fidelidad y un flujo de checkout simplificado.",
         "stats": {
-            "Grid": "Fluid Canvas",
-            "A11y": "AA Pass"
+            "Data": "Discogs API Integration",
+            "Perf": "98 Lighthouse Score"
         },
-        "hero_img": "assets/p1-final.png",
-        "wire_img": "assets/p1-wire.png",
+        "hero_img": "assets/p4-final.png",
+        "wire_img": "assets/p4-wire.png",
         "sections": [
             {
                 "type": "text-image",
-                "title": "01_Arquitectura_Informacion",
-                "desc": "Estructuración de notas vinculadas mediante grafos para permitir una navegación no lineal basada en intereses.",
-                "img": "assets/p1-wire.png"
+                "title": "01_Mapeo_de_Servicio",
+                "desc": "Diseño del Blueprint del servicio: desde la recepción de material usado (evaluación de estado/grading) hasta la logística de despacho. Se implementó un sistema de etiquetado QR para sincronizar el stock de la tienda física con el inventario online en tiempo real.",
+                "img": "assets/p4-blueprint.png"
+            },
+            {
+                "type": "full-image",
+                "title": "02_Interfaz_de_Catalogo_Retro_Modern",
+                "desc": "La UI utiliza un enfoque Neobrutalista con tipografía 'Grotesque' para evocar la estética de las tiendas de discos clásicas. Se priorizó la visualización de artes de tapa en alta resolución y un sistema de filtros avanzados por sello discográfico, año de prensa y estado de conservación (NM, VG+, etc).",
+                "img": "assets/p4-ui-ux.png"
+            },
+            {
+                "type": "text-image",
+                "title": "03_Implementacion_y_Control",
+                "desc": "Desarrollo del panel de administración (Back-office) con enfoque en la eficiencia de carga de productos. El sistema permite la edición masiva de metadatos y la generación automática de 'Sound-samples' para que el usuario pre-escuche el disco antes de la compra.",
+                "img": "assets/p4-admin.png"
             }
         ]
     },
@@ -28,7 +46,11 @@
         "title": "Catemo: Crónicas de Aconcagua",
         "date": "2026",
         "category": "Ilustración / Storytelling",
-        "tools": ["Procreate", "Photoshop", "Indesign"],
+        "tools": [
+            "Procreate",
+            "Photoshop",
+            "Indesign"
+        ],
         "brief": "Desarrollo de identidad visual y narrativa para una novela gráfica ambientada en el Chile de 1905, enfocada en el folclore del valle de Aconcagua.",
         "stats": {
             "Style": "Picaresque Cartoon",
@@ -51,7 +73,11 @@
         "title": "Radio Neptuno",
         "date": "2026",
         "category": "Identidad / Motion Graphics",
-        "tools": ["Illustrator", "After Effects", "Sintetizadores"],
+        "tools": [
+            "Illustrator",
+            "After Effects",
+            "Sintetizadores"
+        ],
         "brief": "Branding integral para radio online independiente. El proyecto incluye logo dinámico y jingles con estética synth-pop de los 80.",
         "stats": {
             "BPM": "115",
@@ -74,7 +100,11 @@
         "title": "Vivero El Altiplano",
         "date": "2024",
         "category": "E-commerce / UI Design",
-        "tools": ["Figma", "WordPress", "Custom CSS"],
+        "tools": [
+            "Figma",
+            "WordPress",
+            "Custom CSS"
+        ],
         "brief": "Plataforma de venta online para una pyme local de plantas nativas, priorizando la facilidad de uso para adultos mayores.",
         "stats": {
             "Load Time": "0.8s",
@@ -97,7 +127,11 @@
         "title": "TV Tiempo Santiago",
         "date": "2025",
         "category": "Producto Digital / Web App",
-        "tools": ["JavaScript", "HTML5 Canvas", "API Weather"],
+        "tools": [
+            "JavaScript",
+            "HTML5 Canvas",
+            "API Weather"
+        ],
         "brief": "Aplicación web interactiva que simula la estética de los pronósticos del tiempo televisivos chilenos de los años 90.",
         "stats": {
             "Ratio": "16:9",
@@ -120,7 +154,11 @@
         "title": "Andino Arquitectura",
         "date": "2024",
         "category": "Identidad Visual / Web",
-        "tools": ["Figma", "Pure CSS", "Typography"],
+        "tools": [
+            "Figma",
+            "Pure CSS",
+            "Typography"
+        ],
         "brief": "Identidad visual minimalista para un estudio de arquitectura boutique. Foco en la tipografía y el uso de espacios en blanco.",
         "stats": {
             "Typeface": "Neo-Grotesk",
@@ -143,7 +181,11 @@
         "title": "PICO-8 SkiFree Clone",
         "date": "2026",
         "category": "Retro Gaming / Game Design",
-        "tools": ["Lua", "PICO-8", "Pixel Art"],
+        "tools": [
+            "Lua",
+            "PICO-8",
+            "Pixel Art"
+        ],
         "brief": "Reinterpretación del clásico SkiFree para la consola virtual PICO-8, optimizado para dispositivos portátiles Anbernic.",
         "stats": {
             "Resolution": "128x128",
@@ -166,7 +208,11 @@
         "title": "DeckSigner App",
         "date": "2025",
         "category": "Herramienta SaaS / UX Design",
-        "tools": ["React", "Figma API", "Tailwind (Legacy)"],
+        "tools": [
+            "React",
+            "Figma API",
+            "Tailwind (Legacy)"
+        ],
         "brief": "Web app para el diseño rápido y exportación de cartas de juegos de mesa para creadores independientes.",
         "stats": {
             "Export": "PDF/Print",
